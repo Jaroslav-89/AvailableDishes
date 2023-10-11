@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Мои продукты" />
+    <item
+        android:id="@+id/productsFragment"
+        android:title="Мои продукты" />
 
-    <item android:title="Доступные блюда" />
+    <item
+        android:id="@+id/dishesFragment"
+        android:title="Доступные блюда" />
 </menu>
