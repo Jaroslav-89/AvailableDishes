@@ -87,7 +87,7 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             allProductsList.add(product.copy(inFavorite = true))
         } else {
             allProductsList.remove(product)
-            allProductsList.add(product.copy(inFavorite = false))
+            allProductsList.add(product.copy(inFavorite = false, needToBuy = false))
         }
         sharedPreferences.edit()
             .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
