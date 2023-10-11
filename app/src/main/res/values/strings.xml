@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">AvailableDishes</string>
+    <!--    products_bottom_nav-->
+    <string name="my_products">Мои продукты</string>
+    <string name="buy_products">Купить</string>
+    <string name="add_products">Добавить продукты</string>
+    <string name="create_products">Создать новый продукт</string>
+    <string name="edit_product">Редактировать</string>
+    <string name="create_product">Сохранить</string>
+    <string name="name_product">Название</string>
+    <string name="description_product">Описание</string>
+    <string name="favorite_product">Добавить в мои продукты</string>
+    <string name="delete_product">Удалить продукт</string>
 </resources>
