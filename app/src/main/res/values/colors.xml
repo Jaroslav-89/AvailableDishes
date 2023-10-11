@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="dark_gray">#1A1B22</color>
+    <color name="main_blue">#3772E7</color>
+    <color name="ic_gray">#AEAFB4</color>
+    <color name="simple_black">#000000</color>
+    <color name="simple_white">#FFFFFF</color>
+    <color name="green">#88FF00</color>
+    <color name="light_gray">#E6E8EB</color>
+    <color name="thumb_light">#AEAFB4</color>
+    <color name="track_light">#E6E8EB</color>
+    <color name="search_throwable_day_night">#1A1B22</color>
+    <color name="bottom_navigation_view">#FFFFFF</color>
+    <color name="bottom_divider">#CFCFCF</color>
+    <color name="bottom_navigation_ic_color">#1A1B22</color>
     <color name="black">#FF000000</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="favorite_active">#ED9434</color>
+    <color name="need_to_buy">#7593DF</color>
+    <color name="product_available">#41BA46</color>
+    <color name="edit_create_btn">#82EF7A</color>
+    <color name="delete_btn">#F68299</color>
+    <color name="add_create_iv">#B8EFB4</color>
 </resources>
