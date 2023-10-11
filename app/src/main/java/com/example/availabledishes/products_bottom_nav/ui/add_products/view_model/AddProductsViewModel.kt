@@ -26,7 +26,7 @@ class AddProductsViewModel(
     }
 
     private fun renderState(productsList: List<Product>) {
-        _state.postValue(productsList.sortedBy { it.name }
+        _state.postValue(productsList.sortedBy { it.name.lowercase() }
             .sortedByDescending { it.inFavorite })
     }
 }

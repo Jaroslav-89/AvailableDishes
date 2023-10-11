@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/productsFragment"
-        android:title="Мои продукты" />
+        android:icon="@drawable/ic_products_bottom_nav"
+        android:title="@string/products_bottom_nav" />
 
     <item
         android:id="@+id/dishesFragment"
-        android:title="Доступные блюда" />
+        android:icon="@drawable/ic_dishes_bottom_nav"
+        android:title="@string/dishes_bottom_nav" />
 </menu>
