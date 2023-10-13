@@ -45,12 +45,12 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
                 return product
             }
         }
-        return Product("", null, null, null)
+        return Product("", null, null, null,null,null)
     }
 
     override fun deleteProduct(product: Product) {
         val allProductsList = getAllProductsList().toMutableList()
-        if (allProductsList.contains(product)){
+        if (allProductsList.contains(product)) {
             allProductsList.remove(product)
         }
         sharedPreferences.edit()
@@ -68,11 +68,11 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             .apply()
     }
 
-    override fun changeProduct(product: Product, changeProduct: Product) {
+    override fun changeProduct(product: Product, newProduct: Product) {
         val allProductsList = getAllProductsList().toMutableList()
         if (allProductsList.contains(product)) {
             allProductsList.remove(product)
-            allProductsList.add(changeProduct)
+            allProductsList.add(newProduct)
         }
         sharedPreferences.edit()
             .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
@@ -94,37 +94,12 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             .apply()
     }
 
-//     fun toggleFavoriteX(product: Product) {
-//        val allProductsList = getAllProductsList().toMutableList()
-//        val myProductsList = getFavoritesProducts().toMutableList()
-//        if (product.inFavorite) {
-//            if (allProductsList.contains(product)) {
-//                allProductsList.remove(product)
-//                allProductsList.add(product.copy(inFavorite = false))
-//                if (myProductsList.contains(product)) {
-//                    myProductsList.remove(product)
-//                }
-//            }
-//        } else {
-//            allProductsList.remove(product)
-//            allProductsList.add(product.copy(inFavorite = true))
-//            if (!myProductsList.contains(product)) {
-//                myProductsList.add(product.copy(inFavorite = true))
-//            }
-//        }
-//
-//        sharedPreferences.edit()
-//            .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
-//            .putString(FAVORITES_PRODUCTS, productsListToJson(myProductsList))
-//            .apply()
-//    }
-
     override fun toggleBuy(product: Product) {
         val allProductsList = getAllProductsList().toMutableList()
 
         if (product.needToBuy == null || !product.needToBuy) {
             allProductsList.remove(product)
-            allProductsList.add(product.copy(needToBuy = true))
+            allProductsList.add(product.copy(inFavorite = true, needToBuy = true))
         } else {
             allProductsList.remove(product)
             allProductsList.add(product.copy(needToBuy = false))
@@ -133,10 +108,6 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
             .apply()
     }
-
-//    private fun getFavoritesProducts(): List<Product> {
-//        return productsListFromJson(sharedPreferences.getString(FAVORITES_PRODUCTS, ""))
-//    }
 
     private fun productsListFromJson(json: String?): List<Product> {
         if (json.isNullOrEmpty()) {

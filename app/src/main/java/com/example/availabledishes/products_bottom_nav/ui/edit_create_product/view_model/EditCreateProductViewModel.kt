@@ -1,4 +1,4 @@
-package com.example.availabledishes.products_bottom_nav.ui.create_product.view_model
+package com.example.availabledishes.products_bottom_nav.ui.edit_create_product.view_model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.availabledishes.products_bottom_nav.domain.api.ProductsInteractor
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
 
-class CreateProductViewModel(
+class EditCreateProductViewModel(
     application: Application,
     private val productsInteractor: ProductsInteractor
 ) : AndroidViewModel(application) {
@@ -23,6 +23,15 @@ class CreateProductViewModel(
     fun toggleFavorite(product: Product) {
         productsInteractor.toggleFavorite(product)
         renderState(productsInteractor.getProductByName(product.name))
+    }
+
+    fun toggleNeedToBuy(product: Product) {
+        productsInteractor.toggleBuy(product)
+        renderState(productsInteractor.getProductByName(product.name))
+    }
+
+    fun deleteProduct(product: Product) {
+        productsInteractor.deleteProduct(product)
     }
 
     fun createNewProduct(product: Product) {

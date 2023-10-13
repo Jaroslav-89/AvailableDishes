@@ -12,7 +12,7 @@ import com.example.availabledishes.databinding.FragmentAddProductsBinding
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
 import com.example.availabledishes.products_bottom_nav.ui.add_products.adapter.ProductsAdapter
 import com.example.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
-import com.example.availabledishes.products_bottom_nav.ui.create_product.fragment.CreateProductFragment
+import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
@@ -73,7 +73,7 @@ class AddProductsFragment : Fragment() {
         binding.createProducts.setOnClickListener {
             findNavController().navigate(
                 R.id.action_addProductsFragment_to_createProduct,
-                CreateProductFragment.createArgs(null)
+                EditCreateProductFragment.createArgs(null)
             )
         }
 

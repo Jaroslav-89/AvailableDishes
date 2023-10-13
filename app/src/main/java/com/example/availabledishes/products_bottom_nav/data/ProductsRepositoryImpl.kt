@@ -29,8 +29,8 @@ class ProductsRepositoryImpl(private val localStorage: LocalStorage) : ProductsR
         localStorage.createNewProduct(product)
     }
 
-    override fun changeProduct(product: Product, changeProduct: Product) {
-        localStorage.changeProduct(product, changeProduct)
+    override fun changeProduct(product: Product, newProduct: Product) {
+        localStorage.changeProduct(product, newProduct)
     }
 
     override fun toggleFavorite(product: Product) {

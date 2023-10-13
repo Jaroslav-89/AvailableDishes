@@ -30,8 +30,8 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         repository.createNewProduct(product)
     }
 
-    override fun changeProduct(product: Product, changeProduct: Product) {
-        repository.changeProduct(product, changeProduct)
+    override fun changeProduct(product: Product, newProduct: Product) {
+        repository.changeProduct(product, newProduct)
     }
 
     override fun toggleFavorite(product: Product) {

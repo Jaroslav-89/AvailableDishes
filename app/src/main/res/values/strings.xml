@@ -7,11 +7,16 @@
     <string name="my_products">Мои продукты</string>
     <string name="buy_products">Купить</string>
     <string name="add_products">Добавить продукты</string>
-    <string name="create_products">Создать новый продукт</string>
-    <string name="edit_product">Редактировать</string>
-    <string name="create_product">Сохранить</string>
+    <string name="create_product">Создать новый продукт</string>
+    <string name="edit_product_heading">Редактирование продукта</string>
+    <string name="create_new_product_heading">Создание продукта</string>
+    <string name="save_product_btn">Сохранить</string>
+    <string name="create_product_btn">Создать</string>
     <string name="name_product">Название</string>
     <string name="description_product">Описание</string>
     <string name="favorite_product">Добавить в мои продукты</string>
+    <string name="need_to_buy_product">Добавить в список покупок</string>
     <string name="delete_product">Удалить продукт</string>
+    <string name="available_dishes_detail_product">Рецепты с этим продуктом</string>
+    <string name="create_dish_with_product">Создать рецепт с этиим продуктом</string>
 </resources>

@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".dishes_bottom_nav.ui.fragment.DishesFragment">
+    tools:context=".dishes_bottom_nav.ui.list_dishes.fragment.DishesFragment">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

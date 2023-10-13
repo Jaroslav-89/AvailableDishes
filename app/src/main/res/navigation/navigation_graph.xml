@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/dishesFragment"
-        android:name="com.example.availabledishes.dishes_bottom_nav.ui.fragment.DishesFragment"
+        android:name="com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.DishesFragment"
         android:label="fragment_dishes"
         tools:layout="@layout/fragment_dishes" />
     <fragment
@@ -58,9 +58,9 @@
     </fragment>
     <fragment
         android:id="@+id/createProduct"
-        android:name="com.example.availabledishes.products_bottom_nav.ui.create_product.fragment.CreateProductFragment"
+        android:name="com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment"
         android:label="fragment_create_products"
-        tools:layout="@layout/fragment_create_products" >
+        tools:layout="@layout/fragment_edit_create_products" >
         <action
             android:id="@+id/action_createProduct_to_detailProduct"
             app:popUpTo="@id/detailProduct"

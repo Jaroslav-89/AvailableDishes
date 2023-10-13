@@ -25,10 +25,6 @@ class DetailProductViewModel(
         renderState(productsInteractor.getProductByName(product.name))
     }
 
-    fun deleteProduct(product: Product) {
-        productsInteractor.deleteProduct(product)
-    }
-
     private fun renderState(product: Product) {
         _state.postValue(product)
     }
