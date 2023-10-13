@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/create_products"
+            android:text="@string/create_product"
             android:textSize="18sp" />
     </LinearLayout>
 

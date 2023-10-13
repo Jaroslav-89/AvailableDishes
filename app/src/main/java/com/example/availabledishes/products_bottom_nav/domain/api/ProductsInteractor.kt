@@ -10,7 +10,7 @@ interface ProductsInteractor {
     fun getProductByName(productName: String): Product
     fun deleteProduct(product: Product)
     fun createNewProduct(product: Product)
-    fun changeProduct(product: Product, changeProduct: Product)
+    fun changeProduct(product: Product, newProduct: Product)
     fun toggleFavorite(product: Product)
     fun toggleBuy(product: Product)
 }

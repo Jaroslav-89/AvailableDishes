@@ -6,10 +6,148 @@
     android:layout_height="match_parent"
     tools:context=".products_bottom_nav.ui.detail_product.fragment.DetailProductFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/productDetailGroupNestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/productDetailGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/placeHolderProduct"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/place_holder_background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test4"
+                app:layout_constraintDimensionRatio="h,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productDetailGroup" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/placeHolderProduct"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:itemCount="10"
+                tools:listitem="@layout/tag_product_detail_item" />
+
+            <TextView
+                android:id="@+id/descriptionProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeHolderProduct"
+                tools:text="Это вкусный продукт" />
+
+            <LinearLayout
+                android:id="@+id/availableDishesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/edit_create_btn"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionProduct">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/available_dishes_detail_product"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_arrow_down" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/placeHolderRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/availableDishesBtn" />
+
+            <LinearLayout
+                android:id="@+id/availableDishesGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/availableDishesBtn"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/createDishBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/availableDishesGroupBtn">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create_dish_with_product"
+                        android:layout_margin="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/availableDishesRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/createDishBtn"
+                    tools:listitem="@layout/dish_item" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:id="@+id/headerGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_header_product_detail"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +158,7 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:padding="18dp"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -28,50 +166,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:gravity="center"
-            android:textSize="20sp"
+            android:maxLines="1"
+            android:textSize="30sp"
             tools:text="Название продукта" />
+
+        <ImageView
+            android:id="@+id/editProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="14dp"
+            android:src="@drawable/ic_edit" />
 
         <ImageView
             android:id="@+id/favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:padding="14dp"
             tools:src="@drawable/ic_inactive_favorite" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/descriptionProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerGroup"
-        tools:text="Это вкусный продукт" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/deleteProductBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/delete_btn"
-        android:text="@string/delete_product"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editProductBtn" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/editProductBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/edit_create_btn"
-        android:text="@string/edit_product"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteProductBtn"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
