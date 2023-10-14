@@ -48,7 +48,6 @@ class ProductViewHolder(
             productName.text = product.name
             favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
             favorite.setOnClickListener { clickListener.onFavoriteToggleClick(product) }
-            //  itemView.setOnClickListener { clickListener.onProductClick(product) }
         }
     }
 

@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_detailProduct_to_createProduct"
             app:destination="@id/createProduct" />
+        <action
+            android:id="@+id/action_detailProduct_to_addProductsFragment"
+            app:destination="@id/addProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProduct"

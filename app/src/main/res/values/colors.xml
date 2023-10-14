@@ -24,7 +24,10 @@
     <color name="add_create_iv">#B8EFB4</color>
     <color name="inactive_color">#BBBBBB</color>
     <color name="place_holder_background">#F3F1F1</color>
-    <color name="place_holder_color">#CFCFCF</color>
-    <color name="bg_header_product_detail">#65FFFFFF</color>
+    <color name="place_holder_edit_create_background">#75FFFFFF</color>
+    <color name="place_holder_color">#B01A1B22</color>
+    <color name="bg_header_product_detail">#B2FFFFFF</color>
     <color name="tag_background_product_detail">#22000000</color>
+    <color name="bg_edit_create_product">#939393</color>
+    <color name="bg_edit_create_product_add_tag_screen">#E41E1E1E</color>
 </resources>

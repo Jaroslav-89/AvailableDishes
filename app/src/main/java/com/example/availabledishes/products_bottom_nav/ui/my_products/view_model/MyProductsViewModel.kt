@@ -19,10 +19,12 @@ class MyProductsViewModel(
     fun getMyProductsList() {
         renderState(productsInteractor.getMyProductsList())
     }
+
     fun toggleFavorite(product: Product) {
         productsInteractor.toggleFavorite(product)
         renderState(productsInteractor.getMyProductsList())
     }
+
     fun toggleBuy(product: Product) {
         productsInteractor.toggleBuy(product)
         renderState(productsInteractor.getMyProductsList())
@@ -30,6 +32,6 @@ class MyProductsViewModel(
 
     private fun renderState(productsList: List<Product>) {
         _state.postValue(productsList.sortedBy { it.name.lowercase() }
-            .sortedByDescending { it.needToBuy == false ||  it.needToBuy == null})
+            .sortedByDescending { it.needToBuy == false || it.needToBuy == null })
     }
 }

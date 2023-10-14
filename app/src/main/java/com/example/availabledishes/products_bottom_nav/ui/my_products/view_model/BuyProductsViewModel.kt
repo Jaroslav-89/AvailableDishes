@@ -19,6 +19,7 @@ class BuyProductsViewModel(
     fun getBuyProductsList() {
         renderState(productsInteractor.getBuyProductsList())
     }
+
     fun toggleFavorite(product: Product) {
         productsInteractor.toggleFavorite(product)
         renderState(productsInteractor.getBuyProductsList())

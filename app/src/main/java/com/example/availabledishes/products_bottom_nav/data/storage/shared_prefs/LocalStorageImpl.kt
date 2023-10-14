@@ -3,6 +3,7 @@ package com.example.availabledishes.products_bottom_nav.data.storage.shared_pref
 import android.content.SharedPreferences
 import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorage
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
+import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 import com.google.gson.Gson
 
 class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) :
@@ -45,7 +46,7 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
                 return product
             }
         }
-        return Product("", null, null, null,null,null)
+        return Product("", null, mutableListOf<ProductTag>(), null, null, null)
     }
 
     override fun deleteProduct(product: Product) {
@@ -68,12 +69,19 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             .apply()
     }
 
-    override fun changeProduct(product: Product, newProduct: Product) {
+    override fun changeProduct(productForChange: Product, newProduct: Product) {
         val allProductsList = getAllProductsList().toMutableList()
-        if (allProductsList.contains(product)) {
-            allProductsList.remove(product)
-            allProductsList.add(newProduct)
+        for (product in allProductsList) {
+            if (product.name == productForChange.name) {
+                allProductsList.remove(product)
+                allProductsList.add(newProduct)
+                sharedPreferences.edit()
+                    .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
+                    .apply()
+                return
+            }
         }
+        allProductsList.add(Product("", null, mutableListOf<ProductTag>(), null, null, null))
         sharedPreferences.edit()
             .putString(ALL_PRODUCTS, productsListToJson(allProductsList))
             .apply()
@@ -82,7 +90,7 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
     override fun toggleFavorite(product: Product) {
         val allProductsList = getAllProductsList().toMutableList()
 
-        if (product.inFavorite == null || !product.inFavorite) {
+        if (product.inFavorite == null || !product.inFavorite!!) {
             allProductsList.remove(product)
             allProductsList.add(product.copy(inFavorite = true))
         } else {
@@ -97,7 +105,7 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
     override fun toggleBuy(product: Product) {
         val allProductsList = getAllProductsList().toMutableList()
 
-        if (product.needToBuy == null || !product.needToBuy) {
+        if (product.needToBuy == null || !product.needToBuy!!) {
             allProductsList.remove(product)
             allProductsList.add(product.copy(inFavorite = true, needToBuy = true))
         } else {

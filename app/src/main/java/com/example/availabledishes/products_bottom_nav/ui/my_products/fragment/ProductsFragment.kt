@@ -9,7 +9,7 @@ import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentProductsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ProductsFragment : Fragment(){
+class ProductsFragment : Fragment() {
 
     private lateinit var binding: FragmentProductsBinding
     private lateinit var tabMediator: TabLayoutMediator
@@ -18,7 +18,7 @@ class ProductsFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,7 +27,10 @@ class ProductsFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewPagerProducts.adapter = ProductsViewPagerAdapter(this)
-        tabMediator = TabLayoutMediator(binding.tabLayoutProducts, binding.viewPagerProducts) { tab, position ->
+        tabMediator = TabLayoutMediator(
+            binding.tabLayoutProducts,
+            binding.viewPagerProducts
+        ) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.my_products)
                 1 -> tab.text = getString(R.string.buy_products)

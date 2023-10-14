@@ -1,10 +1,10 @@
 package com.example.availabledishes.products_bottom_nav.domain.model
 
-data class Product (
-    val name: String,
-    val imgUrl: String?,
-    val tag: List<Tags>?,
-    val description: String?,
-    val inFavorite: Boolean?,
-    val needToBuy: Boolean?,
+data class Product(
+    var name: String,
+    var imgUrl: String?,
+    var tag: MutableList<ProductTag>?,
+    var description: String?,
+    var inFavorite: Boolean?,
+    var needToBuy: Boolean?,
 )
