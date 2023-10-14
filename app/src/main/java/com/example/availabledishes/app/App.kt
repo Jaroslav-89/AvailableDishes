@@ -12,7 +12,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 
-
 class App : Application() {
     companion object {
         const val SHARED_PREFERENCES = "shared_preference"

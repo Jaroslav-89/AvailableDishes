@@ -24,18 +24,21 @@
                 android:id="@+id/placeHolderProduct"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="50dp"
                 android:background="@color/place_holder_background"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test4"
-                app:layout_constraintDimensionRatio="h,16:9"
+                android:src="@drawable/place_holder_product"
+                app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/productDetailGroup" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagsRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:padding="6dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="@+id/placeHolderProduct"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +90,7 @@
             <View
                 android:id="@+id/placeHolderRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="44dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/availableDishesBtn" />
@@ -116,7 +119,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add"/>
+                        android:src="@drawable/ic_add" />
 
                     <TextView
                         android:layout_width="wrap_content"

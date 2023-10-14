@@ -14,9 +14,11 @@
     <string name="create_product_btn">Создать</string>
     <string name="name_product">Название</string>
     <string name="description_product">Описание</string>
+    <string name="tags_edit_create_product">Добавить тег</string>
     <string name="favorite_product">Добавить в мои продукты</string>
     <string name="need_to_buy_product">Добавить в список покупок</string>
     <string name="delete_product">Удалить продукт</string>
     <string name="available_dishes_detail_product">Рецепты с этим продуктом</string>
     <string name="create_dish_with_product">Создать рецепт с этиим продуктом</string>
+    <string name="add_tag_screen_product_header">Добавить тег</string>
 </resources>

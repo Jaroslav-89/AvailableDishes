@@ -24,7 +24,8 @@ class MyProductsFragment : Fragment() {
             override fun onProductClick(product: Product) {
                 findNavController().navigate(
                     R.id.action_productsFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(product.name))
+                    DetailProductFragment.createArgs(product.name)
+                )
             }
 
             override fun onFavoriteToggleClick(product: Product) {
@@ -32,7 +33,7 @@ class MyProductsFragment : Fragment() {
             }
 
             override fun onBuyToggleClick(product: Product) {
-                if (product.needToBuy != true){
+                if (product.needToBuy != true) {
                     viewModel.toggleBuy(product)
                 }
             }
@@ -43,7 +44,7 @@ class MyProductsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMyProductsBinding.inflate(inflater, container, false)
         return binding.root
     }

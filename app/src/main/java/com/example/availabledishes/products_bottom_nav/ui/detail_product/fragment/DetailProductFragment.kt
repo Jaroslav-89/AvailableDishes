@@ -1,18 +1,26 @@
 package com.example.availabledishes.products_bottom_nav.ui.detail_product.fragment
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentDetailProductBinding
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
-import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
+import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
+import com.example.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
+import com.example.availabledishes.products_bottom_nav.ui.detail_product.adapter.DetailProductTagAdapter
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.view_model.DetailProductViewModel
+import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailProductFragment : Fragment() {
@@ -21,17 +29,30 @@ class DetailProductFragment : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
     private var availableDishesVisible = false
 
+    private val tagAdapter = DetailProductTagAdapter(
+        object : DetailProductTagAdapter.DetailProductTagListener {
+            override fun onTagClick(tag: ProductTag) {
+                findNavController().navigate(
+                    R.id.action_detailProduct_to_addProductsFragment,
+                    AddProductsFragment.createArgs(tag.name)
+                )
+            }
+        }
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tagsRv.adapter = tagAdapter
 
         viewModel.getProductByName(requireArguments().getString(ARGS_PRODUCT)!!)
 
@@ -46,10 +67,12 @@ class DetailProductFragment : Fragment() {
 
     private fun renderState(product: Product) {
         with(binding) {
+            setPlaceHolderDrawable(product.imgUrl?.toUri())
             headingProduct.text = product.name
             favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
-            setPlaceHolderDrawable(product.imgUrl)
             //todo наполнение адаптера тэгов
+            product.tag?.let { tagAdapter.setTagsList(it) }
+            tagAdapter.notifyDataSetChanged()
             descriptionProduct.text = product.description ?: ""
             //todo наполнить адаптер доступных блюд
 
@@ -79,7 +102,7 @@ class DetailProductFragment : Fragment() {
             }
 
             createDishBtn.setOnClickListener {
-                //todo
+                //todo оздать блюдо с этим рецептом
             }
         }
     }
@@ -90,9 +113,18 @@ class DetailProductFragment : Fragment() {
         )
     }
 
-    private fun setPlaceHolderDrawable(url: String?) {
-        //todo использовать Glide
-    }
+    private fun setPlaceHolderDrawable(uri: Uri?) {
+              Glide.with(this)
+                .load(uri)
+                .placeholder(R.drawable.place_holder_product)
+                .transform(
+                    CenterCrop(),
+                    RoundedCorners(
+                        resources.getDimensionPixelSize(R.dimen.corner_radius)
+                    ),
+                )
+                .into(binding.placeHolderProduct)
+        }
 
     companion object {
         private const val ARGS_PRODUCT = "product"

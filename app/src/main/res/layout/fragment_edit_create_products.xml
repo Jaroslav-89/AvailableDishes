@@ -6,10 +6,192 @@
     android:layout_height="match_parent"
     tools:context=".products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/productEditCreateGroupNestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/productEditCreateGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="50dp"
+                android:background="@color/place_holder_background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/place_holder_product"
+                app:layout_constraintDimensionRatio="h,4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productEditCreateGroup" />
+
+            <ImageView
+                android:id="@+id/productImagePlaceHolder"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/place_holder_edit_create_background"
+                android:padding="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/place_holder_edit_create_product"
+                app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                app:layout_constraintDimensionRatio="h,4:3"
+                app:layout_constraintEnd_toEndOf="@+id/productImage"
+                app:layout_constraintStart_toStartOf="@+id/productImage"
+                app:layout_constraintTop_toTopOf="@+id/productImage"
+                app:tint="@color/place_holder_color" />
+
+            <TextView
+                android:id="@+id/nameProductTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/name_product"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+            <EditText
+                android:id="@+id/nameProductEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameProductTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nameProductTv"
+                app:layout_constraintTop_toTopOf="@+id/nameProductTv" />
+
+            <LinearLayout
+                android:id="@+id/addTagBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@+id/nameProductTv"
+                app:layout_constraintTop_toBottomOf="@+id/nameProductEt">
+
+                <TextView
+                    android:id="@+id/tagsProductTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tags_edit_create_product"
+                    android:textSize="16sp"
+                    android:layout_gravity="center" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_tag" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagsRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addTagBtn"
+                tools:listitem="@layout/tag_product_detail_item"/>
+
+            <TextView
+                android:id="@+id/descriptionProductTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_product"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/nameProductTv"
+                app:layout_constraintTop_toTopOf="@+id/descriptionProductEt" />
+
+            <EditText
+                android:id="@+id/descriptionProductEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/nameProductEt"
+                app:layout_constraintStart_toStartOf="@+id/nameProductEt"
+                app:layout_constraintTop_toBottomOf="@+id/tagsRv" />
+
+            <TextView
+                android:id="@+id/favoriteProductTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/favorite_product"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionProductEt" />
+
+            <ImageView
+                android:id="@+id/favoriteIc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_inactive_favorite"
+                app:layout_constraintBottom_toBottomOf="@+id/favoriteProductTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/favoriteProductTv"
+                app:layout_constraintTop_toTopOf="@+id/favoriteProductTv" />
+
+            <TextView
+                android:id="@+id/needToBuyProductTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/need_to_buy_product"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favoriteProductTv" />
+
+            <ImageView
+                android:id="@+id/needToBuyIc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_inactive_need_to_buy"
+                app:layout_constraintBottom_toBottomOf="@+id/needToBuyProductTv"
+                app:layout_constraintEnd_toEndOf="@+id/favoriteIc"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/favoriteIc"
+                app:layout_constraintTop_toTopOf="@+id/needToBuyProductTv"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editCreateProductBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="@color/edit_create_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favoriteIc"
+                tools:text="@string/create_product" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:id="@+id/headerGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_header_product_detail"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,120 +225,41 @@
 
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/productEditCreateGroupNestedScroll"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addTagScreen"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerGroup">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/bg_edit_create_product_add_tag_screen"
+        tools:visibility="gone">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/productEditCreateGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_available_dishes_product_detail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/nameProductTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="@string/name_product"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/productEditCreateGroup" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_tag_screen_product_header"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:padding="16dp" />
 
-    <TextView
-        android:id="@+id/descriptionProductTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description_product"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/descriptionProductEt"
-        app:layout_constraintStart_toStartOf="@+id/nameProductTv"
-        app:layout_constraintTop_toTopOf="@+id/descriptionProductEt" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/addTagRv"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/tag_product_detail_item" />
 
-    <EditText
-        android:id="@+id/nameProductEt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nameProductTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/nameProductTv"
-        app:layout_constraintTop_toTopOf="@+id/nameProductTv" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/descriptionProductEt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/nameProductEt"
-        app:layout_constraintStart_toStartOf="@+id/nameProductEt"
-        app:layout_constraintTop_toBottomOf="@+id/nameProductEt" />
-
-    <TextView
-        android:id="@+id/favoriteProductTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/favorite_product"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionProductEt" />
-
-    <ImageView
-        android:id="@+id/favoriteIc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/ic_inactive_favorite"
-        app:layout_constraintBottom_toBottomOf="@+id/favoriteProductTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/favoriteProductTv"
-        app:layout_constraintTop_toTopOf="@+id/favoriteProductTv" />
-
-    <TextView
-        android:id="@+id/needToBuyProductTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/need_to_buy_product"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteProductTv" />
-
-    <ImageView
-        android:id="@+id/needToBuyIc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/ic_inactive_need_to_buy"
-        app:layout_constraintBottom_toBottomOf="@+id/needToBuyProductTv"
-        app:layout_constraintEnd_toEndOf="@+id/favoriteIc"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/favoriteIc"
-        app:layout_constraintTop_toTopOf="@+id/needToBuyProductTv"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/editCreateProductBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="@color/edit_create_btn"
-        tools:text="@string/create_product"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteIc" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
