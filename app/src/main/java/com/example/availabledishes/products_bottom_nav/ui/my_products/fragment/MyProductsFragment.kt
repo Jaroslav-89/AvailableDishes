@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentMyProductsBinding
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
+import com.example.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import com.example.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
 import com.example.availabledishes.products_bottom_nav.ui.my_products.view_model.MyProductsViewModel
@@ -58,7 +59,8 @@ class MyProductsFragment : Fragment() {
 
         binding.addProducts.setOnClickListener {
             findNavController().navigate(
-                R.id.action_productsFragment_to_addProductsFragment
+                R.id.action_productsFragment_to_addProductsFragment,
+                AddProductsFragment.createArgs(null)
             )
         }
 
