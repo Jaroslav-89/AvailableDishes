@@ -51,15 +51,15 @@ class AddProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setSearchQueryChangeListener()
-
-        if (!requireArguments().getString(AddProductsFragment.SEARCH_REQUEST).isNullOrEmpty()) {
-            binding.productSearch.setQuery(requireArguments().getString(SEARCH_REQUEST), true)
-        }
+        binding.rvProducts.adapter = adapter
 
         viewModel.getAllProductsList()
 
-        binding.rvProducts.adapter = adapter
+        setSearchQueryChangeListener()
+
+        if (!requireArguments().getString(SEARCH_REQUEST).isNullOrEmpty()) {
+            binding.productSearch.setQuery(requireArguments().getString(SEARCH_REQUEST), true)
+        }
 
         binding.createProducts.setOnClickListener {
             findNavController().navigate(
