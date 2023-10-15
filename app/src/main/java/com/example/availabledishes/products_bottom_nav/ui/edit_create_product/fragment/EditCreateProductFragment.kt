@@ -282,13 +282,9 @@ class EditCreateProductFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                REQUEST_IMAGE_PICK -> {
-                    val uri: Uri? = data?.data ?: imageUri // use data?.data for gallery and imageUri for camera
-                    setImgFromPlaceHolder(uri)
-                }
-            }
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_PICK) {
+            imageUri = data?.data ?: imageUri
+            setImgFromPlaceHolder(imageUri)
         }
     }
 
