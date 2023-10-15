@@ -3,14 +3,17 @@ package com.example.availabledishes.products_bottom_nav.ui.edit_create_product.f
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -29,6 +32,10 @@ import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.ad
 import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.adapter.CreateEditTagAdapter
 import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.view_model.EditCreateProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.IOException
+import java.util.Date
+import java.util.Locale
 
 class EditCreateProductFragment : Fragment() {
 
@@ -278,21 +285,53 @@ class EditCreateProductFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_IMAGE_PICK -> {
-                    imageUri = data?.data
-                    setImgFromPlaceHolder(imageUri)
+                    val uri: Uri? = data?.data ?: imageUri // use data?.data for gallery and imageUri for camera
+                    setImgFromPlaceHolder(uri)
                 }
             }
         }
     }
 
-    //todo ПЕРЕНЕСТИ ИНТЕНТ В DATA СЛОЙ
     private fun dispatchPickImageIntent() {
-        Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        ).also { pickImageIntent ->
-            pickImageIntent.type = "image/*"
-            startActivityForResult(pickImageIntent, REQUEST_IMAGE_PICK)
+        // Create an intent with action as ACTION_PICK
+        val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            // Set the type as image
+            type = "image/*"
+        }
+
+        // Create an intent with action as ACTION_IMAGE_CAPTURE
+        val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            // Ensure that there's a camera activity to handle the intent
+            resolveActivity(requireContext().packageManager)?.also {
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    null
+                }
+
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.example.availabledishes.fileprovider",
+                        it
+                    )
+                    putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                }
+            }
+        }
+
+        // Start the intent to get the image
+        val chooser = Intent.createChooser(pickImageIntent, "Select or take a new picture")
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
+        startActivityForResult(chooser, REQUEST_IMAGE_PICK)
+    }
+
+    private fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            imageUri = Uri.fromFile(this)
         }
     }
 
