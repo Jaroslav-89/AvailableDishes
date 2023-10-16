@@ -30,6 +30,16 @@ class EditCreateProductViewModel(
         renderState(productAfterChange!!)
     }
 
+    fun editPlaceHolderImg(img: String, deleteImg: Boolean) {
+        if (deleteImg) {
+            productAfterChange = productAfterChange?.copy(imgUrl = null)
+            renderState(productAfterChange!!)
+        } else {
+            productAfterChange = productAfterChange?.copy(imgUrl = img)
+            renderState(productAfterChange!!)
+        }
+    }
+
     fun toggleTag(clickTag: ProductTag, delete: Boolean) {
         var newTagsList = mutableListOf<ProductTag>()
         if (!delete) {
@@ -65,12 +75,12 @@ class EditCreateProductViewModel(
         }
     }
 
-    fun editNameText(text: String){
+    fun editNameText(text: String) {
         productAfterChange = productAfterChange?.copy(name = text)
         renderState(productAfterChange!!)
     }
 
-    fun editDescriptionText(text: String){
+    fun editDescriptionText(text: String) {
         productAfterChange = productAfterChange?.copy(description = text)
         renderState(productAfterChange!!)
     }
