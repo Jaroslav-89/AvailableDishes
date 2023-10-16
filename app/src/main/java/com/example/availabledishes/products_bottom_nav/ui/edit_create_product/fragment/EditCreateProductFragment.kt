@@ -226,12 +226,12 @@ class EditCreateProductFragment : Fragment() {
                 if (product != null) {
                     viewModel.changeProduct(
                         Product(
-                            name = binding.nameProductEt.text.toString(),
-                            imgUrl = imageUri.toString(),
+                            name = product.name,
+                            imgUrl = product.imgUrl,
                             tag = product.tag,
-                            description = binding.descriptionProductEt.text.toString(),
-                            inFavorite = inFavorite,
-                            needToBuy = needToBuy
+                            description = product.description,
+                            inFavorite = product.inFavorite,
+                            needToBuy = product.needToBuy
                         )
                     )
                 }
@@ -274,6 +274,7 @@ class EditCreateProductFragment : Fragment() {
                 ),
             )
             .into(binding.productImage)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -281,7 +282,7 @@ class EditCreateProductFragment : Fragment() {
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_PICK) {
             imageUri = data?.data ?: imageUri
-            setImgFromPlaceHolder(imageUri)
+            viewModel.editPlaceHolderImg(imageUri.toString(), false)
         }
     }
 
