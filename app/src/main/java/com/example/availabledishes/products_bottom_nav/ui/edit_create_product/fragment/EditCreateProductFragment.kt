@@ -13,6 +13,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
@@ -158,25 +159,25 @@ class EditCreateProductFragment : Fragment() {
         with(binding) {
             setImgFromPlaceHolder(product.imgUrl?.toUri())
             product.tag?.let { tagAdapter.setTagsList(it) }
-            if (binding.nameProductEt.text.toString().isBlank()){
+            if (binding.nameProductEt.text.toString().isBlank()) {
                 nameProductEt.setText(product.name)
             }
-            if (binding.descriptionProductEt.text.toString().isBlank()){
+            if (binding.descriptionProductEt.text.toString().isBlank()) {
                 descriptionProductEt.setText(product.description)
             }
             favoriteIc.setImageDrawable(
                 getFavoriteToggleDrawable(
-                    product.inFavorite ?: inFavorite
+                    product.inFavorite
                 )
             )
             needToBuyIc.setImageDrawable(
                 getNeedToBuyToggleDrawable(
-                    product.needToBuy ?: needToBuy
+                    product.needToBuy
                 )
             )
             if (!isNewProduct) {
-                inFavorite = product.inFavorite ?: false
-                needToBuy = product.needToBuy ?: false
+                inFavorite = product.inFavorite!!
+                needToBuy = product.needToBuy!!
             }
 
             setClickListeners(product)
@@ -242,27 +243,11 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.favoriteIc.setOnClickListener {
-            if (!inFavorite) {
-                inFavorite = true
-                binding.favoriteIc.setImageDrawable(getFavoriteToggleDrawable(inFavorite))
-            } else {
-                inFavorite = false
-                binding.favoriteIc.setImageDrawable(getFavoriteToggleDrawable(inFavorite))
-                needToBuy = false
-                binding.needToBuyIc.setImageDrawable(getNeedToBuyToggleDrawable(needToBuy))
-            }
+            viewModel.toggleFavorite()
         }
 
         binding.needToBuyIc.setOnClickListener {
-            if (!needToBuy) {
-                needToBuy = true
-                binding.needToBuyIc.setImageDrawable(getNeedToBuyToggleDrawable(needToBuy))
-                inFavorite = true
-                binding.favoriteIc.setImageDrawable(getFavoriteToggleDrawable(inFavorite))
-            } else {
-                needToBuy = false
-                binding.needToBuyIc.setImageDrawable(getNeedToBuyToggleDrawable(needToBuy))
-            }
+            viewModel.toggleNeedToBuy()
         }
     }
 
@@ -343,6 +328,14 @@ class EditCreateProductFragment : Fragment() {
             // Save a file: path for use with ACTION_VIEW intents
             imageUri = Uri.fromFile(this)
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            context,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     companion object {

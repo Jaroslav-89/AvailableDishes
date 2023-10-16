@@ -30,11 +30,6 @@ class EditCreateProductViewModel(
         renderState(productAfterChange!!)
     }
 
-    fun toggleFavorite(product: Product) {
-        productsInteractor.toggleFavorite(product)
-        renderState(productsInteractor.getProductByName(product.name))
-    }
-
     fun toggleTag(clickTag: ProductTag, delete: Boolean) {
         var newTagsList = mutableListOf<ProductTag>()
         if (!delete) {
@@ -87,9 +82,26 @@ class EditCreateProductViewModel(
         renderState(productAfterChange!!)
     }
 
-    fun toggleNeedToBuy(product: Product) {
-        productsInteractor.toggleBuy(product)
-        renderState(productsInteractor.getProductByName(product.name))
+    fun toggleFavorite() {
+        if (productAfterChange?.inFavorite == true) {
+            productAfterChange = productAfterChange!!.copy(inFavorite = false)
+            productAfterChange = productAfterChange!!.copy(needToBuy = false)
+            renderState(productAfterChange!!)
+        } else {
+            productAfterChange = productAfterChange!!.copy(inFavorite = true)
+            renderState(productAfterChange!!)
+        }
+    }
+
+    fun toggleNeedToBuy() {
+        if (productAfterChange?.needToBuy == true) {
+            productAfterChange = productAfterChange!!.copy(needToBuy = false)
+            renderState(productAfterChange!!)
+        } else {
+            productAfterChange = productAfterChange!!.copy(inFavorite = true)
+            productAfterChange = productAfterChange!!.copy(needToBuy = true)
+            renderState(productAfterChange!!)
+        }
     }
 
     fun deleteProduct(product: Product) {
@@ -106,10 +118,6 @@ class EditCreateProductViewModel(
         productsInteractor.changeProduct(productBeforeChange!!, changedProduct)
         productBeforeChange = null
         productAfterChange = null
-    }
-
-    fun updateName(name: String) {
-
     }
 
     private fun renderState(product: Product) {
