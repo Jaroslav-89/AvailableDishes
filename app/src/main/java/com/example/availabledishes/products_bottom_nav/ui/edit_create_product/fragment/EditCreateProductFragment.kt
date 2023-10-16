@@ -109,7 +109,7 @@ class EditCreateProductFragment : Fragment() {
 
         setTextChangedListener()
 
-        setEditCreateButton(productNameText)
+        //setEditCreateButton(productNameText)
 
         binding.backBtn.setOnClickListener {
             findNavController().navigateUp()
@@ -126,36 +126,44 @@ class EditCreateProductFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                productNameText = s.toString()
-                setEditCreateButton(productNameText)
+//                productNameText = s.toString()
+//                setEditCreateButton(productNameText)
+
             }
 
             override fun afterTextChanged(s: Editable?) {
+                //Это условие для того, чтобы использовать один textWatcher для двух editText
+                if (s == binding.nameProductEt.editableText) {
+                    viewModel.editNameText(binding.nameProductEt.text.toString())
+                } else if (s == binding.descriptionProductEt.editableText) {
+                    viewModel.editDescriptionText(binding.nameProductEt.text.toString())
+                }
             }
         }
         binding.nameProductEt.addTextChangedListener(textWatcher)
-
-        binding.addTagScreen.setOnClickListener {
-            binding.addTagScreen.visibility = View.GONE
-        }
+        binding.nameProductEt.addTextChangedListener(textWatcher)
     }
 
-    private fun setEditCreateButton(text: String?) {
-        if (text.isNullOrEmpty()) {
-            binding.editCreateProductBtn.alpha = 0.5f
-            binding.editCreateProductBtn.isEnabled = false
-        } else {
-            binding.editCreateProductBtn.alpha = 1f
-            binding.editCreateProductBtn.isEnabled = true
-        }
-    }
+//    private fun setEditCreateButton(text: String?) {
+//        if (text.isNullOrEmpty()) {
+//            binding.editCreateProductBtn.alpha = 0.5f
+//            binding.editCreateProductBtn.isEnabled = false
+//        } else {
+//            binding.editCreateProductBtn.alpha = 1f
+//            binding.editCreateProductBtn.isEnabled = true
+//        }
+//    }
 
     private fun renderState(product: Product) {
         with(binding) {
             setImgFromPlaceHolder(product.imgUrl?.toUri())
             product.tag?.let { tagAdapter.setTagsList(it) }
-            nameProductEt.setText(product.name)
-            descriptionProductEt.setText(product.description ?: "")
+            if (binding.nameProductEt.text.toString().isBlank()){
+                nameProductEt.setText(product.name)
+            }
+            if (binding.descriptionProductEt.text.toString().isBlank()){
+                descriptionProductEt.setText(product.description)
+            }
             favoriteIc.setImageDrawable(
                 getFavoriteToggleDrawable(
                     product.inFavorite ?: inFavorite
@@ -189,6 +197,10 @@ class EditCreateProductFragment : Fragment() {
 
         binding.addTagBtn.setOnClickListener {
             binding.addTagScreen.visibility = View.VISIBLE
+        }
+
+        binding.addTagScreen.setOnClickListener {
+            binding.addTagScreen.visibility = View.GONE
         }
 
         binding.editCreateProductBtn.setOnClickListener {

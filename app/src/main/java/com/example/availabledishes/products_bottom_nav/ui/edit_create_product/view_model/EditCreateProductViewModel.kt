@@ -70,6 +70,16 @@ class EditCreateProductViewModel(
         }
     }
 
+    fun editNameText(text: String){
+        productAfterChange = productAfterChange?.copy(name = text)
+        renderState(productAfterChange!!)
+    }
+
+    fun editDescriptionText(text: String){
+        productAfterChange = productAfterChange?.copy(description = text)
+        renderState(productAfterChange!!)
+    }
+
     fun prepareNewProduct() {
         if (productAfterChange == null) {
             productAfterChange = Product("", null, mutableListOf<ProductTag>(), null, null, null)
