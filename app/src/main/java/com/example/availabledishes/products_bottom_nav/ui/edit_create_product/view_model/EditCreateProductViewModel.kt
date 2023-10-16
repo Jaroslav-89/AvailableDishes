@@ -30,6 +30,25 @@ class EditCreateProductViewModel(
         renderState(productAfterChange!!)
     }
 
+    fun prepareNewProduct() {
+        if (productAfterChange == null) {
+            productAfterChange = Product("", null, listOf<ProductTag>(), null, null, null)
+        }
+        renderState(productAfterChange!!)
+    }
+
+    fun changeProduct() {
+        productsInteractor.changeProduct(productBeforeChange!!, productAfterChange!!)
+        productBeforeChange = null
+        productAfterChange = null
+    }
+
+    fun createNewProduct() {
+        productsInteractor.createNewProduct(productAfterChange!!)
+        productBeforeChange = null
+        productAfterChange = null
+    }
+
     fun editPlaceHolderImg(img: String, deleteImg: Boolean) {
         if (deleteImg) {
             productAfterChange = productAfterChange?.copy(imgUrl = null)
@@ -38,6 +57,11 @@ class EditCreateProductViewModel(
             productAfterChange = productAfterChange?.copy(imgUrl = img)
             renderState(productAfterChange!!)
         }
+    }
+
+    fun editNameText(text: String) {
+        productAfterChange = productAfterChange?.copy(name = text)
+        renderState(productAfterChange!!)
     }
 
     fun toggleTag(clickTag: ProductTag, delete: Boolean) {
@@ -75,20 +99,8 @@ class EditCreateProductViewModel(
         }
     }
 
-    fun editNameText(text: String) {
-        productAfterChange = productAfterChange?.copy(name = text)
-        renderState(productAfterChange!!)
-    }
-
     fun editDescriptionText(text: String) {
         productAfterChange = productAfterChange?.copy(description = text)
-        renderState(productAfterChange!!)
-    }
-
-    fun prepareNewProduct() {
-        if (productAfterChange == null) {
-            productAfterChange = Product("", null, mutableListOf<ProductTag>(), null, null, null)
-        }
         renderState(productAfterChange!!)
     }
 
@@ -114,20 +126,8 @@ class EditCreateProductViewModel(
         }
     }
 
-    fun deleteProduct(product: Product) {
-        productsInteractor.deleteProduct(product)
-    }
-
-    fun createNewProduct(product: Product) {
-        productsInteractor.createNewProduct(product)
-        productBeforeChange = null
-        productAfterChange = null
-    }
-
-    fun changeProduct(changedProduct: Product) {
-        productsInteractor.changeProduct(productBeforeChange!!, changedProduct)
-        productBeforeChange = null
-        productAfterChange = null
+    fun deleteProduct() {
+        productBeforeChange?.let { productsInteractor.deleteProduct(it) }
     }
 
     private fun renderState(product: Product) {

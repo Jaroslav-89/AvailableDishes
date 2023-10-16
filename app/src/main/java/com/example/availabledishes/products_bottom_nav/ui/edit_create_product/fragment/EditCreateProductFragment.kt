@@ -8,8 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,15 +40,12 @@ class EditCreateProductFragment : Fragment() {
 
     private val viewModel: EditCreateProductViewModel by viewModel()
     private lateinit var binding: FragmentEditCreateProductsBinding
-    private var inFavorite = false
-    private var needToBuy = false
-    private var isNewProduct = false
-    private var productNameText: String? = null
     private var imageUri: Uri? = null
 
     private val tagAdapter = CreateEditTagAdapter(
         object : CreateEditTagAdapter.DeleteTagListener {
             override fun onTagClick(tag: ProductTag) {
+                saveNameAndDescriptionInViewModel()
                 viewModel.toggleTag(tag, true)
             }
         }
@@ -87,84 +82,47 @@ class EditCreateProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tagsRv.layoutManager = staggeredGridLayoutManager
-        binding.tagsRv.adapter = tagAdapter
-        binding.addTagRv.layoutManager = staggeredGridLM
-        binding.addTagRv.adapter = addTagAdapter
+        setRvAdapters()
 
-        if (requireArguments().getString(NEW_PRODUCT).isNullOrEmpty()) {
-            viewModel.prepareNewProduct()
-            isNewProduct = true
-            binding.deleteBtn.visibility = View.INVISIBLE
-            binding.headingProductTv.text =
-                context?.getString(R.string.create_new_product_heading) ?: ""
-            binding.editCreateProductBtn.text =
-                context?.getString(R.string.create_product_btn) ?: ""
-        } else {
-            viewModel.getProductByName(requireArguments().getString(NEW_PRODUCT)!!)
-            isNewProduct = false
-            binding.deleteBtn.visibility = View.VISIBLE
-            binding.headingProductTv.text = context?.getString(R.string.edit_product_heading) ?: ""
-            binding.editCreateProductBtn.text = context?.getString(R.string.save_product_btn) ?: ""
-        }
-
-        setTextChangedListener()
-
-        //setEditCreateButton(productNameText)
-
-        binding.backBtn.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        initView()
 
         viewModel.state.observe(viewLifecycleOwner) {
             renderState(it)
         }
+
+        setClickListeners()
     }
 
-    private fun setTextChangedListener() {
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                productNameText = s.toString()
-//                setEditCreateButton(productNameText)
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                //Это условие для того, чтобы использовать один textWatcher для двух editText
-                if (s == binding.nameProductEt.editableText) {
-                    viewModel.editNameText(binding.nameProductEt.text.toString())
-                } else if (s == binding.descriptionProductEt.editableText) {
-                    viewModel.editDescriptionText(binding.nameProductEt.text.toString())
-                }
-            }
+    private fun initView() {
+        //   editProductName = requireArguments().getString(AVAILABLE_PRODUCT)
+        if (requireArguments().getString(AVAILABLE_PRODUCT).isNullOrEmpty()) {
+            viewModel.prepareNewProduct()
+            binding.deleteBtn.visibility = View.GONE
+            binding.headingProductTv.text =
+                context?.getString(R.string.create_new_product_heading)
+            binding.editCreateProductBtn.text =
+                context?.getString(R.string.create_product_btn)
+        } else {
+            viewModel.getProductByName(requireArguments().getString(AVAILABLE_PRODUCT)!!)
+            binding.deleteBtn.visibility = View.VISIBLE
+            binding.headingProductTv.text = context?.getString(R.string.edit_product_heading)
+            binding.editCreateProductBtn.text = context?.getString(R.string.save_product_btn)
         }
-        binding.nameProductEt.addTextChangedListener(textWatcher)
-        binding.nameProductEt.addTextChangedListener(textWatcher)
     }
 
-//    private fun setEditCreateButton(text: String?) {
-//        if (text.isNullOrEmpty()) {
-//            binding.editCreateProductBtn.alpha = 0.5f
-//            binding.editCreateProductBtn.isEnabled = false
-//        } else {
-//            binding.editCreateProductBtn.alpha = 1f
-//            binding.editCreateProductBtn.isEnabled = true
-//        }
-//    }
+    private fun setRvAdapters() {
+        binding.tagsRv.layoutManager = staggeredGridLayoutManager
+        binding.tagsRv.adapter = tagAdapter
+        binding.addTagRv.layoutManager = staggeredGridLM
+        binding.addTagRv.adapter = addTagAdapter
+    }
 
     private fun renderState(product: Product) {
         with(binding) {
             setImgFromPlaceHolder(product.imgUrl?.toUri())
+            nameProductEt.setText(product.name)
             product.tag?.let { tagAdapter.setTagsList(it) }
-            if (binding.nameProductEt.text.toString().isBlank()) {
-                nameProductEt.setText(product.name)
-            }
-            if (binding.descriptionProductEt.text.toString().isBlank()) {
-                descriptionProductEt.setText(product.description)
-            }
+            descriptionProductEt.setText(product.description)
             favoriteIc.setImageDrawable(
                 getFavoriteToggleDrawable(
                     product.inFavorite
@@ -175,28 +133,28 @@ class EditCreateProductFragment : Fragment() {
                     product.needToBuy
                 )
             )
-            if (!isNewProduct) {
-                inFavorite = product.inFavorite!!
-                needToBuy = product.needToBuy!!
-            }
-
-            setClickListeners(product)
             tagAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun setClickListeners(product: Product?) {
+    private fun setClickListeners() {
+        binding.backBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.deleteBtn.setOnClickListener {
-            viewModel.deleteProduct(product!!)
+            viewModel.deleteProduct()
             findNavController().popBackStack()
             findNavController().popBackStack()
         }
 
         binding.productImage.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
             dispatchPickImageIntent()
         }
 
         binding.addTagBtn.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
             binding.addTagScreen.visibility = View.VISIBLE
         }
 
@@ -205,36 +163,17 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.editCreateProductBtn.setOnClickListener {
-            if (isNewProduct) {
-                if (product != null) {
-                    viewModel.createNewProduct(
-                        Product(
-                            name = binding.nameProductEt.text.toString(),
-                            imgUrl = imageUri.toString(),
-                            tag = product.tag,
-                            description = binding.descriptionProductEt.text.toString(),
-                            inFavorite = inFavorite,
-                            needToBuy = needToBuy
-                        )
-                    )
-                }
+            saveNameAndDescriptionInViewModel()
+            //TODO СДЕЛАТЬ ПРОВЕРКУ ДОСТУПНОСТИ НАЗВАНИЯ ПЕРЕД СОХРАНЕНИЕМ
+
+            if (requireArguments().getString(AVAILABLE_PRODUCT).isNullOrEmpty()) {
+                viewModel.createNewProduct()
                 findNavController().popBackStack(
                     R.id.addProductsFragment,
                     false
                 )
             } else {
-                if (product != null) {
-                    viewModel.changeProduct(
-                        Product(
-                            name = product.name,
-                            imgUrl = product.imgUrl,
-                            tag = product.tag,
-                            description = product.description,
-                            inFavorite = product.inFavorite,
-                            needToBuy = product.needToBuy
-                        )
-                    )
-                }
+                viewModel.changeProduct()
                 findNavController().navigate(
                     R.id.action_createProduct_to_detailProduct,
                     DetailProductFragment.createArgs(binding.nameProductEt.text.toString()),
@@ -243,12 +182,19 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.favoriteIc.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
             viewModel.toggleFavorite()
         }
 
         binding.needToBuyIc.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
             viewModel.toggleNeedToBuy()
         }
+    }
+
+    private fun saveNameAndDescriptionInViewModel() {
+        viewModel.editNameText(binding.nameProductEt.text.toString())
+        viewModel.editDescriptionText(binding.descriptionProductEt.text.toString())
     }
 
     private fun getFavoriteToggleDrawable(inFavorite: Boolean?): Drawable? {
@@ -264,6 +210,10 @@ class EditCreateProductFragment : Fragment() {
     }
 
     private fun setImgFromPlaceHolder(uri: Uri?) {
+        if (uri != null) {
+            //TODO ЗДЕСЬ ДЕЛАТЬ ВИДИМОЙ ИЛИ АКТИВНОЙ КНОПКУ УДАЛЕНИЯ КАРТИНКИ
+        }
+
         Glide.with(this)
             .load(uri)
             .placeholder(R.drawable.place_holder_product)
@@ -274,7 +224,6 @@ class EditCreateProductFragment : Fragment() {
                 ),
             )
             .into(binding.productImage)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -340,10 +289,10 @@ class EditCreateProductFragment : Fragment() {
     }
 
     companion object {
-        private const val NEW_PRODUCT = "new_product"
+        private const val AVAILABLE_PRODUCT = "new_product"
         private const val REQUEST_IMAGE_PICK = 2
 
         fun createArgs(productName: String?): Bundle =
-            bundleOf(NEW_PRODUCT to productName)
+            bundleOf(AVAILABLE_PRODUCT to productName)
     }
 }
