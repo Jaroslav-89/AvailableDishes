@@ -50,7 +50,7 @@ class EditCreateProductFragment : Fragment() {
     private val tagAdapter = CreateEditTagAdapter(
         object : CreateEditTagAdapter.DeleteTagListener {
             override fun onTagClick(tag: ProductTag) {
-                viewModel.deleteTag(tag)
+                viewModel.toggleTag(tag, true)
             }
         }
     )
@@ -58,7 +58,7 @@ class EditCreateProductFragment : Fragment() {
     private val addTagAdapter = AddTagAdapter(
         object : AddTagAdapter.AddTagListener {
             override fun onTagClick(tag: ProductTag) {
-                viewModel.addTag(tag)
+                viewModel.toggleTag(tag, false)
                 binding.addTagScreen.visibility = View.GONE
             }
         }
@@ -290,10 +290,11 @@ class EditCreateProductFragment : Fragment() {
 
     private fun dispatchPickImageIntent() {
         // Create an intent with action as ACTION_PICK
-        val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-            // Set the type as image
-            type = "image/*"
-        }
+        val pickImageIntent =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+                // Set the type as image
+                type = "image/*"
+            }
 
         // Create an intent with action as ACTION_IMAGE_CAPTURE
         val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
@@ -323,7 +324,8 @@ class EditCreateProductFragment : Fragment() {
     }
 
     private fun createImageFile(): File {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timeStamp: String =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir).apply {
             // Save a file: path for use with ACTION_VIEW intents

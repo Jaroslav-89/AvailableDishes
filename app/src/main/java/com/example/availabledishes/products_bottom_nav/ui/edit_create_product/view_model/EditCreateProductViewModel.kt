@@ -35,28 +35,39 @@ class EditCreateProductViewModel(
         renderState(productsInteractor.getProductByName(product.name))
     }
 
-    fun addTag(newTag: ProductTag) {
-        for (tag in productAfterChange?.tag!!) {
-            if (tag.name == newTag.name) {
-                productAfterChange?.tag!!.remove(tag)
-                productAfterChange?.tag!!.add(newTag)
+    fun toggleTag(clickTag: ProductTag, delete: Boolean) {
+        var newTagsList = mutableListOf<ProductTag>()
+        if (!delete) {
+            if (productAfterChange?.tag.isNullOrEmpty()) {
+                newTagsList = mutableListOf(clickTag)
+                productAfterChange = productAfterChange?.copy(tag = newTagsList.toList())
                 renderState(productAfterChange!!)
-                return
+            } else {
+                newTagsList = productAfterChange?.tag!!.toMutableList()
+                for (tag in newTagsList) {
+                    if (tag.name == clickTag.name) {
+                        newTagsList.remove(tag)
+                        newTagsList.add(clickTag)
+                        productAfterChange = productAfterChange?.copy(tag = newTagsList.toList())
+                        renderState(productAfterChange!!)
+                        return
+                    }
+                }
+                newTagsList.add(clickTag)
+                productAfterChange = productAfterChange?.copy(tag = newTagsList.toList())
+                renderState(productAfterChange!!)
+            }
+        } else {
+            newTagsList = productAfterChange?.tag!!.toMutableList()
+            for (tag in newTagsList) {
+                if (tag.name == clickTag.name) {
+                    newTagsList.remove(clickTag)
+                    productAfterChange = productAfterChange?.copy(tag = newTagsList.toList())
+                    renderState(productAfterChange!!)
+                    return
+                }
             }
         }
-        productAfterChange?.tag!!.add(newTag)
-        renderState(productAfterChange!!)
-    }
-
-    fun deleteTag(deleteTag: ProductTag) {
-        for (tag in productAfterChange?.tag!!) {
-            if (tag == deleteTag) {
-                productAfterChange?.tag!!.remove(deleteTag)
-                renderState(productAfterChange!!)
-                return
-            }
-        }
-        renderState(productAfterChange!!)
     }
 
     fun prepareNewProduct() {
@@ -85,6 +96,10 @@ class EditCreateProductViewModel(
         productsInteractor.changeProduct(productBeforeChange!!, changedProduct)
         productBeforeChange = null
         productAfterChange = null
+    }
+
+    fun updateName(name: String) {
+
     }
 
     private fun renderState(product: Product) {
