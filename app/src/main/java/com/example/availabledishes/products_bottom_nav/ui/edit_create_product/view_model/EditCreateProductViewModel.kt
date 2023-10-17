@@ -17,8 +17,11 @@ class EditCreateProductViewModel(
     private var productAfterChange: Product? = null
 
     private val _state = MutableLiveData<Product>()
+    private val _nameAvailable = MutableLiveData<Boolean>()
     val state: LiveData<Product>
         get() = _state
+    val nameAvailable: LiveData<Boolean>
+        get() = _nameAvailable
 
     fun getProductByName(productName: String) {
         if (productBeforeChange == null) {
@@ -49,14 +52,14 @@ class EditCreateProductViewModel(
         productAfterChange = null
     }
 
-    fun editPlaceHolderImg(img: String, deleteImg: Boolean) {
-        if (deleteImg) {
-            productAfterChange = productAfterChange?.copy(imgUrl = null)
-            renderState(productAfterChange!!)
-        } else {
+    fun editPlaceHolderImg(img: String) {
             productAfterChange = productAfterChange?.copy(imgUrl = img)
             renderState(productAfterChange!!)
-        }
+    }
+
+    fun deleteProductImg(){
+        productAfterChange = productAfterChange?.copy(imgUrl = null)
+        renderState(productAfterChange!!)
     }
 
     fun editNameText(text: String) {
@@ -130,7 +133,22 @@ class EditCreateProductViewModel(
         productBeforeChange?.let { productsInteractor.deleteProduct(it) }
     }
 
+    fun checkingNameNewProductForMatches() {
+        if (productBeforeChange != null) {
+            if (productBeforeChange!!.name.lowercase().trim() == productAfterChange!!.name.lowercase().trim()) {
+                checkNameResult(true)
+                return
+            }
+        }
+
+        checkNameResult(productsInteractor.checkingNameNewProductForMatches(productAfterChange!!.name))
+    }
+
     private fun renderState(product: Product) {
         _state.postValue(product)
+    }
+
+    private fun checkNameResult(nameAvailable: Boolean) {
+        _nameAvailable.postValue(nameAvailable)
     }
 }

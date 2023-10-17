@@ -117,6 +117,16 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
             .apply()
     }
 
+    override fun checkingNameNewProductForMatches(newNameForChack: String): Boolean {
+        val allProductsList = getAllProductsList().toMutableList()
+        for(product in allProductsList){
+            if (product.name.lowercase().trim() == newNameForChack.lowercase().trim()){
+                return false
+            }
+        }
+        return true
+    }
+
     private fun productsListFromJson(json: String?): List<Product> {
         if (json.isNullOrEmpty()) {
             return emptyList()

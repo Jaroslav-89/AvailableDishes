@@ -12,4 +12,5 @@ interface ProductsRepository {
     fun changeProduct(product: Product, newProduct: Product)
     fun toggleFavorite(product: Product)
     fun toggleBuy(product: Product)
+    fun checkingNameNewProductForMatches(newNameForChack: String): Boolean
 }

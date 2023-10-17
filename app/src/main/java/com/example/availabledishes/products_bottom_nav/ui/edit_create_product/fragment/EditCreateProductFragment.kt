@@ -90,23 +90,23 @@ class EditCreateProductFragment : Fragment() {
             renderState(it)
         }
 
+        viewModel.nameAvailable.observe(viewLifecycleOwner) {
+            saveProductAndRedirect(it)
+        }
+
         setClickListeners()
     }
 
     private fun initView() {
-        //   editProductName = requireArguments().getString(AVAILABLE_PRODUCT)
         if (requireArguments().getString(AVAILABLE_PRODUCT).isNullOrEmpty()) {
             viewModel.prepareNewProduct()
-            binding.deleteBtn.visibility = View.GONE
+            binding.deleteProductBtn.visibility = View.GONE
             binding.headingProductTv.text =
                 context?.getString(R.string.create_new_product_heading)
-            binding.editCreateProductBtn.text =
-                context?.getString(R.string.create_product_btn)
         } else {
             viewModel.getProductByName(requireArguments().getString(AVAILABLE_PRODUCT)!!)
-            binding.deleteBtn.visibility = View.VISIBLE
+            binding.deleteProductBtn.visibility = View.VISIBLE
             binding.headingProductTv.text = context?.getString(R.string.edit_product_heading)
-            binding.editCreateProductBtn.text = context?.getString(R.string.save_product_btn)
         }
     }
 
@@ -121,8 +121,10 @@ class EditCreateProductFragment : Fragment() {
         with(binding) {
             setImgFromPlaceHolder(product.imgUrl?.toUri())
             nameProductEt.setText(product.name)
+            nameProductEt.setSelection(nameProductEt.text.length)
             product.tag?.let { tagAdapter.setTagsList(it) }
             descriptionProductEt.setText(product.description)
+            descriptionProductEt.setSelection(descriptionProductEt.text.length)
             favoriteIc.setImageDrawable(
                 getFavoriteToggleDrawable(
                     product.inFavorite
@@ -142,15 +144,19 @@ class EditCreateProductFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.deleteBtn.setOnClickListener {
+        binding.deleteProductBtn.setOnClickListener {
             viewModel.deleteProduct()
             findNavController().popBackStack()
             findNavController().popBackStack()
         }
 
-        binding.productImage.setOnClickListener {
+        binding.addProductImg.setOnClickListener {
             saveNameAndDescriptionInViewModel()
             dispatchPickImageIntent()
+        }
+
+        binding.deleteImgBtn.setOnClickListener {
+            viewModel.deleteProductImg()
         }
 
         binding.addTagBtn.setOnClickListener {
@@ -162,10 +168,28 @@ class EditCreateProductFragment : Fragment() {
             binding.addTagScreen.visibility = View.GONE
         }
 
-        binding.editCreateProductBtn.setOnClickListener {
+        binding.doneBtn.setOnClickListener {
             saveNameAndDescriptionInViewModel()
-            //TODO СДЕЛАТЬ ПРОВЕРКУ ДОСТУПНОСТИ НАЗВАНИЯ ПЕРЕД СОХРАНЕНИЕМ
+            if (binding.nameProductEt.text.isBlank()) {
+                showToast(context?.getString(R.string.empty_product_name)!!)
+                return@setOnClickListener
+            }
+            viewModel.checkingNameNewProductForMatches()
+        }
 
+        binding.favoriteIc.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
+            viewModel.toggleFavorite()
+        }
+
+        binding.needToBuyIc.setOnClickListener {
+            saveNameAndDescriptionInViewModel()
+            viewModel.toggleNeedToBuy()
+        }
+    }
+
+    private fun saveProductAndRedirect(nameAvailable: Boolean) {
+        if (nameAvailable) {
             if (requireArguments().getString(AVAILABLE_PRODUCT).isNullOrEmpty()) {
                 viewModel.createNewProduct()
                 findNavController().popBackStack(
@@ -179,16 +203,8 @@ class EditCreateProductFragment : Fragment() {
                     DetailProductFragment.createArgs(binding.nameProductEt.text.toString()),
                 )
             }
-        }
-
-        binding.favoriteIc.setOnClickListener {
-            saveNameAndDescriptionInViewModel()
-            viewModel.toggleFavorite()
-        }
-
-        binding.needToBuyIc.setOnClickListener {
-            saveNameAndDescriptionInViewModel()
-            viewModel.toggleNeedToBuy()
+        } else {
+            showToast(context?.getString(R.string.already_exists)!!)
         }
     }
 
@@ -211,7 +227,9 @@ class EditCreateProductFragment : Fragment() {
 
     private fun setImgFromPlaceHolder(uri: Uri?) {
         if (uri != null) {
-            //TODO ЗДЕСЬ ДЕЛАТЬ ВИДИМОЙ ИЛИ АКТИВНОЙ КНОПКУ УДАЛЕНИЯ КАРТИНКИ
+            binding.deleteImgBtn.visibility = View.VISIBLE
+        } else {
+            binding.deleteImgBtn.visibility = View.GONE
         }
 
         Glide.with(this)
@@ -231,7 +249,7 @@ class EditCreateProductFragment : Fragment() {
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_PICK) {
             imageUri = data?.data ?: imageUri
-            viewModel.editPlaceHolderImg(imageUri.toString(), false)
+            viewModel.editPlaceHolderImg(imageUri.toString())
         }
     }
 
