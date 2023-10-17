@@ -25,6 +25,11 @@ class DetailProductViewModel(
         renderState(productsInteractor.getProductByName(product.name))
     }
 
+    fun toggleNeedToBuy(product: Product){
+        productsInteractor.toggleBuy(product)
+        renderState(productsInteractor.getProductByName(product.name))
+    }
+
     private fun renderState(product: Product) {
         _state.postValue(product)
     }

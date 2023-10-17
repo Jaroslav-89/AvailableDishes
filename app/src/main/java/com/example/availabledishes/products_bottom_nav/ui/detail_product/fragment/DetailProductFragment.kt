@@ -70,14 +70,24 @@ class DetailProductFragment : Fragment() {
             setPlaceHolderDrawable(product.imgUrl?.toUri())
             headingProduct.text = product.name
             favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
-            //todo наполнение адаптера тэгов
+            needToBuy.setImageDrawable(getNeedToBueToggleDrawable(product.needToBuy))
             product.tag?.let { tagAdapter.setTagsList(it) }
             tagAdapter.notifyDataSetChanged()
             descriptionProduct.text = product.description ?: ""
             //todo наполнить адаптер доступных блюд
 
+            setClickListeners(product)
+        }
+    }
+
+    private fun setClickListeners(product: Product) {
+        with(binding) {
             favorite.setOnClickListener {
                 viewModel.toggleFavorite(product)
+            }
+
+            needToBuy.setOnClickListener {
+                viewModel.toggleNeedToBuy(product)
             }
 
             editProduct.setOnClickListener {
@@ -108,23 +118,36 @@ class DetailProductFragment : Fragment() {
     }
 
     private fun getFavoriteToggleDrawable(inFavorite: Boolean?): Drawable? {
-        return context?.getDrawable(
-            if (inFavorite == null || !inFavorite) R.drawable.ic_inactive_favorite else R.drawable.ic_active_favorite
-        )
+
+        if (inFavorite == null || !inFavorite) {
+            binding.needToBuy.visibility = View.GONE
+            return context?.getDrawable(R.drawable.ic_inactive_favorite_detail_product)
+        } else {
+            binding.needToBuy.visibility = View.VISIBLE
+            return context?.getDrawable(R.drawable.ic_active_favorite_detail_product)
+        }
+    }
+
+    private fun getNeedToBueToggleDrawable(needToBuy: Boolean?): Drawable? {
+        if (needToBuy == null || !needToBuy) {
+            return context?.getDrawable(R.drawable.ic_inactive_need_to_buy_detail_product)
+        } else {
+            return context?.getDrawable(R.drawable.ic_need_to_buy_detail_product)
+        }
     }
 
     private fun setPlaceHolderDrawable(uri: Uri?) {
-              Glide.with(this)
-                .load(uri)
-                .placeholder(R.drawable.place_holder_product)
-                .transform(
-                    CenterCrop(),
-                    RoundedCorners(
-                        resources.getDimensionPixelSize(R.dimen.corner_radius)
-                    ),
-                )
-                .into(binding.placeHolderProduct)
-        }
+        Glide.with(this)
+            .load(uri)
+            .placeholder(R.drawable.place_holder_product)
+            .transform(
+                CenterCrop(),
+                RoundedCorners(
+                    resources.getDimensionPixelSize(R.dimen.corner_radius)
+                ),
+            )
+            .into(binding.placeHolderProduct)
+    }
 
     companion object {
         private const val ARGS_PRODUCT = "product"

@@ -21,4 +21,7 @@
     <string name="available_dishes_detail_product">Рецепты с этим продуктом</string>
     <string name="create_dish_with_product">Создать рецепт с этиим продуктом</string>
     <string name="add_tag_screen_product_header">Добавить тег</string>
+    <!--    toast_message-->
+    <string name="empty_product_name">Введите название товара</string>
+    <string name="already_exists">Такой продукт уже существует. \nВведите другое название.</string>
 </resources>

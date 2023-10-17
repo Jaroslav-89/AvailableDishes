@@ -43,4 +43,8 @@ class ProductsRepositoryImpl(private val localStorage: LocalStorage) : ProductsR
     override fun toggleBuy(product: Product) {
         localStorage.toggleBuy(product)
     }
+
+    override fun checkingNameNewProductForMatches(newNameForChack: String): Boolean {
+        return localStorage.checkingNameNewProductForMatches(newNameForChack)
+    }
 }
