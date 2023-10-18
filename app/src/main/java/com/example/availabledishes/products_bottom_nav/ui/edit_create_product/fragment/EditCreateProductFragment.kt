@@ -1,6 +1,7 @@
 package com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.icu.text.SimpleDateFormat
@@ -12,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
@@ -41,6 +44,7 @@ class EditCreateProductFragment : Fragment() {
     private val viewModel: EditCreateProductViewModel by viewModel()
     private lateinit var binding: FragmentEditCreateProductsBinding
     private var imageUri: Uri? = null
+
 
     private val tagAdapter = CreateEditTagAdapter(
         object : CreateEditTagAdapter.DeleteTagListener {
@@ -95,6 +99,14 @@ class EditCreateProductFragment : Fragment() {
         }
 
         setClickListeners()
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    alertDialog(BACK)
+                }
+            })
     }
 
     private fun initView() {
@@ -106,7 +118,8 @@ class EditCreateProductFragment : Fragment() {
         } else {
             viewModel.getProductByName(requireArguments().getString(AVAILABLE_PRODUCT)!!)
             binding.deleteProductBtn.visibility = View.VISIBLE
-            binding.headingProductTv.text = context?.getString(R.string.edit_product_heading)
+            binding.headingProductTv.text =
+                requireContext().getString(R.string.edit_product_heading)
         }
     }
 
@@ -141,13 +154,11 @@ class EditCreateProductFragment : Fragment() {
 
     private fun setClickListeners() {
         binding.backBtn.setOnClickListener {
-            findNavController().navigateUp()
+            alertDialog(BACK)
         }
 
         binding.deleteProductBtn.setOnClickListener {
-            viewModel.deleteProduct()
-            findNavController().popBackStack()
-            findNavController().popBackStack()
+            alertDialog(DELETE_PRODUCT)
         }
 
         binding.addProductImg.setOnClickListener {
@@ -156,7 +167,7 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.deleteImgBtn.setOnClickListener {
-            viewModel.deleteProductImg()
+            alertDialog(DELETE_IMG)
         }
 
         binding.addTagBtn.setOnClickListener {
@@ -197,14 +208,10 @@ class EditCreateProductFragment : Fragment() {
                     false
                 )
             } else {
-                viewModel.changeProduct()
-                findNavController().navigate(
-                    R.id.action_createProduct_to_detailProduct,
-                    DetailProductFragment.createArgs(binding.nameProductEt.text.toString()),
-                )
+                alertDialog(SAVE)
             }
         } else {
-            showToast(context?.getString(R.string.already_exists)!!)
+            showToast(requireContext().getString(R.string.already_exists))
         }
     }
 
@@ -234,7 +241,7 @@ class EditCreateProductFragment : Fragment() {
 
         Glide.with(this)
             .load(uri)
-            .placeholder(R.drawable.place_holder_product)
+            .placeholder(R.drawable.place_holder_product_new)
             .transform(
                 CenterCrop(),
                 RoundedCorners(
@@ -298,9 +305,89 @@ class EditCreateProductFragment : Fragment() {
         }
     }
 
+    private fun alertDialog(state: String) {
+        var title = ""
+        var message = ""
+        var positive = ""
+        var negative = ""
+
+        when (state) {
+            SAVE -> {
+                title = requireContext().getString(R.string.title_save)
+                message = requireContext().getString(R.string.message_save)
+                positive = requireContext().getString(R.string.answer_positive)
+                negative = requireContext().getString(R.string.answer_negative)
+            }
+
+            BACK -> {
+                title = requireContext().getString(R.string.title_back)
+                message = requireContext().getString(R.string.message_back)
+                positive = requireContext().getString(R.string.answer_positive)
+                negative = requireContext().getString(R.string.answer_negative)
+            }
+
+            DELETE_PRODUCT -> {
+                title = requireContext().getString(R.string.title_delete)
+                message = requireContext().getString(R.string.message_delete_product)
+                positive = requireContext().getString(R.string.answer_positive)
+                negative = requireContext().getString(R.string.answer_negative)
+            }
+
+            DELETE_IMG -> {
+                title = requireContext().getString(R.string.title_delete)
+                message = requireContext().getString(R.string.message_delete_img)
+                positive = requireContext().getString(R.string.answer_positive)
+                negative = requireContext().getString(R.string.answer_negative)
+            }
+        }
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton(positive) { dialogInterface: DialogInterface, i: Int ->
+            when (state) {
+                SAVE -> {
+                    viewModel.changeProduct()
+                    findNavController().navigate(
+                        R.id.action_createProduct_to_detailProduct,
+                        DetailProductFragment.createArgs(binding.nameProductEt.text.toString()),
+                    )
+                }
+
+                BACK -> {
+                    findNavController().popBackStack()
+                }
+
+                DELETE_PRODUCT -> {
+                    viewModel.deleteProduct()
+                    findNavController().popBackStack()
+                    findNavController().popBackStack()
+                }
+
+                DELETE_IMG -> {
+                    viewModel.deleteProductImg()
+                }
+            }
+
+        }
+
+        builder.setNegativeButton(negative) { dialogInterface: DialogInterface, i: Int ->
+            return@setNegativeButton
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        positiveButton.setTextColor(requireContext().getColor(R.color.dark_gray))
+
+        val negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+        negativeButton.setTextColor(requireContext().getColor(R.color.dark_gray))
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(
-            context,
+            requireContext(),
             message,
             Toast.LENGTH_SHORT
         ).show()
@@ -309,6 +396,11 @@ class EditCreateProductFragment : Fragment() {
     companion object {
         private const val AVAILABLE_PRODUCT = "new_product"
         private const val REQUEST_IMAGE_PICK = 2
+
+        private const val DELETE_PRODUCT = "delete_product"
+        private const val DELETE_IMG = "delete_img"
+        private const val BACK = "back"
+        private const val SAVE = "save"
 
         fun createArgs(productName: String?): Bundle =
             bundleOf(AVAILABLE_PRODUCT to productName)
