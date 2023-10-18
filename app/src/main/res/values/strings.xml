@@ -35,4 +35,9 @@
     <string name="message_delete_img">Удалить картинку продукта?</string>
     <string name="answer_positive">Да</string>
     <string name="answer_negative">Нет</string>
+
+    <!--    dishes_bottom_nav-->
+    <string name="all_dishes">Рецепты</string>
+    <string name="available_dishes">Можно приготовить</string>
+    <string name="add_new_dish">Добавить новый рецепт</string>
 </resources>

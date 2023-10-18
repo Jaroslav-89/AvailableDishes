@@ -2,7 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".dishes_bottom_nav.ui.list_dishes.fragment.DishesFragment">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutDishes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="?attr/colorOnPrimary"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/FragmentTabLayout"
+        app:tabTextColor="?attr/colorOnPrimary"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerDishes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutDishes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

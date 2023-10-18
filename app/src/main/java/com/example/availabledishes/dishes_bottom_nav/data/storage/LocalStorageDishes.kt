@@ -1,8 +1,8 @@
-package com.example.availabledishes.dishes_bottom_nav.domain.api
+package com.example.availabledishes.dishes_bottom_nav.data.storage
 
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 
-interface DishesInteractor {
+interface LocalStorageDishes{
     fun getAllDishes(): List<Dish>
     fun getAvailableDishes(): List<Dish>
     fun changeDish(dish: Dish, newDish: Dish)

@@ -42,7 +42,7 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         repository.toggleBuy(product)
     }
 
-    override fun checkingNameNewProductForMatches(newNameForChack: String): Boolean {
-        return repository.checkingNameNewProductForMatches(newNameForChack)
+    override fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {
+        return repository.checkingNameNewProductForMatches(newNameForCheck)
     }
 }

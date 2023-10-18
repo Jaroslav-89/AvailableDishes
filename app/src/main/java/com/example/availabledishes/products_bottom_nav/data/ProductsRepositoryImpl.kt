@@ -1,13 +1,10 @@
 package com.example.availabledishes.products_bottom_nav.data
 
-import android.content.Intent
-import android.provider.MediaStore
-import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorage
+import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorageProducts
 import com.example.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
-import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 
-class ProductsRepositoryImpl(private val localStorage: LocalStorage) : ProductsRepository {
+class ProductsRepositoryImpl(private val localStorage: LocalStorageProducts) : ProductsRepository {
     override fun getAllProductsList(): List<Product> {
         return localStorage.getAllProductsList()
     }
@@ -44,7 +41,7 @@ class ProductsRepositoryImpl(private val localStorage: LocalStorage) : ProductsR
         localStorage.toggleBuy(product)
     }
 
-    override fun checkingNameNewProductForMatches(newNameForChack: String): Boolean {
-        return localStorage.checkingNameNewProductForMatches(newNameForChack)
+    override fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {
+        return localStorage.checkingNameNewProductForMatches(newNameForCheck)
     }
 }

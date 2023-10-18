@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.availabledishes.dishes_bottom_nav.domain.api.DishesInteractor
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 
-class AllDishesViewModel(
+class AvailableDishesViewModel(
     application: Application,
     private val dishesInteractor: DishesInteractor
 ) : AndroidViewModel(application) {
@@ -16,13 +16,13 @@ class AllDishesViewModel(
     val state: LiveData<List<Dish>>
         get() = _state
 
-    fun getAllDishes() {
-        renderState(dishesInteractor.getAllDishes())
+    fun getAvailableDishes() {
+        renderState(dishesInteractor.getAvailableDishes())
     }
 
     fun toggleFavorite(dish: Dish) {
         dishesInteractor.toggleFavorite(dish)
-        renderState(dishesInteractor.getAllDishes())
+        renderState(dishesInteractor.getAvailableDishes())
     }
 
     private fun renderState(dishesList: List<Dish>) {

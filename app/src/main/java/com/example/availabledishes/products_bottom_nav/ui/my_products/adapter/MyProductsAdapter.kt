@@ -47,18 +47,9 @@ class MyProductViewHolder(
     fun bind(product: Product) {
         with(binding) {
             productName.text = product.name
-            //favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
-            // favorite.setOnClickListener { clickListener.onFavoriteToggleClick(product) }
             needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
             needToBuy.setOnClickListener { clickListener.onBuyToggleClick(product) }
-            //itemView.setOnClickListener { clickListener.onProductClick(product) }
         }
-    }
-
-    private fun getFavoriteToggleDrawable(inFavorite: Boolean?): Drawable? {
-        return itemView.context.getDrawable(
-            if (inFavorite == null || !inFavorite) R.drawable.ic_inactive_favorite else R.drawable.ic_active_favorite
-        )
     }
 
     private fun getBuyToggleDrawable(needToBuy: Boolean?): Drawable? {

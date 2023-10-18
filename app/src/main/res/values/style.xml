@@ -10,11 +10,9 @@
         <item name="itemTextAppearanceInactive">?attr/textAppearanceCaption</item>
         <item name="itemTextAppearanceActive">?attr/textAppearanceCaption</item>
         <item name="itemBackground">?attr/colorPrimary</item>
-<!--        app:itemPaddingBottom="10dp"-->
-<!--        app:itemPaddingTop="10dp"-->
     </style>
 
-    <style name="ProductFragmentTabLayout" parent="@android:style/TextAppearance.Widget.TabWidget">
+    <style name="FragmentTabLayout" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">18sp</item>
     </style>
