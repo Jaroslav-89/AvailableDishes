@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="?attr/colorOnPrimary"
         app:tabMode="fixed"
-        app:tabTextAppearance="@style/ProductFragmentTabLayout"
+        app:tabTextAppearance="@style/FragmentTabLayout"
         app:tabTextColor="?attr/colorOnPrimary"/>
 
     <androidx.viewpager2.widget.ViewPager2

@@ -4,10 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".products_bottom_nav.ui.my_products.fragment.MyProductsFragment">
+    tools:context=".dishes_bottom_nav.ui.list_dishes.fragment.AllDishes">
+
+<android.widget.SearchView
+        android:id="@+id/dishSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите название продукта"
+        android:iconifiedByDefault="false"
+        android:imeOptions="actionSearch"
+        android:paddingStart="50dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:queryHint="Введите название блюда"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
-        android:id="@+id/add_products"
+        android:id="@+id/add_new_dish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/add_create_iv"
@@ -15,7 +30,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/dishSearch">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -26,18 +41,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/add_products"
+            android:text="@string/add_new_dish"
             android:textSize="18sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/myProductsRv"
+        android:id="@+id/allDishesRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_products" />
+        app:layout_constraintTop_toBottomOf="@+id/add_new_dish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

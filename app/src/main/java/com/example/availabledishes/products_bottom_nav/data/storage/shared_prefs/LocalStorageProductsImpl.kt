@@ -1,16 +1,15 @@
 package com.example.availabledishes.products_bottom_nav.data.storage.shared_prefs
 
 import android.content.SharedPreferences
-import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorage
+import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorageProducts
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
 import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 import com.google.gson.Gson
 
-class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) :
-    LocalStorage {
+class LocalStorageProductsImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) :
+    LocalStorageProducts {
     companion object {
         const val ALL_PRODUCTS = "all_products"
-        const val FAVORITES_PRODUCTS = "favorites_products"
     }
 
     override fun getAllProductsList(): List<Product> {
@@ -46,7 +45,7 @@ class LocalStorageImpl(private val sharedPreferences: SharedPreferences, private
                 return product
             }
         }
-        return Product("", null, mutableListOf<ProductTag>(), null, null, null)
+        return Product("", null, listOf<ProductTag>(), null, null, null)
     }
 
     override fun deleteProduct(product: Product) {

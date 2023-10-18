@@ -8,18 +8,18 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.availabledishes.R
-import com.example.availabledishes.databinding.FragmentAllDishesBinding
+import com.example.availabledishes.databinding.FragmentAvailableDishesBinding
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter.AllDishesAdapter
-import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AllDishesViewModel
+import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AvailableDishesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllDishes : Fragment() {
+class AvailableDishes : Fragment() {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
-    private val viewModel: AllDishesViewModel by viewModel()
-    private var _binding: FragmentAllDishesBinding? = null
+    private val viewModel: AvailableDishesViewModel by viewModel()
+    private var _binding: FragmentAvailableDishesBinding? = null
     private val binding get() = _binding!!
     private val adapter = AllDishesAdapter(
         object : AllDishesAdapter.DishClickListener {
@@ -41,23 +41,17 @@ class AllDishes : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAllDishesBinding.inflate(inflater, container, false)
+        _binding = FragmentAvailableDishesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.allDishesRv.adapter = adapter
+        binding.availableDishesRv.adapter = adapter
 
-        viewModel.getAllDishes()
-
-        binding.addNewDish.setOnClickListener {
-            //  findNavController().navigate(
-            // R.id.action_productsFragment_to_addProductsFragment,
-            //   AddProductsFragment.createArgs(null)
-            // )
-        }
+        //Получить список доступных рецептов из дата слоя
+        viewModel.getAvailableDishes()
 
         viewModel.state.observe(viewLifecycleOwner) {
             renderState(it)
@@ -84,6 +78,7 @@ class AllDishes : Fragment() {
     }
 
     private fun renderState(dishesList: List<Dish>) {
+
         adapter.setDishesList(emptyList())
         adapter.setDishesList(dishesList)
         adapter.notifyDataSetChanged()
@@ -91,7 +86,7 @@ class AllDishes : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllDishes()
+        viewModel.getAvailableDishes()
     }
 
     override fun onDestroyView() {
@@ -100,6 +95,6 @@ class AllDishes : Fragment() {
     }
 
     companion object {
-        fun newInstance() = AllDishes()
+        fun newInstance() = AvailableDishes()
     }
 }

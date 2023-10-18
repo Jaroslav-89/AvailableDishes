@@ -70,4 +70,14 @@
             app:popUpToInclusive="true"
             app:destination="@id/detailProduct" />
     </fragment>
+    <fragment
+        android:id="@+id/allDishes"
+        android:name="com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.AllDishes"
+        android:label="fragment_all_dishes"
+        tools:layout="@layout/fragment_all_dishes" />
+    <fragment
+        android:id="@+id/availableDishes"
+        android:name="com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.AvailableDishes"
+        android:label="fragment_available_dishes"
+        tools:layout="@layout/fragment_available_dishes" />
 </navigation>

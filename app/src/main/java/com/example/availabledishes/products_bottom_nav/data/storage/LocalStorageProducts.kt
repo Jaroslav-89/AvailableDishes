@@ -2,7 +2,7 @@ package com.example.availabledishes.products_bottom_nav.data.storage
 
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
 
-interface LocalStorage {
+interface LocalStorageProducts {
 
     fun getAllProductsList(): List<Product>
     fun getMyProductsList(): List<Product>
