@@ -139,7 +139,7 @@ class DetailProductFragment : Fragment() {
     private fun setPlaceHolderDrawable(uri: Uri?) {
         Glide.with(this)
             .load(uri)
-            .placeholder(R.drawable.place_holder_product)
+            .placeholder(R.drawable.place_holder_product_new)
             .transform(
                 CenterCrop(),
                 RoundedCorners(

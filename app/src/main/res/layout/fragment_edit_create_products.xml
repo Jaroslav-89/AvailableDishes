@@ -27,7 +27,7 @@
                 android:layout_marginTop="50dp"
                 android:background="@color/place_holder_background"
                 android:scaleType="centerCrop"
-                android:src="@drawable/place_holder_product"
+                android:src="@drawable/place_holder_product_new"
                 app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

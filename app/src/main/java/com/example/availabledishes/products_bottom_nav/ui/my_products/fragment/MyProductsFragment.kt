@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.availabledishes.R
@@ -17,6 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyProductsFragment : Fragment() {
 
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
     private val viewModel: MyProductsViewModel by viewModel()
     private var _binding: FragmentMyProductsBinding? = null
     private val binding get() = _binding!!
@@ -67,6 +71,25 @@ class MyProductsFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             renderState(it)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                        backToast.cancel()
+                        requireActivity().finish()
+                        return
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext()?.getString(R.string.double_back),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    backPressedTime = System.currentTimeMillis()
+                }
+            })
     }
 
     private fun renderState(productsList: List<Product>) {

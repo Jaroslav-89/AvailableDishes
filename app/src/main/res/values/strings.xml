@@ -24,4 +24,15 @@
     <!--    toast_message-->
     <string name="empty_product_name">Введите название товара</string>
     <string name="already_exists">Такой продукт уже существует. \nВведите другое название.</string>
+    <string name="double_back">Нажмите еще раз чтобы выйти</string>
+    <!--    alert_dialog_message-->
+    <string name="title_save">Сохранение</string>
+    <string name="title_back">Выход</string>
+    <string name="title_delete">Удаление</string>
+    <string name="message_save">Сохранить изменения и выдти?</string>
+    <string name="message_back">Выдти без сохранения?</string>
+    <string name="message_delete_product">Удалить продукт из приложения и рецептов?</string>
+    <string name="message_delete_img">Удалить картинку продукта?</string>
+    <string name="answer_positive">Да</string>
+    <string name="answer_negative">Нет</string>
 </resources>
