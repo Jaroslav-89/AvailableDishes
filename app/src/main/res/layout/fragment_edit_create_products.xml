@@ -37,8 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:orientation="vertical"
                 android:background="@drawable/bg_create_delete_product_img"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@+id/productImage"
                 app:layout_constraintTop_toTopOf="@+id/productImage">
 
@@ -60,11 +60,11 @@
                     android:id="@+id/deleteImgBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_delete"
                     android:padding="20dp"
-                    app:tint="@color/delete_btn"
+                    android:src="@drawable/ic_delete"
                     android:visibility="gone"
-                    tools:visibility="visible"/>
+                    app:tint="@color/delete_btn"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 
@@ -83,6 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:focusedByDefault="false"
                 app:layout_constraintBottom_toBottomOf="@+id/nameProductTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nameProductTv"
@@ -92,8 +93,8 @@
                 android:id="@+id/addTagBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="20dp"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/nameProductTv"
                 app:layout_constraintTop_toBottomOf="@+id/nameProductEt">
 
@@ -101,9 +102,9 @@
                     android:id="@+id/tagsProductTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/tags_edit_create_product"
-                    android:textSize="16sp"
-                    android:layout_gravity="center" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -129,8 +130,8 @@
                 android:id="@+id/descriptionProductTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/description_product"
                 android:layout_marginTop="10dp"
+                android:text="@string/description_product"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/nameProductTv"
                 app:layout_constraintTop_toTopOf="@+id/descriptionProductEt" />
@@ -140,6 +141,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:focusedByDefault="false"
                 app:layout_constraintEnd_toEndOf="@+id/nameProductEt"
                 app:layout_constraintStart_toStartOf="@+id/nameProductEt"
                 app:layout_constraintTop_toBottomOf="@+id/tagsRv" />
@@ -243,8 +245,8 @@
             android:id="@+id/doneBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_marginEnd="4dp"
+            android:padding="10dp"
             android:src="@drawable/ic_done_active" />
 
     </LinearLayout>
@@ -253,15 +255,15 @@
         android:id="@+id/addTagScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:background="@color/bg_edit_create_product_add_tag_screen"
+        android:visibility="gone"
         tools:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/bg_available_dishes_product_detail"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -270,16 +272,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_tag_screen_product_header"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20sp"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:text="@string/add_tag_screen_product_header"
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/addTagRv"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 tools:listitem="@layout/tag_product_detail_item" />
 
         </LinearLayout>
