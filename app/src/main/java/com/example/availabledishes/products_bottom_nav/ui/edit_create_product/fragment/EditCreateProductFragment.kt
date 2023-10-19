@@ -47,8 +47,10 @@ class EditCreateProductFragment : Fragment() {
     private val viewModel: EditCreateProductViewModel by viewModel()
     private lateinit var binding: FragmentEditCreateProductsBinding
     private var imageUri: Uri? = null
-    private lateinit var keyboard: InputMethodManager
 
+    private val keyboard by lazy {
+        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
 
     private val tagAdapter = CreateEditTagAdapter(
         object : CreateEditTagAdapter.DeleteTagListener {
@@ -208,8 +210,6 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.productEditCreateGroup.setOnClickListener {
-            keyboard =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             binding.nameProductEt.clearFocus()
             binding.descriptionProductEt.clearFocus()
             keyboard.hideSoftInputFromWindow(binding.nameProductEt.windowToken, 0)
@@ -218,6 +218,8 @@ class EditCreateProductFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
+        binding.nameProductEt.clearFocus()
+        binding.descriptionProductEt.clearFocus()
         keyboard.hideSoftInputFromWindow(binding.nameProductEt.windowToken, 0)
         keyboard.hideSoftInputFromWindow(binding.descriptionProductEt.windowToken, 0)
     }
