@@ -40,4 +40,10 @@
     <string name="all_dishes">Рецепты</string>
     <string name="available_dishes">Можно приготовить</string>
     <string name="add_new_dish">Добавить новый рецепт</string>
+    <string name="show_ingredients_btn_detail_dish">Ингридиенты</string>
+    <string name="add_ingredients_in_buy_list_detail_dish">Добавить недостающие ингридиенты в список покупок</string>
+    <string name="delete_dish">Удалить рецепт</string>
+    <string name="favorite_dish">Добавить рецепт в избранное</string>
+    <string name="recipe_product">Рецепт</string>
+    <string name="add_products_in_recipe">Добавить продукты в рецепт</string>
 </resources>

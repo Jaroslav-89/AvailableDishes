@@ -24,14 +24,15 @@
                 android:id="@+id/placeHolderProduct"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="44dp"
                 android:background="@color/place_holder_background"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/productDetailGroup" />
+                app:layout_constraintTop_toTopOf="@+id/productDetailGroup"
+                tools:src="@drawable/place_holder_product_new" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -77,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:itemCount="10"
-                tools:listitem="@layout/tag_product_detail_item" />
+                tools:listitem="@layout/tag_item" />
 
             <TextView
                 android:id="@+id/descriptionProduct"
