@@ -1,6 +1,7 @@
 package com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -12,6 +13,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -39,16 +41,19 @@ import java.io.IOException
 import java.util.Date
 import java.util.Locale
 
+
 class EditCreateProductFragment : Fragment() {
 
     private val viewModel: EditCreateProductViewModel by viewModel()
     private lateinit var binding: FragmentEditCreateProductsBinding
     private var imageUri: Uri? = null
+    private lateinit var keyboard: InputMethodManager
 
 
     private val tagAdapter = CreateEditTagAdapter(
         object : CreateEditTagAdapter.DeleteTagListener {
             override fun onTagClick(tag: ProductTag) {
+                hideKeyboard()
                 saveNameAndDescriptionInViewModel()
                 viewModel.toggleTag(tag, true)
             }
@@ -154,6 +159,7 @@ class EditCreateProductFragment : Fragment() {
 
     private fun setClickListeners() {
         binding.backBtn.setOnClickListener {
+            hideKeyboard()
             alertDialog(BACK)
         }
 
@@ -167,10 +173,12 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.deleteImgBtn.setOnClickListener {
+            hideKeyboard()
             alertDialog(DELETE_IMG)
         }
 
         binding.addTagBtn.setOnClickListener {
+            hideKeyboard()
             saveNameAndDescriptionInViewModel()
             binding.addTagScreen.visibility = View.VISIBLE
         }
@@ -180,6 +188,7 @@ class EditCreateProductFragment : Fragment() {
         }
 
         binding.doneBtn.setOnClickListener {
+            hideKeyboard()
             saveNameAndDescriptionInViewModel()
             if (binding.nameProductEt.text.isBlank()) {
                 showToast(context?.getString(R.string.empty_product_name)!!)
@@ -197,6 +206,20 @@ class EditCreateProductFragment : Fragment() {
             saveNameAndDescriptionInViewModel()
             viewModel.toggleNeedToBuy()
         }
+
+        binding.productEditCreateGroup.setOnClickListener {
+            keyboard =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            binding.nameProductEt.clearFocus()
+            binding.descriptionProductEt.clearFocus()
+            keyboard.hideSoftInputFromWindow(binding.nameProductEt.windowToken, 0)
+            keyboard.hideSoftInputFromWindow(binding.descriptionProductEt.windowToken, 0)
+        }
+    }
+
+    private fun hideKeyboard() {
+        keyboard.hideSoftInputFromWindow(binding.nameProductEt.windowToken, 0)
+        keyboard.hideSoftInputFromWindow(binding.descriptionProductEt.windowToken, 0)
     }
 
     private fun saveProductAndRedirect(nameAvailable: Boolean) {
