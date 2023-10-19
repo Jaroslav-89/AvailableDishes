@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.availabledishes.databinding.TagProductDetailItemBinding
+import com.example.availabledishes.databinding.TagItemBinding
 import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 
 class CreateEditTagAdapter(private val clickListener: DeleteTagListener) :
@@ -18,7 +18,7 @@ class CreateEditTagAdapter(private val clickListener: DeleteTagListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateEditTagViewHolder {
-        val binding = TagProductDetailItemBinding.inflate(
+        val binding = TagItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -39,7 +39,7 @@ class CreateEditTagAdapter(private val clickListener: DeleteTagListener) :
 }
 
 class CreateEditTagViewHolder(
-    private val binding: TagProductDetailItemBinding
+    private val binding: TagItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(tag: ProductTag) {
         with(binding) {

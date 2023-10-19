@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment">
+    tools:context=".dishes_bottom_nav.ui.edit_create_dish.fragment.EditeCreateDishFragment">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/productEditCreateGroupNestedScroll"
+        android:id="@+id/dishEditCreateGroupNestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,22 +16,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/productEditCreateGroup"
+            android:id="@+id/dishEditCreateGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/productImage"
+                android:id="@+id/dishImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="50dp"
                 android:background="@color/place_holder_background"
                 android:scaleType="centerCrop"
-                android:src="@drawable/place_holder_product_new"
+                android:src="@drawable/place_holder_dish"
                 app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/productEditCreateGroup" />
+                app:layout_constraintTop_toTopOf="@+id/dishEditCreateGroup" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -39,8 +39,8 @@
                 android:layout_margin="16dp"
                 android:background="@drawable/bg_create_delete_product_img"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toTopOf="@+id/productImage">
+                app:layout_constraintEnd_toEndOf="@+id/dishImage"
+                app:layout_constraintTop_toTopOf="@+id/dishImage">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                     android:background="@drawable/bg_create_delete_product_img">
 
                     <ImageView
-                        android:id="@+id/addProductImg"
+                        android:id="@+id/addDishImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="20dp"
@@ -69,25 +69,25 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/nameProductTv"
+                android:id="@+id/nameDishTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:text="@string/name_product"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+                app:layout_constraintTop_toBottomOf="@+id/dishImage" />
 
             <EditText
-                android:id="@+id/nameProductEt"
+                android:id="@+id/nameDishEt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:focusedByDefault="false"
-                app:layout_constraintBottom_toBottomOf="@+id/nameProductTv"
+                app:layout_constraintBottom_toBottomOf="@+id/nameDishTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nameProductTv"
-                app:layout_constraintTop_toTopOf="@+id/nameProductTv" />
+                app:layout_constraintStart_toEndOf="@+id/nameDishTv"
+                app:layout_constraintTop_toTopOf="@+id/nameDishTv" />
 
             <LinearLayout
                 android:id="@+id/addTagBtn"
@@ -95,11 +95,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/nameProductTv"
-                app:layout_constraintTop_toBottomOf="@+id/nameProductEt">
+                app:layout_constraintStart_toStartOf="@+id/nameDishTv"
+                app:layout_constraintTop_toBottomOf="@+id/nameDishEt">
 
                 <TextView
-                    android:id="@+id/tagsProductTv"
+                    android:id="@+id/tagsDishTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -127,36 +127,36 @@
                 tools:listitem="@layout/tag_item" />
 
             <TextView
-                android:id="@+id/descriptionProductTv"
+                android:id="@+id/descriptionDishTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/description_product"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/nameProductTv"
-                app:layout_constraintTop_toTopOf="@+id/descriptionProductEt" />
+                app:layout_constraintStart_toStartOf="@+id/nameDishTv"
+                app:layout_constraintTop_toTopOf="@+id/descriptionDishEt" />
 
             <EditText
-                android:id="@+id/descriptionProductEt"
+                android:id="@+id/descriptionDishEt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:focusedByDefault="false"
-                app:layout_constraintEnd_toEndOf="@+id/nameProductEt"
-                app:layout_constraintStart_toStartOf="@+id/nameProductEt"
+                app:layout_constraintEnd_toEndOf="@+id/nameDishEt"
+                app:layout_constraintStart_toStartOf="@+id/nameDishEt"
                 app:layout_constraintTop_toBottomOf="@+id/tagsRv" />
 
             <TextView
-                android:id="@+id/favoriteProductTv"
+                android:id="@+id/favoriteDishTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="28dp"
-                android:text="@string/favorite_product"
+                android:text="@string/favorite_dish"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionProductEt" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionDishEt" />
 
             <ImageView
                 android:id="@+id/favoriteIc"
@@ -164,50 +164,111 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:src="@drawable/ic_inactive_favorite"
-                app:layout_constraintBottom_toBottomOf="@+id/favoriteProductTv"
+                app:layout_constraintBottom_toBottomOf="@+id/favoriteDishTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/favoriteProductTv"
-                app:layout_constraintTop_toTopOf="@+id/favoriteProductTv" />
+                app:layout_constraintStart_toEndOf="@+id/favoriteDishTv"
+                app:layout_constraintTop_toTopOf="@+id/favoriteDishTv" />
+
+            <LinearLayout
+                android:id="@+id/editProductsGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favoriteIc">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:text="@string/add_products_in_recipe"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/create_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/add_create_iv"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productSearch">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/create_product"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <android.widget.SearchView
+                    android:id="@+id/productSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Введите название продукта"
+                    android:iconifiedByDefault="false"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="40dp"
+                    android:queryHint="Введите название продукта" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productSearch"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/add_product_in_dish_item" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/needToBuyProductTv"
+                android:id="@+id/recipeDishTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="28dp"
-                android:text="@string/need_to_buy_product"
+                android:layout_marginTop="10dp"
+                android:text="@string/recipe_product"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favoriteProductTv" />
+                app:layout_constraintStart_toStartOf="@+id/nameDishTv"
+                app:layout_constraintTop_toTopOf="@+id/recipeDishEt" />
 
-            <ImageView
-                android:id="@+id/needToBuyIc"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/recipeDishEt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@drawable/ic_inactive_need_to_buy"
-                app:layout_constraintBottom_toBottomOf="@+id/needToBuyProductTv"
-                app:layout_constraintEnd_toEndOf="@+id/favoriteIc"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/favoriteIc"
-                app:layout_constraintTop_toTopOf="@+id/needToBuyProductTv"
-                app:layout_constraintVertical_bias="0.454" />
+                android:layout_marginTop="20dp"
+                android:focusedByDefault="false"
+                app:layout_constraintEnd_toEndOf="@+id/nameDishEt"
+                app:layout_constraintStart_toStartOf="@+id/nameDishEt"
+                app:layout_constraintTop_toBottomOf="@+id/editProductsGroup" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/deleteProductBtn"
+                android:id="@+id/deleteDishBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="60dp"
                 android:backgroundTint="@color/delete_btn"
-                android:text="@string/delete_product"
+                android:text="@string/delete_dish"
                 android:visibility="gone"
                 app:cornerRadius="20dp"
                 app:icon="@drawable/ic_delete_new"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favoriteIc"
+                app:layout_constraintTop_toBottomOf="@+id/recipeDishEt"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -233,7 +294,7 @@
             android:src="@drawable/ic_back" />
 
         <TextView
-            android:id="@+id/headingProductTv"
+            android:id="@+id/headingDishTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

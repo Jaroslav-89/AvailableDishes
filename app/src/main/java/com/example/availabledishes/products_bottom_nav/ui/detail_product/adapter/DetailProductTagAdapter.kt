@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.availabledishes.databinding.TagProductDetailItemBinding
+import com.example.availabledishes.databinding.TagItemBinding
 import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 
 class DetailProductTagAdapter(private val clickListener: DetailProductTagListener) :
@@ -17,7 +17,7 @@ class DetailProductTagAdapter(private val clickListener: DetailProductTagListene
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailProductTagViewHolder {
-        val binding = TagProductDetailItemBinding.inflate(
+        val binding = TagItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -38,7 +38,7 @@ class DetailProductTagAdapter(private val clickListener: DetailProductTagListene
 }
 
 class DetailProductTagViewHolder(
-    private val binding: TagProductDetailItemBinding
+    private val binding: TagItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(tag: ProductTag) {
         with(binding) {
