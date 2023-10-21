@@ -7,7 +7,34 @@ import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 
 class AllDishes {
     val allDishes = listOf<Dish>(
-        Dish("Салат", null, emptyList<DishTag>(), null, null, emptyList<Product>(), null),
+        Dish(
+            "Салат", null, emptyList<DishTag>(), null, null, listOf<Product>(
+                Product(
+                    name = "Картофель",
+                    imgUrl = null,
+                    tag = null,
+                    description = null,
+                    inFavorite = true,
+                    needToBuy = true
+                ),
+                Product(
+                    name = "Молоко",
+                    imgUrl = null,
+                    tag = null,
+                    description = null,
+                    inFavorite = true,
+                    needToBuy = null
+                ),
+                Product(
+                    name = "Картоха",
+                    imgUrl = null,
+                    tag = mutableListOf(ProductTag("тег", "#F68299")),
+                    description = null,
+                    inFavorite = null,
+                    needToBuy = null
+                )
+            ), true
+        ),
         Dish("Суп", null, emptyList<DishTag>(), null, null, emptyList<Product>(), null),
         Dish("Щи", null, emptyList<DishTag>(), null, null, emptyList<Product>(), null),
         Dish("Жареха", null, emptyList<DishTag>(), null, null, emptyList<Product>(), null),
@@ -36,8 +63,8 @@ class AllDishes {
                     color = "#7593DF"
                 )
             ),
-            description = null,
-            recipe = null,
+            description = "вкусненькая",
+            recipe = "ведро воды, овощей туды",
             ingredients = listOf<Product>(
                 Product(
                     name = "Яйца куриные",
@@ -110,3 +137,9 @@ class AllDishes {
         )
     )
 }
+
+
+
+
+
+

@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentAllDishesBinding
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
+import com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter.AllDishesAdapter
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AllDishesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AllDishes : Fragment() {
 
     private var backPressedTime: Long = 0
+    private var queryText = ""
     private lateinit var backToast: Toast
     private val viewModel: AllDishesViewModel by viewModel()
     private var _binding: FragmentAllDishesBinding? = null
@@ -24,10 +28,10 @@ class AllDishes : Fragment() {
     private val adapter = AllDishesAdapter(
         object : AllDishesAdapter.DishClickListener {
             override fun onDishClick(dish: Dish) {
-//                findNavController().navigate(
-//                    R.id.action_productsFragment_to_detailProduct,
-//                    DetailProductFragment.createArgs(dish.name)
-//                )
+                findNavController().navigate(
+                    R.id.action_dishesFragment_to_detailDishFragment,
+                    DetailDishFragment.createArgs(dish.name)
+                )
             }
 
             override fun onFavoriteToggleClick(dish: Dish) {
@@ -51,6 +55,16 @@ class AllDishes : Fragment() {
         binding.allDishesRv.adapter = adapter
 
         viewModel.getAllDishes()
+
+        if (arguments != null) {
+            if (requireArguments().getString(SEARCH_REQUEST_DISH_TAG) != null) {
+                binding.dishSearch.setQuery(
+                    requireArguments().getString(SEARCH_REQUEST_DISH_TAG),
+                    true
+                )
+            }
+        }
+
 
         binding.addNewDish.setOnClickListener {
             //  findNavController().navigate(
@@ -100,6 +114,10 @@ class AllDishes : Fragment() {
     }
 
     companion object {
+        private const val SEARCH_REQUEST_DISH_TAG = "search_request_dish_tag"
         fun newInstance() = AllDishes()
+
+        fun createArgs(searchRequest: String?): Bundle =
+            bundleOf(SEARCH_REQUEST_DISH_TAG to searchRequest)
     }
 }

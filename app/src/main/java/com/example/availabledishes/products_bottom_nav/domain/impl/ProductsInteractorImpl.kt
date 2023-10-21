@@ -1,5 +1,6 @@
 package com.example.availabledishes.products_bottom_nav.domain.impl
 
+import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.example.availabledishes.products_bottom_nav.domain.api.ProductsInteractor
 import com.example.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
@@ -22,6 +23,10 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         return repository.getProductByName(productName)
     }
 
+    override fun getAllDishesWithThisProduct(product: Product): List<Dish> {
+        return repository.getAllDishesWithThisProduct(product)
+    }
+
     override fun deleteProduct(product: Product) {
         repository.deleteProduct(product)
     }
@@ -40,6 +45,10 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
 
     override fun toggleBuy(product: Product) {
         repository.toggleBuy(product)
+    }
+
+    override fun toggleDishFavorite(dish: Dish) {
+        repository.toggleDishFavorite(dish)
     }
 
     override fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {

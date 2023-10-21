@@ -1,5 +1,6 @@
 package com.example.availabledishes.products_bottom_nav.data
 
+import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.example.availabledishes.products_bottom_nav.data.storage.LocalStorageProducts
 import com.example.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
@@ -21,6 +22,10 @@ class ProductsRepositoryImpl(private val localStorage: LocalStorageProducts) : P
         return localStorage.getProductByName(productName)
     }
 
+    override fun getAllDishesWithThisProduct(product: Product): List<Dish> {
+        return localStorage.getAllDishesWithThisProduct(product)
+    }
+
     override fun deleteProduct(product: Product) {
         localStorage.deleteProduct(product)
     }
@@ -39,6 +44,10 @@ class ProductsRepositoryImpl(private val localStorage: LocalStorageProducts) : P
 
     override fun toggleBuy(product: Product) {
         localStorage.toggleBuy(product)
+    }
+
+    override fun toggleDishFavorite(dish: Dish){
+        localStorage.toggleDishFavorite(dish)
     }
 
     override fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {

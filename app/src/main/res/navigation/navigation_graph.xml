@@ -24,7 +24,11 @@
         android:id="@+id/dishesFragment"
         android:name="com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.DishesFragment"
         android:label="fragment_dishes"
-        tools:layout="@layout/fragment_dishes" />
+        tools:layout="@layout/fragment_dishes" >
+        <action
+            android:id="@+id/action_dishesFragment_to_detailDishFragment"
+            app:destination="@id/detailDishFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myProductsFragment"
         android:name="com.example.availabledishes.products_bottom_nav.ui.my_products.fragment.MyProductsFragment"
@@ -58,6 +62,9 @@
         <action
             android:id="@+id/action_detailProduct_to_addProductsFragment"
             app:destination="@id/addProductsFragment" />
+        <action
+            android:id="@+id/action_detailProduct_to_detailDishFragment"
+            app:destination="@id/detailDishFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProduct"
@@ -80,4 +87,16 @@
         android:name="com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.AvailableDishes"
         android:label="fragment_available_dishes"
         tools:layout="@layout/fragment_available_dishes" />
+    <fragment
+        android:id="@+id/detailDishFragment"
+        android:name="com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment"
+        android:label="fragment_detail_dish"
+        tools:layout="@layout/fragment_detail_dish" >
+        <action
+            android:id="@+id/action_detailDishFragment_to_detailProduct"
+            app:destination="@id/detailProduct" />
+        <action
+            android:id="@+id/action_detailDishFragment_to_dishesFragment"
+            app:destination="@id/dishesFragment" />
+    </fragment>
 </navigation>

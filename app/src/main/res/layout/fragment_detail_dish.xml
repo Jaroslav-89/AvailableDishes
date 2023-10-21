@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/availableDishesGroupBtn">
@@ -142,7 +143,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/availableDishesRv"
+                    android:id="@+id/productListRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -191,10 +192,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeBtn"
-                tools:text="Это сам рецепт" />
+                tools:text="Это сам рецепт"
+                tools:visibility="visible"/>
 
             <View
                 android:id="@+id/placeHolderRecyclerView"
