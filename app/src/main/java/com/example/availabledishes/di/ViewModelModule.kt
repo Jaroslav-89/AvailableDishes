@@ -1,5 +1,6 @@
 package com.example.availabledishes.di
 
+import com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.view_model.DetailDishViewModel
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AllDishesViewModel
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AvailableDishesViewModel
 import com.example.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
@@ -57,6 +58,13 @@ val viewModelModule = module {
 
     viewModel {
         AvailableDishesViewModel(
+            application = androidApplication(),
+            dishesInteractor = get()
+        )
+    }
+
+    viewModel {
+        DetailDishViewModel(
             application = androidApplication(),
             dishesInteractor = get()
         )

@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentAvailableDishesBinding
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
+import com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter.AllDishesAdapter
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AvailableDishesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,10 +26,10 @@ class AvailableDishes : Fragment() {
     private val adapter = AllDishesAdapter(
         object : AllDishesAdapter.DishClickListener {
             override fun onDishClick(dish: Dish) {
-//                findNavController().navigate(
-//                    R.id.action_productsFragment_to_detailProduct,
-//                    DetailProductFragment.createArgs(dish.name)
-//                )
+                findNavController().navigate(
+                    R.id.action_dishesFragment_to_detailDishFragment,
+                    DetailDishFragment.createArgs(dish.name)
+                )
             }
 
             override fun onFavoriteToggleClick(dish: Dish) {

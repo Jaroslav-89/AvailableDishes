@@ -3,6 +3,7 @@ package com.example.availabledishes.dishes_bottom_nav.data
 import com.example.availabledishes.dishes_bottom_nav.data.storage.LocalStorageDishes
 import com.example.availabledishes.dishes_bottom_nav.domain.api.DishesRepository
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
+import com.example.availabledishes.products_bottom_nav.domain.model.Product
 
 class DishesRepositoryImpl(private val localStorage: LocalStorageDishes) : DishesRepository {
     override fun getAllDishes(): List<Dish> {
@@ -13,27 +14,35 @@ class DishesRepositoryImpl(private val localStorage: LocalStorageDishes) : Dishe
         return localStorage.getAvailableDishes()
     }
 
-    override fun changeDish(dish: Dish, newDish: Dish) {
-        TODO("Not yet implemented")
+    override fun changeDish(dishForChange: Dish, newDish: Dish) {
+        localStorage.changeDish(dishForChange, newDish)
     }
 
     override fun getDishByName(dishName: String): Dish {
-        TODO("Not yet implemented")
+        return localStorage.getDishByName(dishName)
     }
 
     override fun deleteDish(dish: Dish) {
-        TODO("Not yet implemented")
+        localStorage.deleteDish(dish)
     }
 
     override fun createNewDish(dish: Dish) {
-        TODO("Not yet implemented")
+        localStorage.createNewDish(dish)
     }
 
     override fun toggleFavorite(dish: Dish) {
-        TODO("Not yet implemented")
+        localStorage.toggleFavorite(dish)
+    }
+
+    override fun toggleFavoriteProduct(product: Product) {
+        localStorage.toggleFavoriteProduct(product)
+    }
+
+    override fun toggleBuyProduct(product: Product) {
+        localStorage.toggleBuyProduct(product)
     }
 
     override fun checkingNameNewDishForMatches(newNameForCheck: String): Boolean {
-        TODO("Not yet implemented")
+        return localStorage.checkingNameNewDishForMatches(newNameForCheck)
     }
 }

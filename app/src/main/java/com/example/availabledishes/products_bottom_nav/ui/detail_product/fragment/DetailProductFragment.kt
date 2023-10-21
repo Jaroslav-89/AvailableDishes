@@ -15,9 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.availabledishes.R
 import com.example.availabledishes.databinding.FragmentDetailProductBinding
+import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
+import com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.example.availabledishes.products_bottom_nav.domain.model.Product
 import com.example.availabledishes.products_bottom_nav.domain.model.ProductTag
 import com.example.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
+import com.example.availabledishes.products_bottom_nav.ui.detail_product.adapter.AvailableDishesAdapter
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.adapter.DetailProductTagAdapter
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.view_model.DetailProductViewModel
 import com.example.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
@@ -40,6 +43,22 @@ class DetailProductFragment : Fragment() {
         }
     )
 
+    private val availableDishesAdapter = AvailableDishesAdapter(
+        object : AvailableDishesAdapter.DishClickListener {
+            override fun onDishClick(dish: Dish) {
+                findNavController().navigate(
+                    R.id.action_detailProduct_to_detailDishFragment,
+                    DetailDishFragment.createArgs(dish.name)
+                )
+            }
+
+            override fun onDishFavoriteToggleClick(dish: Dish) {
+                viewModel.toggleDishFavorite(dish)
+                viewModel.getAllDishesWithThisProduct()
+            }
+        }
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +72,7 @@ class DetailProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tagsRv.adapter = tagAdapter
+        binding.availableDishesRv.adapter = availableDishesAdapter
 
         viewModel.getProductByName(requireArguments().getString(ARGS_PRODUCT)!!)
 
@@ -62,6 +82,10 @@ class DetailProductFragment : Fragment() {
 
         viewModel.state.observe(viewLifecycleOwner) {
             renderState(it)
+        }
+
+        viewModel.dishesListWithProduct.observe(viewLifecycleOwner) {
+            renderAvailableDishes(it)
         }
     }
 
@@ -73,11 +97,17 @@ class DetailProductFragment : Fragment() {
             needToBuy.setImageDrawable(getNeedToBueToggleDrawable(product.needToBuy))
             product.tag?.let { tagAdapter.setTagsList(it) }
             tagAdapter.notifyDataSetChanged()
+            availableDishesAdapter.notifyDataSetChanged()
             descriptionProduct.text = product.description ?: ""
             //todo наполнить адаптер доступных блюд
 
             setClickListeners(product)
         }
+    }
+
+    private fun renderAvailableDishes(dishList: List<Dish>) {
+        availableDishesAdapter.setDishesList(dishList)
+        availableDishesAdapter.notifyDataSetChanged()
     }
 
     private fun setClickListeners(product: Product) {
@@ -103,6 +133,7 @@ class DetailProductFragment : Fragment() {
                     arrow.setImageDrawable(context?.getDrawable(R.drawable.ic_arrow_up))
                     availableDishesGroup.visibility = View.VISIBLE
                     placeHolderRecyclerView.visibility = View.GONE
+                    viewModel.getAllDishesWithThisProduct()
                 } else {
                     availableDishesVisible = false
                     arrow.setImageDrawable(context?.getDrawable(R.drawable.ic_arrow_down))

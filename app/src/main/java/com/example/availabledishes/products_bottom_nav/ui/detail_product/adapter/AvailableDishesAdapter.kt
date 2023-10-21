@@ -1,4 +1,4 @@
-package com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter
+package com.example.availabledishes.products_bottom_nav.ui.detail_product.adapter
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import com.example.availabledishes.R
 import com.example.availabledishes.databinding.DishItemBinding
 import com.example.availabledishes.dishes_bottom_nav.domain.model.Dish
 
-class AllDishesAdapter(private val clickListener: DishClickListener) :
-    RecyclerView.Adapter<DishesViewHolder>() {
+class AvailableDishesAdapter(private val clickListener: DishClickListener) :
+    RecyclerView.Adapter<AvailableDishesViewHolder>() {
 
     private var dishesList = listOf<Dish>()
 
@@ -17,16 +17,16 @@ class AllDishesAdapter(private val clickListener: DishClickListener) :
         dishesList = newList
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvailableDishesViewHolder {
         val binding = DishItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return DishesViewHolder(binding, clickListener)
+        return AvailableDishesViewHolder(binding, clickListener)
     }
 
-    override fun onBindViewHolder(holder: DishesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AvailableDishesViewHolder, position: Int) {
         holder.bind(dishesList[position])
         holder.itemView.setOnClickListener { clickListener.onDishClick(dishesList[position]) }
     }
@@ -35,19 +35,19 @@ class AllDishesAdapter(private val clickListener: DishClickListener) :
 
     interface DishClickListener {
         fun onDishClick(dish: Dish)
-        fun onFavoriteToggleClick(dish: Dish)
+        fun onDishFavoriteToggleClick(dish: Dish)
     }
 }
 
-class DishesViewHolder(
+class AvailableDishesViewHolder(
     private val binding: DishItemBinding,
-    private val clickListener: AllDishesAdapter.DishClickListener
+    private val clickListener: AvailableDishesAdapter.DishClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(dish: Dish) {
         with(binding) {
             dishName.text = dish.name
             favoriteDish.setImageDrawable(getFavoriteToggleDrawable(dish.inFavorite))
-            favoriteDish.setOnClickListener { clickListener.onFavoriteToggleClick(dish) }
+            favoriteDish.setOnClickListener { clickListener.onDishFavoriteToggleClick(dish) }
         }
     }
 
