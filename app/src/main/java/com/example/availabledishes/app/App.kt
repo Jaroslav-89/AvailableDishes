@@ -2,10 +2,10 @@ package com.example.availabledishes.app
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.example.availabledishes.di.dataModule
-import com.example.availabledishes.di.interactorModule
-import com.example.availabledishes.di.repositoryModule
-import com.example.availabledishes.di.viewModelModule
+import com.example.availabledishes.common.di.dataModule
+import com.example.availabledishes.common.di.interactorModule
+import com.example.availabledishes.common.di.repositoryModule
+import com.example.availabledishes.common.di.viewModelModule
 import com.example.availabledishes.dishes_bottom_nav.data.storage.AllDishes
 import com.example.availabledishes.products_bottom_nav.data.storage.AllProducts
 import com.google.gson.Gson

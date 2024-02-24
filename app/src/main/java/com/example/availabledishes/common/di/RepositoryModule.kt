@@ -1,4 +1,4 @@
-package com.example.availabledishes.di
+package com.example.availabledishes.common.di
 
 import com.example.availabledishes.dishes_bottom_nav.data.DishesRepositoryImpl
 import com.example.availabledishes.dishes_bottom_nav.domain.api.DishesRepository

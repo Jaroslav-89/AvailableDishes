@@ -15,12 +15,14 @@ import com.example.availabledishes.products_bottom_nav.ui.add_products.fragment.
 import com.example.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import com.example.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
 import com.example.availabledishes.products_bottom_nav.ui.my_products.view_model.MyProductsViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyProductsFragment : Fragment() {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
+    lateinit var confirmDialog: MaterialAlertDialogBuilder
     private val viewModel: MyProductsViewModel by viewModel()
     private var _binding: FragmentMyProductsBinding? = null
     private val binding get() = _binding!!
@@ -72,22 +74,25 @@ class MyProductsFragment : Fragment() {
             renderState(it)
         }
 
+        setExitConfirmDialog()
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (backPressedTime + 2000 > System.currentTimeMillis()) {
-                        backToast.cancel()
-                        requireActivity().finish()
-                        return
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            requireContext()?.getString(R.string.double_back),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    backPressedTime = System.currentTimeMillis()
+                    confirmDialog.show()
+//                    if (backPressedTime + 2000 > System.currentTimeMillis()) {
+//                        backToast.cancel()
+//                        requireActivity().finish()
+//                        return
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            requireContext()?.getString(R.string.double_back),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                    backPressedTime = System.currentTimeMillis()
                 }
             })
     }
@@ -106,6 +111,18 @@ class MyProductsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setExitConfirmDialog(){
+        confirmDialog = MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog)
+            .setTitle("Закрыть приложение?")
+            .setNeutralButton("Отмена") { dialog, which ->
+                // ничего не делаем
+            }.setNegativeButton("Нет") { dialog, which ->
+
+            }.setPositiveButton("Да") { dialog, which ->
+                requireActivity().finish()
+            }
     }
 
     companion object {

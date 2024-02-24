@@ -152,10 +152,10 @@ class DetailProductFragment : Fragment() {
 
         if (inFavorite == null || !inFavorite) {
             binding.needToBuy.visibility = View.GONE
-            return context?.getDrawable(R.drawable.ic_inactive_favorite_detail_product)
+            return requireContext().getDrawable(R.drawable.ic_inactive_favorite_detail_product)
         } else {
             binding.needToBuy.visibility = View.VISIBLE
-            return context?.getDrawable(R.drawable.ic_active_favorite_detail_product)
+            return requireContext().getDrawable(R.drawable.ic_active_favorite_detail_product)
         }
     }
 

@@ -44,6 +44,7 @@ class MyProductViewHolder(
     private val binding: MyProductItemBinding,
     private val clickListener: MyProductsAdapter.MyProductClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(product: Product) {
         with(binding) {
             productName.text = product.name

@@ -1,4 +1,4 @@
-package com.example.availabledishes.di
+package com.example.availabledishes.common.di
 
 import com.example.availabledishes.dishes_bottom_nav.ui.detail_dish.view_model.DetailDishViewModel
 import com.example.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AllDishesViewModel
