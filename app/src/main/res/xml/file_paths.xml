@@ -2,6 +2,6 @@
 <paths>
     <external-path
         name="my_images"
-        path="Android/data/com.example.availabledishes/files/Pictures" />
+        path="Android/data/com.jaroapps.availabledishes/files/Pictures" />
     <!-- другие пути... -->
 </paths>
