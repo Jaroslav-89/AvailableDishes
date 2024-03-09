@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentAddProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
@@ -51,7 +52,7 @@ class AddProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvProducts.adapter = adapter
+        setAdapter()
 
         viewModel.getAllProductsList()
 
@@ -78,6 +79,14 @@ class AddProductsFragment : Fragment() {
         }
     }
 
+    private fun setAdapter() {
+        binding.rvProducts.adapter = adapter
+        val itemAnimator = binding.rvProducts.itemAnimator
+        if (itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
+    }
+
     private fun setSearchQueryChangeListener() {
         binding.productSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -92,13 +101,7 @@ class AddProductsFragment : Fragment() {
         })
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.getAllProductsList()
-//    }
-
     private fun renderState(productsList: List<Product>) {
-        adapter.setProductsList(emptyList())
         val resultProductList = productsList.filter { product ->
             product.name.lowercase(Locale.ROOT).contains(queryText.lowercase())
         }.toMutableList()

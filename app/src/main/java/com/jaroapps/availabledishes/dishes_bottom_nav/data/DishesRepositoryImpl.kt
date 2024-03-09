@@ -8,6 +8,8 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.api.DishesRepositor
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 
 class DishesRepositoryImpl(
@@ -22,8 +24,7 @@ class DishesRepositoryImpl(
 
     override suspend fun changeDish(dishForChange: Dish, newDish: Dish) {
         if (dishForChange.name != newDish.name) {
-            dataBase.dishDao().deleteDish(dishForChange.name)
-            dataBase.dishDao().upsertDish(dishDbConvertor.map(newDish))
+            dataBase.dishDao().changeDishWithName(dishForChange.name, dishDbConvertor.map(newDish))
         } else {
             dataBase.dishDao().upsertDish(dishDbConvertor.map(newDish))
         }
@@ -90,12 +91,23 @@ class DishesRepositoryImpl(
     override suspend fun getAvailableDishes(): List<Dish> {
         val allDishes = dishDbConvertor.mapList(dataBase.dishDao().getAllDish())
         val myProductsStrList = mutableListOf<String>()
-        val myProducts = productDbConvertor.mapList(dataBase.productDao().getMyProducts())
-        myProducts.forEach { product -> myProductsStrList.add(product.name) }
+        var myProducts = emptyList<Product>()
+        var availableDishes = emptyList<Dish>()
 
-        val availableDishes = allDishes.filter { dish ->
-            myProductsStrList.containsAll(dish.ingredients)
+        dataBase.productDao().getMyProducts().collect() {
+            myProducts = productDbConvertor.mapList(it)
+            myProducts.forEach { product -> myProductsStrList.add(product.name) }
+            availableDishes = allDishes.filter { dish ->
+                myProductsStrList.containsAll(dish.ingredients)
+            }
         }
+
+//        val myProducts = productDbConvertor.mapList(dataBase.productDao().getMyProducts())
+//        myProducts.forEach { product -> myProductsStrList.add(product.name) }
+
+//        val availableDishes = allDishes.filter { dish ->
+//            myProductsStrList.containsAll(dish.ingredients)
+//        }
         return availableDishes
     }
 

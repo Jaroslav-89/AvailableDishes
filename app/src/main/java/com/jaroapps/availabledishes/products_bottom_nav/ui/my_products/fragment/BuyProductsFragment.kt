@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentBuyProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
@@ -54,7 +55,7 @@ class BuyProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buyProductsRv.adapter = adapter
+        setAdapter()
 
         viewModel.getBuyProductsList()
 
@@ -82,10 +83,16 @@ class BuyProductsFragment : Fragment() {
             })
     }
 
+    private fun setAdapter() {
+        binding.buyProductsRv.adapter = adapter
+        val itemAnimator = binding.buyProductsRv.itemAnimator
+        if(itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
+    }
+
     private fun renderState(productsList: List<Product>) {
-        adapter.setProductsList(emptyList())
         adapter.setProductsList(productsList)
-        adapter.notifyDataSetChanged()
     }
 
     override fun onResume() {

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.jaroapps.availabledishes.common.data.db.entity.TagEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TagDao {
@@ -11,7 +12,7 @@ interface TagDao {
     suspend fun upsertTag(tagEntity: TagEntity)
 
     @Query("SELECT * FROM tag_table WHERE type = :type")
-    suspend fun getAllProductTag(type: String = PRODUCT): List<TagEntity>
+    fun getAllProductTag(type: String = PRODUCT): Flow<List<TagEntity>>
 
     @Query("SELECT * FROM tag_table WHERE name = :name AND type = :type LIMIT 1")
     suspend fun getProductTagByName(name: String, type: String = PRODUCT): TagEntity

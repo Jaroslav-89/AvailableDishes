@@ -3,8 +3,11 @@ package com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.adapter
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaroapps.availabledishes.R
+import com.jaroapps.availabledishes.common.ui.adapters.ProductsDiffCallback
 import com.jaroapps.availabledishes.databinding.ProductItemBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 
@@ -13,9 +16,12 @@ class ProductsAdapter(private val clickListener: ProductClickListener) :
 
     private var productsList = emptyList<Product>()
 
-    fun setProductsList(newList: List<Product>) {
+    fun setProductsList(
+        newList: List<Product>
+    ) {
+        val diffResult = DiffUtil.calculateDiff(ProductsDiffCallback(productsList, newList))
         productsList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -53,8 +59,9 @@ class ProductViewHolder(
     }
 
     private fun getFavoriteToggleDrawable(inFavorite: Boolean?): Drawable? {
-        return itemView.context.getDrawable(
-            if (inFavorite == null || !inFavorite) R.drawable.ic_inactive_favorite else R.drawable.ic_active_favorite
-        )
+        return if (inFavorite == null || !inFavorite)
+            getDrawable(itemView.context, R.drawable.ic_inactive_favorite)
+        else
+            getDrawable(itemView.context, R.drawable.ic_active_favorite)
     }
 }

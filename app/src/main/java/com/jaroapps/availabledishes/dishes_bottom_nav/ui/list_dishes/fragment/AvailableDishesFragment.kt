@@ -80,10 +80,8 @@ class AvailableDishesFragment : Fragment() {
     }
 
     private fun renderState(dishesList: List<Dish>) {
-
         adapter.setDishesList(emptyList())
         adapter.setDishesList(dishesList)
-        adapter.notifyDataSetChanged()
     }
 
     override fun onResume() {

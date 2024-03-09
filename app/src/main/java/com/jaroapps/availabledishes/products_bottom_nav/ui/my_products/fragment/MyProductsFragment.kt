@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentMyProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
@@ -51,6 +52,10 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
 
     private fun setAdapter() {
         binding.myProductsRv.adapter = adapter
+        val itemAnimator = binding.myProductsRv.itemAnimator
+        if(itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
+        }
     }
 
     private fun getProductList() {

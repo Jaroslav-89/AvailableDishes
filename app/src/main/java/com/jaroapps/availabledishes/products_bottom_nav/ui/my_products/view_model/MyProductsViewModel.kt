@@ -18,25 +18,26 @@ class MyProductsViewModel(
 
     fun getMyProductsList() {
         viewModelScope.launch {
-            renderState(productsInteractor.getMyProductsList())
+            productsInteractor.getMyProductsList().collect() {
+                renderState(it)
+            }
         }
     }
 
     fun toggleFavorite(product: Product) {
         viewModelScope.launch {
             productsInteractor.toggleFavorite(product)
-            renderState(productsInteractor.getMyProductsList())
         }
     }
 
     fun toggleBuy(product: Product) {
         viewModelScope.launch {
             productsInteractor.toggleBuy(product)
-            renderState(productsInteractor.getMyProductsList())
         }
     }
 
     private fun renderState(productsList: List<Product>) {
-        _state.postValue(productsList)
+        _state.postValue(productsList.sortedBy { it.name.lowercase() }
+            .sortedBy { it.needToBuy })
     }
 }

@@ -56,7 +56,9 @@ class EditCreateProductViewModel(
 
     fun getAvailableProductTags() {
         viewModelScope.launch {
-            _allTags.postValue(productsInteractor.getAllProductTags())
+            productsInteractor.getAllProductTags().collect() {
+                _allTags.postValue(it)
+            }
         }
     }
 

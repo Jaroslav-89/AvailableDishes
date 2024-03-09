@@ -152,7 +152,7 @@ class EditeCreateDishFragment : Fragment() {
     }
 
     private fun renderQueryProductsList(queryProducts: List<Product>) {
-        rv.setTagsList(tagList)
+       // rv.setTagsList(tagList)
     }
 
     private fun setListeners() {

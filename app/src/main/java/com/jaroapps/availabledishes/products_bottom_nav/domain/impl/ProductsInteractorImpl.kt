@@ -13,7 +13,7 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         return repository.getAllProductsList()
     }
 
-    override suspend fun getMyProductsList(): List<Product> {
+    override fun getMyProductsList(): Flow<List<Product>> {
         return repository.getMyProductsList()
     }
 
@@ -29,7 +29,7 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         return repository.getProductTagList(tags)
     }
 
-    override suspend fun getAllProductTags(): List<Tag> {
+    override fun getAllProductTags(): Flow<List<Tag>> {
         return repository.getAllProductTags()
     }
 

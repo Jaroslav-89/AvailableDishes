@@ -13,11 +13,11 @@ interface ProductsRepository {
     suspend fun toggleDishFavorite(dish: Dish)
     suspend fun getAllProductsList(): List<Product>
     suspend fun deleteProduct(product: Product)
-    suspend fun getMyProductsList(): List<Product>
+    fun getMyProductsList(): Flow<List<Product>>
     suspend fun getBuyProductsList(): List<Product>
     suspend fun getProductByName(productName: String): Product
     fun getProductTagList(tags: List<String>): Flow<List<Tag>>
-    suspend fun getAllProductTags(): List<Tag>
+    fun getAllProductTags(): Flow<List<Tag>>
     suspend fun getAllDishesWithThisProduct(product: Product): List<Dish>
     suspend fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean
 }

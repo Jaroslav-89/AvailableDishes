@@ -103,7 +103,10 @@ class DetailDishFragment : Fragment() {
     private fun setClickListeners() {
         with(binding) {
             back.setOnClickListener {
-                findNavController().navigateUp()
+                findNavController().navigate(
+                    R.id.action_detailDishFragment_to_dishesFragment
+                )
+            //findNavController().navigateUp()
             }
 
             favorite.setOnClickListener {

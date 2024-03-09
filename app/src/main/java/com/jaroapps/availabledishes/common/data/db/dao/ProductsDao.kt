@@ -5,6 +5,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.jaroapps.availabledishes.products_bottom_nav.data.entity.ProductEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductsDao {
@@ -12,7 +13,7 @@ interface ProductsDao {
     suspend fun upsertProduct(productEntity: ProductEntity)
 
     @Transaction
-    suspend fun changeProductWitsName(productForDelete: String, newProduct: ProductEntity) {
+    suspend fun changeProductWithName(productForDelete: String, newProduct: ProductEntity) {
         deleteProduct(productForDelete)
         upsertProduct(newProduct)
     }
@@ -27,11 +28,11 @@ interface ProductsDao {
     suspend fun deleteProduct(name: String)
 
     @Query("SELECT * FROM product_table WHERE inFavorite = 1")
-    suspend fun getMyProducts(): List<ProductEntity>
+    fun getMyProducts(): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM product_table WHERE needToBuy = 1")
     suspend fun getBuyProducts(): List<ProductEntity>
 
-    @Query("DELETE FROM product_table WHERE name LIKE :query LIMIT 5")
+    @Query("SELECT * FROM product_table WHERE name LIKE :query LIMIT 1")
     suspend fun getQueryProducts(query: String): List<ProductEntity>
 }

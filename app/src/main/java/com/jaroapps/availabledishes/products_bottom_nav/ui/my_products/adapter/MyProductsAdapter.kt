@@ -4,8 +4,10 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getDrawable
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaroapps.availabledishes.R
+import com.jaroapps.availabledishes.common.ui.adapters.ProductsDiffCallback
 import com.jaroapps.availabledishes.databinding.MyProductItemBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 
@@ -14,9 +16,12 @@ class MyProductsAdapter(private val clickListener: MyProductClickListener) :
 
     private var myProductsList = emptyList<Product>()
 
-    fun setProductsList(newList: List<Product>) {
+    fun setProductsList(
+        newList: List<Product>
+    ) {
+        val diffResult = DiffUtil.calculateDiff(ProductsDiffCallback(myProductsList, newList))
         myProductsList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyProductViewHolder {

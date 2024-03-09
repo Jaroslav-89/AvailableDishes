@@ -15,7 +15,7 @@ interface DishesDao {
     suspend fun getAllDish(): List<DishEntity>
 
     @Transaction
-    suspend fun changeDishWitsName(dishForDelete: String, newDish: DishEntity) {
+    suspend fun changeDishWithName(dishForDelete: String, newDish: DishEntity) {
         deleteDish(dishForDelete)
         upsertDish(newDish)
     }
