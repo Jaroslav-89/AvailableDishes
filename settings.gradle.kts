@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AvailableDishes"
 include(":app")
- 
+include(":productapi")

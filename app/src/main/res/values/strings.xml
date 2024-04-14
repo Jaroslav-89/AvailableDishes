@@ -22,7 +22,7 @@
     <string name="create_dish_with_product">Создать рецепт с этиим продуктом</string>
     <string name="add_tag_screen_product_header">Добавить тег</string>
     <!--    toast_message-->
-    <string name="empty_product_name">Введите название товара</string>
+    <string name="empty_product_name">Введите название продукта</string>
     <string name="already_exists">Такой продукт уже существует. \nВведите другое название.</string>
     <string name="double_back">Нажмите еще раз чтобы выйти</string>
     <!--    alert_dialog_message-->
@@ -35,7 +35,8 @@
     <string name="message_delete_img">Удалить картинку продукта?</string>
     <string name="answer_positive">Да</string>
     <string name="answer_negative">Нет</string>
-
+    <string name="take_picture_alert_dialog">Сделать фото</string>
+    <string name="pick_image_from_gallery_alert_dialog">Выбрать из галереи</string>
     <!--    dishes_bottom_nav-->
     <string name="all_dishes">Рецепты</string>
     <string name="available_dishes">Можно приготовить</string>
@@ -46,4 +47,10 @@
     <string name="favorite_dish">Добавить рецепт в избранное</string>
     <string name="recipe_product">Рецепт</string>
     <string name="add_products_in_recipe">Добавить продукты в рецепт</string>
+    <string name="create_new_dish_heading">Создание рецепта</string>
+    <string name="edit_dish_heading">Редактирование рецепта</string>
+    <string name="empty_dish_name">Введите название блюда</string>
+    <string name="already_exists_dish">Такое блюдо уже существует. \nВведите другое название.</string>
+    <string name="message_delete_dish">Удалить рецепт из приложения?</string>
+    <string name="message_delete_img_dish">Удалить картинку блюда?</string>
 </resources>

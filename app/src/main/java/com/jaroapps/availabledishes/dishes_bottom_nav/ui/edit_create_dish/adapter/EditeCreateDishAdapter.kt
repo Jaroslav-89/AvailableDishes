@@ -1,0 +1,3 @@
+package com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.adapter
+
+class EditeCreateDishAdapter

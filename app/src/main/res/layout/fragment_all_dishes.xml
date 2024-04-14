@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dishes_bottom_nav.ui.list_dishes.fragment.AllDishes">
+    tools:context=".dishes_bottom_nav.ui.list_dishes.fragment.AllDishesFragment">
 
     <android.widget.SearchView
         android:id="@+id/dishSearch"
