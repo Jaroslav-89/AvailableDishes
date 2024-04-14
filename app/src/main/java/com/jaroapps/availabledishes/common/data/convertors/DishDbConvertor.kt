@@ -3,7 +3,7 @@ package com.jaroapps.availabledishes.common.data.convertors
 import com.jaroapps.availabledishes.dishes_bottom_nav.data.entity.DishEntity
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 
-class DishDbConvertor {
+object DishDbConvertor {
     fun map(dish: Dish): DishEntity {
         return DishEntity(
             name = dish.name,

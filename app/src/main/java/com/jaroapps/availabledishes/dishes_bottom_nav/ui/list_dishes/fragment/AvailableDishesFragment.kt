@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentAvailableDishesBinding
@@ -14,13 +15,14 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter.AllDishesAdapter
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AvailableDishesViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AvailableDishesFragment : Fragment() {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
-    private val viewModel: AvailableDishesViewModel by viewModel()
+    private val viewModel: AvailableDishesViewModel by viewModels()
     private var _binding: FragmentAvailableDishesBinding? = null
     private val binding get() = _binding!!
     private val adapter = AllDishesAdapter(

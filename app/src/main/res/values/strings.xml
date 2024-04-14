@@ -35,7 +35,8 @@
     <string name="message_delete_img">Удалить картинку продукта?</string>
     <string name="answer_positive">Да</string>
     <string name="answer_negative">Нет</string>
-
+    <string name="take_picture_alert_dialog">Сделать фото</string>
+    <string name="pick_image_from_gallery_alert_dialog">Выбрать из галереи</string>
     <!--    dishes_bottom_nav-->
     <string name="all_dishes">Рецепты</string>
     <string name="available_dishes">Можно приготовить</string>

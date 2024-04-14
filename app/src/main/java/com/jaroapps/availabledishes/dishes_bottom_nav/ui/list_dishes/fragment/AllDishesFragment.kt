@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentAllDishesBinding
@@ -16,14 +17,14 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.De
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.fragment.EditeCreateDishFragment
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter.AllDishesAdapter
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.view_model.AllDishesViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllDishesFragment : Fragment() {
 
     private var backPressedTime: Long = 0
-    private var queryText = ""
     private lateinit var backToast: Toast
-    private val viewModel: AllDishesViewModel by viewModel()
+    private val viewModel: AllDishesViewModel by viewModels()
     private var _binding: FragmentAllDishesBinding? = null
     private val binding get() = _binding!!
     private val adapter = AllDishesAdapter(

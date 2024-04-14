@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
@@ -16,12 +17,13 @@ import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.adapter.
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@AndroidEntryPoint
 class AddProductsFragment : Fragment() {
 
-    private val viewModel: AddProductsViewModel by viewModel()
+    private val viewModel: AddProductsViewModel by viewModels()
     private var queryText = ""
 
     private lateinit var binding: FragmentAddProductsBinding

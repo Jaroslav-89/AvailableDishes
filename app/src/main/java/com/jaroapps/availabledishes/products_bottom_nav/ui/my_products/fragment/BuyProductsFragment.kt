@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
@@ -15,13 +16,14 @@ import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.view_model.BuyProductsViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BuyProductsFragment : Fragment() {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
-    private val viewModel: BuyProductsViewModel by viewModel()
+    private val viewModel: BuyProductsViewModel by viewModels()
     private var _binding: FragmentBuyProductsBinding? = null
     private val binding get() = _binding!!
     private val adapter = MyProductsAdapter(
@@ -86,7 +88,7 @@ class BuyProductsFragment : Fragment() {
     private fun setAdapter() {
         binding.buyProductsRv.adapter = adapter
         val itemAnimator = binding.buyProductsRv.itemAnimator
-        if(itemAnimator is DefaultItemAnimator) {
+        if (itemAnimator is DefaultItemAnimator) {
             itemAnimator.supportsChangeAnimations = false
         }
     }

@@ -3,6 +3,7 @@ package com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
@@ -12,11 +13,12 @@ import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.view_model.MyProductsViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
 
-    private val viewModel: MyProductsViewModel by viewModel()
+    private val viewModel: MyProductsViewModel by viewModels()
     private var _binding: FragmentMyProductsBinding? = null
     private val binding get() = _binding!!
     private val adapter = MyProductsAdapter(
@@ -53,7 +55,7 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
     private fun setAdapter() {
         binding.myProductsRv.adapter = adapter
         val itemAnimator = binding.myProductsRv.itemAnimator
-        if(itemAnimator is DefaultItemAnimator) {
+        if (itemAnimator is DefaultItemAnimator) {
             itemAnimator.supportsChangeAnimations = false
         }
     }

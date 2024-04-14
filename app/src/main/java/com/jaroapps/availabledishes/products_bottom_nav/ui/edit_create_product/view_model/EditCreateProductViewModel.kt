@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.jaroapps.availabledishes.common.domain.model.Tag
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsInteractor
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditCreateProductViewModel(
+@HiltViewModel
+class EditCreateProductViewModel @Inject constructor(
     private val productsInteractor: ProductsInteractor
 ) : ViewModel() {
 

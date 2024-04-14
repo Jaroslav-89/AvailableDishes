@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentProductsBinding
-import com.google.android.material.tabs.TabLayoutMediator
 
 class ProductsFragment : Fragment() {
 

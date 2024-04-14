@@ -3,7 +3,7 @@ package com.jaroapps.availabledishes.common.data.convertors
 import com.jaroapps.availabledishes.common.data.db.entity.TagEntity
 import com.jaroapps.availabledishes.common.domain.model.Tag
 
-class TagDbConvertor {
+object TagDbConvertor {
     fun map(tag: Tag): TagEntity {
         return TagEntity(
             name = tag.name,

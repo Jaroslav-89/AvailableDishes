@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -25,11 +26,12 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.fragme
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.AllDishesFragment
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailDishFragment : Fragment() {
 
-    private val viewModel: DetailDishViewModel by viewModel()
+    private val viewModel: DetailDishViewModel by viewModels()
     private lateinit var binding: FragmentDetailDishBinding
     private var dishName = ""
     private var productsListVisible = false
@@ -106,12 +108,12 @@ class DetailDishFragment : Fragment() {
                 findNavController().navigate(
                     R.id.action_detailDishFragment_to_dishesFragment
                 )
-            //findNavController().navigateUp()
+                //findNavController().navigateUp()
             }
 
             favorite.setOnClickListener {
                 viewModel.toggleFavorite()
-              //  viewModel.getDishByName(requireArguments().getString(ARGS_DISH)!!)
+                //  viewModel.getDishByName(requireArguments().getString(ARGS_DISH)!!)
             }
 
             editDish.setOnClickListener {

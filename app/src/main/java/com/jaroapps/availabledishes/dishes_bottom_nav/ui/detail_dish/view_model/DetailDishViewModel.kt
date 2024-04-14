@@ -8,9 +8,12 @@ import com.jaroapps.availabledishes.common.domain.model.Tag
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.api.DishesInteractor
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailDishViewModel(
+@HiltViewModel
+class DetailDishViewModel @Inject constructor(
     private val dishesInteractor: DishesInteractor
 ) : ViewModel() {
 

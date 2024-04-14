@@ -112,6 +112,8 @@
         tools:layout="@layout/fragment_edit_create_dish" >
         <action
             android:id="@+id/action_editeCreateDishFragment_to_detailDishFragment"
+            app:popUpTo="@id/detailDishFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/detailDishFragment" />
     </fragment>
 </navigation>

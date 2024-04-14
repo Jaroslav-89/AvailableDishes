@@ -6,7 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.ActivityRootBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RootActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRootBinding

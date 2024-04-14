@@ -3,7 +3,7 @@ package com.jaroapps.availabledishes.common.data.convertors
 import com.jaroapps.availabledishes.products_bottom_nav.data.entity.ProductEntity
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 
-class ProductDbConvertor {
+object ProductDbConvertor {
     fun map(product: Product): ProductEntity {
         return ProductEntity(
             name = product.name,

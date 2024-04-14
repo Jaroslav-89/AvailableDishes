@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.api.DishesInteractor
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AllDishesViewModel(
+@HiltViewModel
+class AllDishesViewModel @Inject constructor(
     private val dishesInteractor: DishesInteractor
 ) : ViewModel() {
 

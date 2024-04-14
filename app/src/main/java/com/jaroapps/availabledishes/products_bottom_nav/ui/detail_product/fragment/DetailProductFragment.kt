@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -25,11 +26,12 @@ import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.adapte
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.adapter.DetailProductTagAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.view_model.DetailProductViewModel
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailProductFragment : Fragment() {
 
-    private val viewModel: DetailProductViewModel by viewModel()
+    private val viewModel: DetailProductViewModel by viewModels()
     private lateinit var binding: FragmentDetailProductBinding
     private var availableDishesVisible = false
     private var productName = ""
@@ -119,7 +121,7 @@ class DetailProductFragment : Fragment() {
                     arrow.setImageDrawable(getDrawable(requireContext(), R.drawable.ic_arrow_up))
                     availableDishesGroup.visibility = View.VISIBLE
                     placeHolderRecyclerView.visibility = View.GONE
-                  //  viewModel.getAllDishesWithThisProduct()
+                    //  viewModel.getAllDishesWithThisProduct()
                 } else {
                     availableDishesVisible = false
                     arrow.setImageDrawable(getDrawable(requireContext(), R.drawable.ic_arrow_down))

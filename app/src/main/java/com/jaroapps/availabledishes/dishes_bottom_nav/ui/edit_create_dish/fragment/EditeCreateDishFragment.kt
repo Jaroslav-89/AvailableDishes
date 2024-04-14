@@ -1,15 +1,12 @@
 package com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +14,15 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -38,15 +38,16 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.view_model.EditeCreateDishViewModel
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
 import java.util.Date
 import java.util.Locale
 
+@AndroidEntryPoint
 class EditeCreateDishFragment : Fragment() {
 
-    private val viewModel: EditeCreateDishViewModel by viewModel()
+    private val viewModel: EditeCreateDishViewModel by viewModels()
     private lateinit var binding: FragmentEditCreateDishBinding
     private var imageUri: Uri? = null
     private var dishName = ""
@@ -73,6 +74,21 @@ class EditeCreateDishFragment : Fragment() {
             }
         }
     )
+
+    private val takePhotoLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                viewModel.editPlaceHolderImg(imageUri.toString())
+            }
+        }
+
+    private val imagePicker =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                imageUri = uri
+                viewModel.editPlaceHolderImg(imageUri.toString())
+            }
+        }
 
     private val staggeredGridLayoutManager = StaggeredGridLayoutManager(
         3, // количество столбцов или строк
@@ -122,15 +138,15 @@ class EditeCreateDishFragment : Fragment() {
     }
 
     private fun setAdapters() {
-        binding.tagsRv.layoutManager = staggeredGridLayoutManager
+        binding.tagsRv.layoutManager = StaggeredGridLayoutManager(3, RecyclerView.VERTICAL)
         binding.tagsRv.adapter = tagAdapter
-        binding.addTagRv.layoutManager = staggeredGridLM
+        binding.addTagRv.layoutManager = StaggeredGridLayoutManager(3, RecyclerView.VERTICAL)
         binding.addTagRv.adapter = addTagAdapter
     }
 
     private fun renderState(dish: Dish) {
         with(binding) {
-            setImgFromPlaceHolder(dish.imgUrl.toUri())
+            setImgFromPlaceHolder(dish.imgUrl)
             nameDishEt.setText(dish.name)
             nameDishEt.setSelection(nameDishEt.text.length)
             descriptionDishEt.setText(dish.description)
@@ -152,7 +168,7 @@ class EditeCreateDishFragment : Fragment() {
     }
 
     private fun renderQueryProductsList(queryProducts: List<Product>) {
-       // rv.setTagsList(tagList)
+        // rv.setTagsList(tagList)
     }
 
     private fun setListeners() {
@@ -179,7 +195,7 @@ class EditeCreateDishFragment : Fragment() {
 
             addDishImg.setOnClickListener {
                 saveNameAndDescriptionInViewModel()
-                dispatchPickImageIntent()
+                showImageSourceDialog()
             }
 
             deleteImgBtn.setOnClickListener {
@@ -259,6 +275,78 @@ class EditeCreateDishFragment : Fragment() {
         keyboard.hideSoftInputFromWindow(binding.descriptionDishEt.windowToken, 0)
     }
 
+    private fun showImageSourceDialog() {
+        // Создаем диалоговое окно для выбора между камерой и галереей
+        val options = arrayOf(
+            requireContext().getString(R.string.take_picture_alert_dialog),
+            requireContext().getString(R.string.pick_image_from_gallery_alert_dialog)
+        )
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setItems(options) { _, which ->
+            when (which) {
+                0 -> takePicture()
+                1 -> pickImageFromGallery()
+            }
+        }
+        builder.show()
+    }
+
+    private fun takePicture() {
+        // Создаем файл и Uri для сохранения фотографии
+        imageUri = createImageUri()
+        imageUri?.let { uri ->
+            takePhotoLauncher.launch(uri)
+        }
+    }
+
+    private fun createImageUri(): Uri? {
+        // Создаем файловое имя с помощью текущего времени, чтобы избежать дублирования
+        val timeStamp: String =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val imageFileName = "JPEG_${timeStamp}_"
+        // Получаем хранилище для фотографий
+        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return try {
+            // Создаем файл изображения
+            val file = File.createTempFile(imageFileName, ".jpg", storageDir).apply {
+                imageUri = Uri.fromFile(this)
+            }
+            //   Получаем URI для файла с помощью FileProvider
+            FileProvider.getUriForFile(
+                requireContext(),
+                FILE_PROVIDER,
+                file
+            )
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    private fun pickImageFromGallery() {
+        // Запускаем выбор изображения из галереи
+        imagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private fun setImgFromPlaceHolder(uri: String) {
+        if (uri.isNotBlank()) {
+            binding.deleteImgBtn.visibility = View.VISIBLE
+        } else {
+            binding.deleteImgBtn.visibility = View.GONE
+        }
+        val newUri = uri.toUri()
+        Glide.with(this)
+            .load(newUri)
+            .placeholder(R.drawable.place_holder_dish)
+            .transform(
+                CenterCrop(),
+                RoundedCorners(
+                    resources.getDimensionPixelSize(R.dimen.corner_radius)
+                ),
+            )
+            .into(binding.dishImage)
+    }
+
     private fun saveDishAndRedirect(nameAvailable: Boolean) {
         if (nameAvailable) {
             if (dishName.isBlank()) {
@@ -285,79 +373,6 @@ class EditeCreateDishFragment : Fragment() {
             getDrawable(requireContext(), R.drawable.ic_inactive_favorite)
         else
             getDrawable(requireContext(), R.drawable.ic_active_favorite)
-    }
-
-    private fun setImgFromPlaceHolder(uri: Uri?) {
-        if (uri != null) {
-            binding.deleteImgBtn.visibility = View.VISIBLE
-        } else {
-            binding.deleteImgBtn.visibility = View.GONE
-        }
-
-        Glide.with(this)
-            .load(uri)
-            .placeholder(R.drawable.place_holder_dish)
-            .transform(
-                CenterCrop(),
-                RoundedCorners(
-                    resources.getDimensionPixelSize(R.dimen.corner_radius)
-                ),
-            )
-            .into(binding.dishImage)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_PICK) {
-            imageUri = data?.data ?: imageUri
-            viewModel.editPlaceHolderImg(imageUri.toString())
-        }
-    }
-
-    private fun dispatchPickImageIntent() {
-        // Create an intent with action as ACTION_PICK
-        val pickImageIntent =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-                // Set the type as image
-                type = "image/*"
-            }
-
-        // Create an intent with action as ACTION_IMAGE_CAPTURE
-        val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-            // Ensure that there's a camera activity to handle the intent
-            resolveActivity(requireContext().packageManager)?.also {
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    null
-                }
-
-                photoFile?.also {
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                        requireContext(),
-                        "com.jaroapps.availabledishes.fileprovider",
-                        it
-                    )
-                    putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                }
-            }
-        }
-
-        // Start the intent to get the image
-        val chooser = Intent.createChooser(pickImageIntent, "Select or take a new picture")
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePhotoIntent))
-        startActivityForResult(chooser, REQUEST_IMAGE_PICK)
-    }
-
-    private fun createImageFile(): File {
-        val timeStamp: String =
-            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            imageUri = Uri.fromFile(this)
-        }
     }
 
     private fun alertDialog(state: String) {
@@ -448,9 +463,8 @@ class EditeCreateDishFragment : Fragment() {
     }
 
     companion object {
+        private const val FILE_PROVIDER = "com.jaroapps.availabledishes.fileprovider"
         private const val AVAILABLE_DISH = "new_dish"
-        private const val REQUEST_IMAGE_PICK = 2
-
         private const val DELETE_DISH = "delete_dish"
         private const val DELETE_IMG = "delete_img"
         private const val BACK = "back"
