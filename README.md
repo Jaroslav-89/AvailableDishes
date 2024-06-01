@@ -10,6 +10,7 @@
 - ViewBinding
 - RecyclerView
 - ViewPager
+- Glide
 - Bottom Navigation
 - Clean Architecture (MVVM)
 
