@@ -18,8 +18,8 @@ class DetailDishProductsAdapter(private val clickListener: ProductClickListener)
     fun setProductsList(newList: List<Product>) {
         productsList =
             newList.sortedBy { it.name.lowercase() }
-                .sortedByDescending { it.needToBuy == false || it.needToBuy == null }
-                .sortedByDescending { it.inFavorite == true }
+                .sortedByDescending { !it.needToBuy }
+                .sortedByDescending { it.inFavorite }
         notifyDataSetChanged()
     }
 
@@ -55,7 +55,7 @@ class DetailDishProductViewHolder(
             productName.text = product.name
             favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
             favorite.setOnClickListener { clickListener.onFavoriteToggleClick(product) }
-            if (product.inFavorite == true) {
+            if (product.inFavorite) {
                 needToBuy.visibility = View.VISIBLE
                 needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
                 needToBuy.setOnClickListener { clickListener.onBuyToggleClick(product) }
