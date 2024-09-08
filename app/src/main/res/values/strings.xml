@@ -3,6 +3,7 @@
     <string name="exit_alert">Нажмите еще раз для выхода</string>
     <string name="products_bottom_nav">Продукты</string>
     <string name="dishes_bottom_nav">Рецепты</string>
+    <string name="profile_bottom_nav">Профиль</string>
     <!--    products_bottom_nav-->
     <string name="my_products">Мои продукты</string>
     <string name="buy_products">Купить</string>

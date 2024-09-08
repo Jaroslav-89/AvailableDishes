@@ -3,8 +3,10 @@ package com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.adapter
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaroapps.availabledishes.R
+import com.jaroapps.availabledishes.common.ui.adapters.DishesDiffCallback
 import com.jaroapps.availabledishes.databinding.DishItemBinding
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 
@@ -14,8 +16,9 @@ class AllDishesAdapter(private val clickListener: DishClickListener) :
     private var dishesList = emptyList<Dish>()
 
     fun setDishesList(newList: List<Dish>) {
+        val diffResult = DiffUtil.calculateDiff(DishesDiffCallback(dishesList, newList))
         dishesList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishesViewHolder {

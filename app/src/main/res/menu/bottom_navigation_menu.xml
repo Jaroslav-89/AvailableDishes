@@ -9,4 +9,9 @@
         android:id="@+id/dishesFragment"
         android:icon="@drawable/ic_dishes_bottom_nav"
         android:title="@string/dishes_bottom_nav" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_dishes_bottom_nav"
+        android:title="@string/profile_bottom_nav" />
 </menu>
