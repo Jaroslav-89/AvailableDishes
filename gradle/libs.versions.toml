@@ -2,10 +2,10 @@
 github-glide = "4.16.0"
 hiltAndroid = "2.51"
 loggingInterceptor = "4.11.0"
-material = "1.11.0"
-navigation = "2.7.7"
-navigationFragmentKtx = "2.7.7"
-navigationUiKtx = "2.7.7"
+material = "1.12.0"
+navigation = "2.8.2"
+navigationFragmentKtx = "2.8.2"
+navigationUiKtx = "2.8.2"
 retrofit = "2.9.0"
 glide = "4.16.0"
 gson = "2.10.1"
@@ -38,15 +38,15 @@ staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
 # AndroidX
-androidX-core = "androidx.core:core-ktx:1.12.0"
-androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
-android-ksp = "com.google.devtools.ksp:symbol-processing-api:1.9.21-1.0.15"
+androidX-core = "androidx.core:core-ktx:1.13.1"
+androidX-appCompat = "androidx.appcompat:appcompat:1.7.0"
+android-ksp = "com.google.devtools.ksp:symbol-processing-api:1.9.22-1.0.16"
 
 # UI layer libraries
-ui-material = "com.google.android.material:material:1.12.0-alpha03"
+ui-material = "com.google.android.material:material:1.12.0"
 ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
-viewpager = "androidx.viewpager2:viewpager2:1.0.0"
+fragment-ktx = "androidx.fragment:fragment-ktx:1.8.4"
+viewpager = "androidx.viewpager2:viewpager2:1.1.0"
 
 # Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -75,8 +75,8 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRunti
 unitTests-junit = "junit:junit:4.13.2"
 
 # UI tests
-uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
-uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+uiTests-junitExt = "androidx.test.ext:junit:1.2.1"
+uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
 
 [bundles]
 [plugins]
