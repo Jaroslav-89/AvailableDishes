@@ -3,6 +3,8 @@
     <string name="exit_alert">Нажмите еще раз для выхода</string>
     <string name="products_bottom_nav">Продукты</string>
     <string name="dishes_bottom_nav">Рецепты</string>
+    <string name="notes_bottom_nav">Заметки</string>
+    <string name="assistant_bottom_nav">Ассистент </string>
     <string name="profile_bottom_nav">Профиль</string>
     <!--    products_bottom_nav-->
     <string name="my_products">Мои продукты</string>
@@ -54,4 +56,15 @@
     <string name="already_exists_dish">Такое блюдо уже существует. \nВведите другое название.</string>
     <string name="message_delete_dish">Удалить рецепт из приложения?</string>
     <string name="message_delete_img_dish">Удалить картинку блюда?</string>
+    <!--    notes_bottom_nav-->
+    <string name="all_refrigerators">Холодильники для заметок</string>
+    <string name="add_refrigerator">Добавить холодильник</string>
+    <string name="delete_refrigerator">Удалить холодильник</string>
+    <string name="add_new_person_bottom_sheet_tv">Вы можете добавлять других пользователей к этому списку заметок.
+        Для этого введите электронную почту Google аккаунта пользователя и нажмите кнопку Добавить.</string>
+    <string name="add_new_person_bottom_sheet_et">Email</string>
+    <string name="add_new_person_btn">Добавить</string>
+    <string name="note_et">Напишите вашу заметку...</string>
+    <string name="delete_note">Удалить заметку</string>
+
 </resources>

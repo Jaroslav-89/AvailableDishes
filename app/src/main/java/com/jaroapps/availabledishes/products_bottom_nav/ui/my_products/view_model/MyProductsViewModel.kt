@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jaroapps.availabledishes.products_bottom_nav.data.storage.AllProducts
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsInteractor
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,14 @@ class MyProductsViewModel @Inject constructor(
     private val _state = MutableLiveData<List<Product>>()
     val state: LiveData<List<Product>>
         get() = _state
+
+//    init {
+//        viewModelScope.launch {
+//            for (product in AllProducts.allProducts) {
+//                productsInteractor.createNewProduct(product)
+//            }
+//        }
+//    }
 
     fun getMyProductsList() {
         viewModelScope.launch {

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/headerGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_header_product_detail"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription=""
+            android:padding="18dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/headingRefrigeratorTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            tools:text="Редактировать холодильник" />
+
+        <ImageView
+            android:id="@+id/doneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:contentDescription=""
+            android:padding="10dp"
+            android:src="@drawable/ic_done_active" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/refrigeratorImage"
+        android:layout_width="180dp"
+        android:layout_height="320dp"
+        android:background="@color/place_holder_background"
+        android:scaleType="centerCrop"
+        android:layout_marginHorizontal="40dp"
+        android:src="@drawable/place_holder_product_new"
+        app:layout_constraintDimensionRatio="h,9:16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerGroup" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_create_delete_product_img"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/refrigeratorImage"
+        app:layout_constraintEnd_toEndOf="@+id/refrigeratorImage"
+        app:layout_constraintStart_toStartOf="@+id/refrigeratorImage"
+        app:layout_constraintTop_toTopOf="@+id/refrigeratorImage">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_create_delete_product_img">
+
+            <ImageView
+                android:id="@+id/addRefrigeratorImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription=""
+                android:padding="20dp"
+                android:src="@drawable/ic_product_img"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/deleteImgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription=""
+            android:padding="20dp"
+            android:src="@drawable/ic_delete"
+            android:visibility="gone"
+            app:tint="@color/delete_btn"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nameRefrigeratorTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/name_product"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/refrigeratorImage" />
+
+    <EditText
+        android:id="@+id/nameRefrigeratorEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:focusedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/nameRefrigeratorTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameRefrigeratorTv"
+        app:layout_constraintTop_toTopOf="@+id/nameRefrigeratorTv" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteRefrigeratorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="60dp"
+        android:backgroundTint="@color/delete_btn"
+        android:text="@string/delete_refrigerator"
+        android:visibility="gone"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_delete_new"
+        app:iconGravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameRefrigeratorTv"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

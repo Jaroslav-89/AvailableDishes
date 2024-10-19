@@ -33,4 +33,5 @@
     <color name="bg_create_delete_product_img">#601A1B22</color>
     <color name="bg_favorite_dish_img">#991A1B22</color>
     <color name="dark_blue">#3772E7</color>
+    <color name="bottom_sheet_swiper">#E6E8EB</color>
 </resources>

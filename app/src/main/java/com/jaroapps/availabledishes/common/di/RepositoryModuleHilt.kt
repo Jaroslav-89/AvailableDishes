@@ -5,6 +5,8 @@ import com.jaroapps.availabledishes.common.data.convertors.ProductDbConvertor
 import com.jaroapps.availabledishes.common.data.db.AppDataBase
 import com.jaroapps.availabledishes.dishes_bottom_nav.data.DishesRepositoryImpl
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.api.DishesRepository
+import com.jaroapps.availabledishes.notes_bottom_nav.data.NotesRepositoryImpl
+import com.jaroapps.availabledishes.notes_bottom_nav.domain.api.NotesRepository
 import com.jaroapps.availabledishes.products_bottom_nav.data.ProductsRepositoryImpl
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import dagger.Module
@@ -32,6 +34,15 @@ class RepositoryModuleHilt {
         dataBase: AppDataBase,
     ): DishesRepository =
         DishesRepositoryImpl(
+            dataBase,
+        )
+
+    @Provides
+    @Singleton
+    fun provideNotesRepository(
+        dataBase: AppDataBase,
+    ): NotesRepository =
+        NotesRepositoryImpl(
             dataBase,
         )
 }

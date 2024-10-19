@@ -11,7 +11,17 @@
         android:title="@string/dishes_bottom_nav" />
 
     <item
+        android:id="@+id/notesFragment"
+        android:icon="@drawable/ic_notes_bottom_nav"
+        android:title="@string/notes_bottom_nav" />
+
+    <item
+        android:id="@+id/calculatorFragment"
+        android:icon="@drawable/ic_assistant_bottom_nav"
+        android:title="@string/assistant_bottom_nav" />
+
+    <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_dishes_bottom_nav"
+        android:icon="@drawable/ic_person_bottom_nav"
         android:title="@string/profile_bottom_nav" />
 </menu>

@@ -87,7 +87,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/nameProductTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nameProductTv"
-                app:layout_constraintTop_toTopOf="@+id/nameProductTv" />
+                app:layout_constraintTop_toTopOf="@+id/nameProductTv"
+                app:layout_constraintVertical_bias="0.521" />
 
             <LinearLayout
                 android:id="@+id/addTagBtn"
