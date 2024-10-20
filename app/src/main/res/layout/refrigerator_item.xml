@@ -16,7 +16,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/iv_product_thumbnail"
+            android:id="@+id/refrigeratorImg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitStart"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/nameTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -37,11 +37,11 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_product_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/refrigeratorImg"
             tools:text="Название" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/noteValueTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -50,7 +50,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/nameTv"
             tools:text="Количество заметок" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

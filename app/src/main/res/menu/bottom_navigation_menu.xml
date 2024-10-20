@@ -11,12 +11,12 @@
         android:title="@string/dishes_bottom_nav" />
 
     <item
-        android:id="@+id/notesFragment"
+        android:id="@+id/myRefrigeratorsFragment"
         android:icon="@drawable/ic_notes_bottom_nav"
         android:title="@string/notes_bottom_nav" />
 
     <item
-        android:id="@+id/calculatorFragment"
+        android:id="@+id/assistantFragment"
         android:icon="@drawable/ic_assistant_bottom_nav"
         android:title="@string/assistant_bottom_nav" />
 

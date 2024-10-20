@@ -1,5 +1,8 @@
 package com.jaroapps.availabledishes.notes_bottom_nav.data.entity
 
+import androidx.room.Entity
+
+@Entity(tableName = "note_table")
 data class NoteEntity (
     val name: String = "",
     val content: String = "",

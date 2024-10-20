@@ -15,8 +15,8 @@ class MyRefrigeratorsViewModel @Inject constructor(
     private val notesInteractor: NotesInteractor
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<List<Refrigerator>>()
-    val state: LiveData<List<Refrigerator>>
+    private val _state = MutableLiveData<MyRefrigeratorsState>(MyRefrigeratorsState.Loading)
+    val state: LiveData<MyRefrigeratorsState>
         get() = _state
 
     fun getMyRefrigeratorsList() {

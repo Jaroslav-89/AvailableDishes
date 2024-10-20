@@ -43,7 +43,7 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class EditCreateProductFragment : Fragment() {
+class  EditCreateProductFragment : Fragment() {
 
     private val viewModel: EditCreateProductViewModel by viewModels()
     private lateinit var binding: FragmentEditCreateProductsBinding
