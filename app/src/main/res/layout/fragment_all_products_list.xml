@@ -4,37 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notes_bottom_nav.ui.my_refrigerators.fragment.MyRefrigeratorsFragment">
-
-    <TextView
-        android:id="@+id/headerTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription=""
-        android:gravity="center"
-        android:text="@string/all_refrigerators"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".products_bottom_nav.ui.all_products_list.fragment.AllProductsListFragment">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addNewRefrigeratorBtn"
+        android:id="@+id/addNewProductsListBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="?attr/colorOnPrimary"
         android:contentDescription=""
-        android:text="@string/add_refrigerator"
+        android:text="@string/add_products_list"
         android:textColor="?attr/colorPrimary"
         android:textSize="12sp"
         app:cornerRadius="54dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerTv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/refrigeratorsListRv"
+        android:id="@+id/productsListRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addNewRefrigeratorBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewProductsListBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

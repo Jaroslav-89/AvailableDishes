@@ -116,4 +116,59 @@
             app:popUpToInclusive="true"
             app:destination="@id/detailDishFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/noteDetailFragment"
+        android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.note_detail.fragment.NoteDetailFragment"
+        android:label="fragment_note_detail"
+        tools:layout="@layout/fragment_note_detail" />
+    <fragment
+        android:id="@+id/myRefrigeratorsFragment2"
+        android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.fragment.MyRefrigeratorsFragment"
+        android:label="fragment_my_refrigerators"
+        tools:layout="@layout/fragment_my_refrigerators" />
+    <fragment
+        android:id="@+id/allProductsListFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.all_products_list.fragment.AllProductsListFragment"
+        android:label="fragment_all_products_list"
+        tools:layout="@layout/fragment_all_products_list" />
+    <fragment
+        android:id="@+id/assistantFragment"
+        android:name="com.jaroapps.availabledishes.assistant_bottom_nav.ui.assistant.fragment.AssistantFragment"
+        android:label="fragment_assistant"
+        tools:layout="@layout/fragment_assistant" />
+    <fragment
+        android:id="@+id/editCreateProductListFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product_list.fragment.EditCreateProductListFragment"
+        android:label="fragment_edit_create_product_list"
+        tools:layout="@layout/fragment_edit_create_product_list" />
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.jaroapps.availabledishes.profile_bottom_nav.ui.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/converterFragment"
+        android:name="com.jaroapps.availabledishes.assistant_bottom_nav.ui.converter.fragment.ConverterFragment"
+        android:label="fragment_converter"
+        tools:layout="@layout/fragment_converter" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.jaroapps.availabledishes.assistant_bottom_nav.ui.timer.fragment.TimerFragment"
+        android:label="fragment_timer"
+        tools:layout="@layout/fragment_timer" />
+    <fragment
+        android:id="@+id/editCreateRefrigeratorFragment"
+        android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.edit_create_refrigerator.fragment.EditCreateRefrigeratorFragment"
+        android:label="fragment_edit_create_refrigerator"
+        tools:layout="@layout/fragment_edit_create_refrigerator" />
+    <fragment
+        android:id="@+id/refrigeratorDetailFragment"
+        android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.refrigerator_detail.fragment.RefrigeratorDetailFragment"
+        android:label="fragment_refrigerator_detail"
+        tools:layout="@layout/fragment_refrigerator_detail" />
+    <fragment
+        android:id="@+id/editCreateNoteFragment"
+        android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.edit_create_note.fragment.EditCreateNoteFragment"
+        android:label="fragment_edit_create_note"
+        tools:layout="@layout/fragment_edit_create_note" />
 </navigation>

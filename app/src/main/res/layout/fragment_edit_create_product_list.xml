@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".notes_bottom_nav.ui.edit_create_refrigerator.fragment.EditCreateRefrigeratorFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".products_bottom_nav.ui.edit_create_product_list.fragment.EditCreateProductListFragment">
 
     <LinearLayout
         android:id="@+id/headerGroup"
@@ -26,13 +26,13 @@
             android:src="@drawable/ic_back" />
 
         <TextView
-            android:id="@+id/headingRefrigeratorTv"
+            android:id="@+id/headingProductListTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="20sp"
-            tools:text="Редактировать холодильник" />
+            tools:text="Редактировать список продуктов" />
 
         <ImageView
             android:id="@+id/doneBtn"
@@ -46,12 +46,12 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/refrigeratorImage"
+        android:id="@+id/productListImage"
         android:layout_width="180dp"
         android:layout_height="320dp"
+        android:layout_marginHorizontal="40dp"
         android:background="@color/place_holder_background"
         android:scaleType="centerCrop"
-        android:layout_marginHorizontal="40dp"
         android:src="@drawable/place_holder_product_new"
         app:layout_constraintDimensionRatio="h,9:16"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +64,10 @@
         android:layout_margin="16dp"
         android:background="@drawable/bg_create_delete_product_img"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/refrigeratorImage"
-        app:layout_constraintEnd_toEndOf="@+id/refrigeratorImage"
-        app:layout_constraintStart_toStartOf="@+id/refrigeratorImage"
-        app:layout_constraintTop_toTopOf="@+id/refrigeratorImage">
+        app:layout_constraintBottom_toBottomOf="@+id/productListImage"
+        app:layout_constraintEnd_toEndOf="@+id/productListImage"
+        app:layout_constraintStart_toStartOf="@+id/productListImage"
+        app:layout_constraintTop_toTopOf="@+id/productListImage">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -98,25 +98,25 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/nameRefrigeratorTv"
+        android:id="@+id/nameProductListTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:text="@string/name_product"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/refrigeratorImage" />
+        app:layout_constraintTop_toBottomOf="@+id/productListImage" />
 
     <EditText
-        android:id="@+id/nameRefrigeratorEt"
+        android:id="@+id/nameProductListEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:focusedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="@+id/nameRefrigeratorTv"
+        app:layout_constraintBottom_toBottomOf="@+id/nameProductListTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/nameRefrigeratorTv"
-        app:layout_constraintTop_toTopOf="@+id/nameRefrigeratorTv" />
+        app:layout_constraintStart_toEndOf="@+id/nameProductListTv"
+        app:layout_constraintTop_toTopOf="@+id/nameProductListTv" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteRefrigeratorBtn"
@@ -124,14 +124,14 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="60dp"
         android:backgroundTint="@color/delete_btn"
-        android:text="@string/delete_refrigerator"
+        android:text="@string/delete_product_list"
         android:visibility="gone"
         app:cornerRadius="20dp"
         app:icon="@drawable/ic_delete_new"
         app:iconGravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameRefrigeratorTv"
+        app:layout_constraintTop_toBottomOf="@+id/nameProductListTv"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

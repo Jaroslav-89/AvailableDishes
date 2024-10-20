@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".notes_bottom_nav.ui.refrigerator_detail.fragment.RefrigeratorDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -80,7 +81,7 @@
         android:id="@+id/menuBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_sheet_refrigerator"
+        android:background="@drawable/bg_bottom_sheet"
         android:orientation="vertical"
         android:visibility="gone"
         app:behavior_hideable="true"
@@ -123,7 +124,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/createNewPlaylistBtn"
+            android:id="@+id/addNewPersonBtn"
             style="@style/AddButtonBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -7,6 +7,10 @@
     <string name="assistant_bottom_nav">Ассистент </string>
     <string name="profile_bottom_nav">Профиль</string>
     <!--    products_bottom_nav-->
+    <string name="add_products_list">Добавить список продуктов</string>
+    <string name="delete_product_list">Удалить список продуктов</string>
+    <string name="add_new_person_in_product_list_bottom_sheet_tv">Вы можете добавлять других пользователей к этому списку продуктов.
+        Для этого введите электронную почту Google аккаунта пользователя и нажмите кнопку Добавить.</string>
     <string name="my_products">Мои продукты</string>
     <string name="buy_products">Купить</string>
     <string name="add_products">Добавить продукты</string>
