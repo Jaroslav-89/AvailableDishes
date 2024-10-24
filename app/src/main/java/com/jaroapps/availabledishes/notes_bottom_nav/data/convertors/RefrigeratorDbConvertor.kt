@@ -6,6 +6,7 @@ import com.jaroapps.availabledishes.notes_bottom_nav.domain.model.Refrigerator
 object RefrigeratorDbConvertor {
     fun map(refrigerator: Refrigerator): RefrigeratorEntity {
         return RefrigeratorEntity(
+            id = refrigerator.id,
             name = refrigerator.name,
             imgUrl = refrigerator.imgUrl,
             description = refrigerator.description,
@@ -18,6 +19,7 @@ object RefrigeratorDbConvertor {
 
     fun map(refrigeratorEntity: RefrigeratorEntity): Refrigerator {
         return Refrigerator(
+            id = refrigeratorEntity.id,
             name = refrigeratorEntity.name,
             imgUrl = refrigeratorEntity.imgUrl,
             description = refrigeratorEntity.description,
@@ -26,15 +28,6 @@ object RefrigeratorDbConvertor {
             createData = refrigeratorEntity.createData,
             lastEditDate = refrigeratorEntity.lastEditDate,
         )
-    }
-
-    fun mapList(refrigeratorsList: List<Refrigerator>): List<RefrigeratorEntity> {
-        val refrigeratorsEntityList = mutableListOf<RefrigeratorEntity>()
-        for (refrigerator in refrigeratorsList) {
-            val refrigeratorEntity = map(refrigerator)
-            refrigeratorsEntityList.add(refrigeratorEntity)
-        }
-        return refrigeratorsEntityList
     }
 
     fun mapList(refrigeratorsEntityList: List<RefrigeratorEntity>): List<Refrigerator> {

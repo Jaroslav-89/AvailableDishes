@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.view_model
+package com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BuyProductsViewModel @Inject constructor(
+class MyProductsViewModel @Inject constructor(
     private val productsInteractor: ProductsInteractor
 ) : ViewModel() {
 
@@ -19,27 +19,36 @@ class BuyProductsViewModel @Inject constructor(
     val state: LiveData<List<Product>>
         get() = _state
 
-    fun getBuyProductsList() {
+//    init {
+//        viewModelScope.launch {
+//            for (product in AllProducts.allProducts) {
+//                productsInteractor.createNewProduct(product)
+//            }
+//        }
+//    }
+
+    fun getProductsInList(listId: String) {
         viewModelScope.launch {
-            renderState(productsInteractor.getBuyProductsList())
+            productsInteractor.getProductsInList(listId).collect() {
+                renderState(it)
+            }
         }
     }
 
     fun toggleFavorite(product: Product) {
         viewModelScope.launch {
             productsInteractor.toggleFavorite(product)
-            renderState(productsInteractor.getBuyProductsList())
         }
     }
 
     fun toggleBuy(product: Product) {
         viewModelScope.launch {
             productsInteractor.toggleBuy(product)
-            renderState(productsInteractor.getBuyProductsList())
         }
     }
 
     private fun renderState(productsList: List<Product>) {
-        _state.postValue(productsList.sortedBy { it.name.lowercase() })
+        _state.postValue(productsList.sortedBy { it.name.lowercase() }
+            .sortedBy { it.needToBuy })
     }
 }

@@ -6,18 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jaroapps.availabledishes.R
-import com.jaroapps.availabledishes.databinding.FragmentMyProductsBinding
 import com.jaroapps.availabledishes.databinding.FragmentMyRefrigeratorsBinding
 import com.jaroapps.availabledishes.notes_bottom_nav.domain.model.Refrigerator
-import com.jaroapps.availabledishes.notes_bottom_nav.ui.edit_create_refrigerator.fragment.EditCreateRefrigeratorFragmentDirections
 import com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.adapter.MyRefrigeratorsAdapter
 import com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.view_model.MyRefrigeratorsState
 import com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.view_model.MyRefrigeratorsViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.view_model.MyProductsViewModel
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

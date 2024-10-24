@@ -6,6 +6,7 @@ import com.jaroapps.availabledishes.notes_bottom_nav.domain.model.Note
 object NoteDbConvertor {
     fun map(note: Note): NoteEntity {
         return NoteEntity(
+            id = note.id,
             name = note.name,
             content = note.content,
             color = note.color,
@@ -17,6 +18,7 @@ object NoteDbConvertor {
 
     fun map(noteEntity: NoteEntity): Note {
         return Note(
+            id = noteEntity.id,
             name = noteEntity.name,
             content = noteEntity.content,
             color = noteEntity.color,
@@ -24,15 +26,6 @@ object NoteDbConvertor {
             createData = noteEntity.createData,
             lastEditDate = noteEntity.lastEditDate,
         )
-    }
-
-    fun mapList(noteList: List<Note>): List<NoteEntity> {
-        val noteEntityList = mutableListOf<NoteEntity>()
-        for (note in noteList) {
-            val noteEntity = map(note)
-            noteEntityList.add(noteEntity)
-        }
-        return noteEntityList
     }
 
     fun mapList(noteEntityList: List<NoteEntity>): List<Note> {

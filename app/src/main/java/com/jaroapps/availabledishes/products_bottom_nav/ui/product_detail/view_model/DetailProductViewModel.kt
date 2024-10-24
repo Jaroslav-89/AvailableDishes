@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.view_model
+package com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

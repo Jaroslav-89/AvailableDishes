@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "dish_table")
 data class DishEntity(
     @PrimaryKey(autoGenerate = false)
+    val id: String,
     val name: String,
     val imgUrl: String,
     val tag: String,

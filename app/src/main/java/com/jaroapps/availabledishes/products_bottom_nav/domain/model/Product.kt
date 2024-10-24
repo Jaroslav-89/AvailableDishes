@@ -1,7 +1,8 @@
 package com.jaroapps.availabledishes.products_bottom_nav.domain.model
 
 data class Product(
-    val name: String,
+    val id: String = "",
+    val name: String = "",
     val imgUrl: String = "",
     val tag: List<String> = emptyList(),
     val description: String = "",

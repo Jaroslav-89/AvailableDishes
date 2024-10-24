@@ -1,7 +1,8 @@
 package com.jaroapps.availabledishes.dishes_bottom_nav.domain.model
 
 data class Dish(
-    val name: String,
+    val id: String = "",
+    val name: String = "",
     val imgUrl: String = "",
     val tag: List<String> = emptyList(),
     val description: String = "",

@@ -34,7 +34,7 @@ import com.jaroapps.availabledishes.common.ui.adapters.AddTagAdapter
 import com.jaroapps.availabledishes.common.ui.adapters.CreateEditTagAdapter
 import com.jaroapps.availabledishes.databinding.FragmentEditCreateProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.view_model.EditCreateProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File

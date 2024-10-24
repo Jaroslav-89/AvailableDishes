@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.adapter
+package com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater

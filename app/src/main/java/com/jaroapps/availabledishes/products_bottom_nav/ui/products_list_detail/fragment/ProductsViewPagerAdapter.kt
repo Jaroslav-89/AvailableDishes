@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment
+package com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

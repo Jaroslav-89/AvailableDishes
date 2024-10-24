@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment
+package com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -10,9 +10,9 @@ import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentMyProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.adapter.MyProductsAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.view_model.MyProductsViewModel
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.adapter.MyProductsAdapter
+import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.MyProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,8 +60,9 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
         }
     }
 
+    //TODO добавить safeargs, принимать id списка
     private fun getProductList() {
-        viewModel.getMyProductsList()
+        viewModel.getProductsInList(listId = "")
     }
 
     private fun setClickListeners() {

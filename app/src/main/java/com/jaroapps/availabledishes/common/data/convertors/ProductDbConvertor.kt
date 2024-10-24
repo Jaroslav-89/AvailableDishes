@@ -6,6 +6,7 @@ import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 object ProductDbConvertor {
     fun map(product: Product): ProductEntity {
         return ProductEntity(
+            id = product.id,
             name = product.name,
             imgUrl = product.imgUrl,
             tag = product.tag.joinToString(","),
@@ -18,6 +19,7 @@ object ProductDbConvertor {
 
     fun map(product: ProductEntity): Product {
         return Product(
+            id = product.id,
             name = product.name,
             imgUrl = product.imgUrl,
             tag = mapStringToList(product.tag),

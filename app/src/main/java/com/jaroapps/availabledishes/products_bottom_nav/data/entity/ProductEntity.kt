@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "product_table")
 data class ProductEntity(
     @PrimaryKey(autoGenerate = false)
+    val id: String,
     val name: String,
     val imgUrl: String,
     val tag: String,

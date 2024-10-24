@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment.ProductsFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.ProductsFragment"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products" >
         <action
@@ -37,12 +37,12 @@
     </fragment>
     <fragment
         android:id="@+id/myProductsFragment"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment.MyProductsFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.MyProductsFragment"
         android:label="fragment_my_products"
         tools:layout="@layout/fragment_my_products" />
     <fragment
         android:id="@+id/buyProductsFragment"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.my_products.fragment.BuyProductsFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.BuyProductsFragment"
         android:label="fragment_buy_products"
         tools:layout="@layout/fragment_buy_products" />
     <fragment
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailProduct"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment"
         android:label="fragment_detail_product"
         tools:layout="@layout/fragment_detail_product" >
         <action

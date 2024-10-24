@@ -5,16 +5,21 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsInteractor
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
+import com.jaroapps.availabledishes.products_bottom_nav.domain.model.ProductList
 import kotlinx.coroutines.flow.Flow
 
 class ProductsInteractorImpl(private val repository: ProductsRepository) : ProductsInteractor {
 
-    override suspend fun getAllProductsList(): List<Product> {
+    override suspend fun getAllProducts(): List<Product> {
+        return repository.getAllProducts()
+    }
+
+    override fun getAllProductsList(): Flow<List<ProductList>> {
         return repository.getAllProductsList()
     }
 
-    override fun getMyProductsList(): Flow<List<Product>> {
-        return repository.getMyProductsList()
+    override fun getProductsInList(listId: String): Flow<List<Product>> {
+        return repository.getProductsInList(listId)
     }
 
     override suspend fun getBuyProductsList(): List<Product> {

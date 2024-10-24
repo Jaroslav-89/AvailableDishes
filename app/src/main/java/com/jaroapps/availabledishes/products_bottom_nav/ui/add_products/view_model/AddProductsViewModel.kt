@@ -21,14 +21,14 @@ class AddProductsViewModel @Inject constructor(
 
     fun getAllProductsList() {
         viewModelScope.launch {
-            renderState(productsInteractor.getAllProductsList())
+            renderState(productsInteractor.getAllProducts())
         }
     }
 
     fun toggleFavorite(product: Product) {
         viewModelScope.launch {
             productsInteractor.toggleFavorite(product)
-            renderState(productsInteractor.getAllProductsList())
+            renderState(productsInteractor.getAllProducts())
         }
     }
 

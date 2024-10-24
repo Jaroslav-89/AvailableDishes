@@ -6,6 +6,7 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 object DishDbConvertor {
     fun map(dish: Dish): DishEntity {
         return DishEntity(
+            id = dish.id,
             name = dish.name,
             imgUrl = dish.imgUrl,
             tag = dish.tag.joinToString(","),
@@ -18,6 +19,7 @@ object DishDbConvertor {
 
     fun map(dish: DishEntity): Dish {
         return Dish(
+            id = dish.id,
             name = dish.name,
             imgUrl = dish.imgUrl,
             tag = mapStringToList(dish.tag),

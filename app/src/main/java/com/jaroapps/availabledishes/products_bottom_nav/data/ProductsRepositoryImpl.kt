@@ -6,8 +6,10 @@ import com.jaroapps.availabledishes.common.data.convertors.TagDbConvertor
 import com.jaroapps.availabledishes.common.data.db.AppDataBase
 import com.jaroapps.availabledishes.common.domain.model.Tag
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
+import com.jaroapps.availabledishes.products_bottom_nav.data.convertors.ProductListDbConvertor
 import com.jaroapps.availabledishes.products_bottom_nav.domain.api.ProductsRepository
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
+import com.jaroapps.availabledishes.products_bottom_nav.domain.model.ProductList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -58,15 +60,19 @@ class ProductsRepositoryImpl(
         dataBase.dishDao().upsertDish(dishAfterChange)
     }
 
-    override suspend fun getAllProductsList(): List<Product> {
+    override suspend fun getAllProducts(): List<Product> {
         return ProductDbConvertor.mapList(dataBase.productDao().getAllProducts())
+    }
+
+    override fun getAllProductsList(): Flow<List<ProductList>> {
+        return dataBase.productListDao().getAllProductLists().map(ProductListDbConvertor::mapList)
     }
 
     override suspend fun deleteProduct(product: Product) {
         dataBase.productDao().deleteProduct(product.name)
     }
 
-    override fun getMyProductsList(): Flow<List<Product>> {
+    override fun getProductsInList(listId: String): Flow<List<Product>> {
         return dataBase.productDao().getMyProducts().map(ProductDbConvertor::mapList)
     }
 

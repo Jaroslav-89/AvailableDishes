@@ -15,7 +15,7 @@ import com.jaroapps.availabledishes.databinding.FragmentAddProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.adapter.ProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment.DetailProductFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale

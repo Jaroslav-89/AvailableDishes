@@ -1,4 +1,4 @@
-package com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.fragment
+package com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -22,9 +22,9 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.adapter.AvailableDishesAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.adapter.DetailProductTagAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.detail_product.view_model.DetailProductViewModel
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.AvailableDishesAdapter
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.DetailProductTagAdapter
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.view_model.DetailProductViewModel
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 
