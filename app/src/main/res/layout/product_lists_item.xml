@@ -37,7 +37,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/refrigeratorImg"
+            app:layout_constraintTop_toBottomOf="@id/productListImg"
             tools:text="Название" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameTv"
+            app:layout_constraintTop_toBottomOf="@id/productListNameTv"
             tools:text="Количество продуктов" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

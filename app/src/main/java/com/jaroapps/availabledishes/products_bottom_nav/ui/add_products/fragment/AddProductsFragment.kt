@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentAddProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.adapter.ProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -25,7 +25,7 @@ class AddProductsFragment : Fragment() {
 
     private val viewModel: AddProductsViewModel by viewModels()
     private var queryText = ""
-
+    private val args: AddProductsFragmentArgs by navArgs()
     private lateinit var binding: FragmentAddProductsBinding
     private val adapter = ProductsAdapter(
         object : ProductsAdapter.ProductClickListener {
@@ -60,8 +60,8 @@ class AddProductsFragment : Fragment() {
 
         setSearchQueryChangeListener()
 
-        if (!requireArguments().getString(SEARCH_REQUEST).isNullOrEmpty()) {
-            binding.productSearch.setQuery(requireArguments().getString(SEARCH_REQUEST), true)
+        if (args.searchRequest.isNotBlank()) {
+            binding.productSearch.setQuery(requireArguments().getString(args.searchRequest), true)
         }
 
         binding.createProducts.setOnClickListener {
@@ -117,12 +117,5 @@ class AddProductsFragment : Fragment() {
             }
         }
         adapter.setProductsList(resultProductList)
-    }
-
-    companion object {
-        private const val SEARCH_REQUEST = "search_request"
-
-        fun createArgs(searchRequest: String?): Bundle =
-            bundleOf(SEARCH_REQUEST to searchRequest)
     }
 }

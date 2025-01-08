@@ -91,7 +91,7 @@ class EditCreateProductViewModel @Inject constructor(
 
     fun createNewProduct() {
         viewModelScope.launch {
-            productAfterChange?.let { productsInteractor.createNewProduct(it) }
+            productAfterChange?.let { productsInteractor.createNewProduct(it.copy(id = System.currentTimeMillis().toString())) }
             productBeforeChange = null
             productAfterChange = null
         }

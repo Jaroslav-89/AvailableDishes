@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentProductListDetailBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.adapter.MyProductsAdapter
+import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.ProductListDetailState
 import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.ProductListDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,8 +46,6 @@ class ProductListDetailFragment(private val productListId: String) :
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductListDetailBinding.bind(view)
 
-
-
         setAdapter()
         getProductList()
         setClickListeners()
@@ -70,10 +68,10 @@ class ProductListDetailFragment(private val productListId: String) :
 
     private fun setClickListeners() {
         binding.addProducts.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_productsFragment_to_addProductsFragment,
-                AddProductsFragment.createArgs(null)
+            val direction = ProductsFragmentDirections.actionProductsFragmentToAddProductsFragment(
+                productListId, ""
             )
+            findNavController().navigate(direction)
         }
     }
 
@@ -83,9 +81,16 @@ class ProductListDetailFragment(private val productListId: String) :
         }
     }
 
-    private fun renderState(productsList: List<Product>) {
-//        binding.headingProductList.text =
-        adapter.setProductsList(productsList)
+    private fun renderState(state: ProductListDetailState) {
+        when (state) {
+            is ProductListDetailState.Loading -> {
+
+            }
+
+            is ProductListDetailState.Content -> {
+                adapter.setProductsList(state.productsList)
+            }
+        }
     }
 
     override fun onDestroyView() {

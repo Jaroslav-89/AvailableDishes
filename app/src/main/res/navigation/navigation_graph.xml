@@ -56,6 +56,12 @@
         <action
             android:id="@+id/action_addProductsFragment_to_createProduct"
             app:destination="@id/createProduct" />
+        <argument
+            android:name="productListId"
+            app:argType="string" />
+        <argument
+            android:name="searchRequest"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/detailProduct"

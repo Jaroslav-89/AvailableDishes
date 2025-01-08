@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -21,11 +22,11 @@ import com.jaroapps.availabledishes.databinding.FragmentDetailProductBinding
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.AvailableDishesAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.DetailProductTagAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.view_model.DetailProductViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
+import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.ProductsFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,14 +36,17 @@ class DetailProductFragment : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
     private var availableDishesVisible = false
     private var productName = ""
+    private val args: ProductsFragmentArgs by navArgs()
 
     private val tagAdapter = DetailProductTagAdapter(
         object : DetailProductTagAdapter.DetailProductTagListener {
             override fun onTagClick(tag: Tag) {
-                findNavController().navigate(
-                    R.id.action_detailProduct_to_addProductsFragment,
-                    AddProductsFragment.createArgs(tag.name)
-                )
+                val direction =
+                    DetailProductFragmentDirections.actionDetailProductToAddProductsFragment(
+                        args.productListId,
+                        ""
+                    )
+                findNavController().navigate(direction)
             }
         }
     )
