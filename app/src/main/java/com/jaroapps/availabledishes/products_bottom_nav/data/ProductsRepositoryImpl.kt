@@ -17,6 +17,25 @@ import kotlinx.coroutines.flow.map
 class ProductsRepositoryImpl(
     private val dataBase: AppDataBase,
 ) : ProductsRepository {
+
+    override fun getAllProductLists(): Flow<List<ProductList>> {
+        return dataBase.productListDao().getAllProductLists().map(ProductListDbConvertor::mapList)
+    }
+
+    override suspend fun editCreateProductList(productList: ProductList) {
+        dataBase.productListDao().upsertProductList(ProductListDbConvertor.map((productList)))
+    }
+
+    override suspend fun getProductListById(productListId: String): ProductList {
+        return ProductListDbConvertor.map(
+            dataBase.productListDao().getProductListById(productListId)
+        )
+    }
+
+    override suspend fun deleteProductList(productListId: String) {
+        dataBase.productListDao().deleteProductList(productListId)
+    }
+
     override suspend fun createNewProduct(product: Product) {
         dataBase.productDao().upsertProduct(ProductDbConvertor.map(product))
     }
@@ -64,9 +83,7 @@ class ProductsRepositoryImpl(
         return ProductDbConvertor.mapList(dataBase.productDao().getAllProducts())
     }
 
-    override fun getAllProductsList(): Flow<List<ProductList>> {
-        return dataBase.productListDao().getAllProductLists().map(ProductListDbConvertor::mapList)
-    }
+
 
     override suspend fun deleteProduct(product: Product) {
         dataBase.productDao().deleteProduct(product.name)

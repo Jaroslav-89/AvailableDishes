@@ -9,4 +9,5 @@ data class Product(
     val inFavorite: Boolean = false,
     val needToBuy: Boolean = false,
     val dishes: List<String> = emptyList(),
+    val productListId: String = "",
 )

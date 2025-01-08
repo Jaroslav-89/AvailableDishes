@@ -7,27 +7,27 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
-import com.jaroapps.availabledishes.databinding.FragmentMyProductsBinding
+import com.jaroapps.availabledishes.databinding.FragmentProductListDetailBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.adapter.MyProductsAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.MyProductsViewModel
+import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.ProductListDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
+class ProductListDetailFragment(private val productListId: String) :
+    Fragment(R.layout.fragment_product_list_detail) {
 
-    private val viewModel: MyProductsViewModel by viewModels()
-    private var _binding: FragmentMyProductsBinding? = null
+    private val viewModel: ProductListDetailViewModel by viewModels()
+    private var _binding: FragmentProductListDetailBinding? = null
     private val binding get() = _binding!!
+
     private val adapter = MyProductsAdapter(
         object : MyProductsAdapter.MyProductClickListener {
             override fun onProductClick(product: Product) {
-                findNavController().navigate(
-                    R.id.action_productsFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(product.name)
-                )
+                val direction =
+                    ProductsFragmentDirections.actionProductsFragmentToDetailProduct(product.name)
+                findNavController().navigate(direction)
             }
 
             override fun onFavoriteToggleClick(product: Product) {
@@ -44,7 +44,9 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentMyProductsBinding.bind(view)
+        _binding = FragmentProductListDetailBinding.bind(view)
+
+
 
         setAdapter()
         getProductList()
@@ -60,9 +62,10 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
         }
     }
 
-    //TODO добавить safeargs, принимать id списка
     private fun getProductList() {
-        viewModel.getProductsInList(listId = "")
+        viewModel.getProductsInList(
+            listId = productListId
+        )
     }
 
     private fun setClickListeners() {
@@ -81,6 +84,7 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
     }
 
     private fun renderState(productsList: List<Product>) {
+//        binding.headingProductList.text =
         adapter.setProductsList(productsList)
     }
 
@@ -90,6 +94,6 @@ class MyProductsFragment : Fragment(R.layout.fragment_my_products) {
     }
 
     companion object {
-        fun newInstance() = MyProductsFragment()
+        fun newInstance(productListId: String) = ProductListDetailFragment(productListId)
     }
 }

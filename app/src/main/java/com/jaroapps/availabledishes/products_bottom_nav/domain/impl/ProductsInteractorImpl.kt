@@ -10,12 +10,24 @@ import kotlinx.coroutines.flow.Flow
 
 class ProductsInteractorImpl(private val repository: ProductsRepository) : ProductsInteractor {
 
-    override suspend fun getAllProducts(): List<Product> {
-        return repository.getAllProducts()
+    override fun getAllProductLists(): Flow<List<ProductList>> {
+        return repository.getAllProductLists()
     }
 
-    override fun getAllProductsList(): Flow<List<ProductList>> {
-        return repository.getAllProductsList()
+    override suspend fun deleteProductList(productListId: String) {
+        repository.deleteProductList(productListId)
+    }
+
+    override suspend fun editCreateProductList(productList: ProductList) {
+        repository.editCreateProductList(productList)
+    }
+
+    override suspend fun getProductListById(productListId: String): ProductList {
+        return repository.getProductListById(productListId)
+    }
+
+    override suspend fun getAllProducts(): List<Product> {
+        return repository.getAllProducts()
     }
 
     override fun getProductsInList(listId: String): Flow<List<Product>> {

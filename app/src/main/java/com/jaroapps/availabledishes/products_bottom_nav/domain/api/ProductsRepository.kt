@@ -7,13 +7,17 @@ import com.jaroapps.availabledishes.products_bottom_nav.domain.model.ProductList
 import kotlinx.coroutines.flow.Flow
 
 interface ProductsRepository {
+    suspend fun editCreateProductList(productList: ProductList)
+    suspend fun getProductListById(productListId: String): ProductList
+    fun getAllProductLists(): Flow<List<ProductList>>
+    suspend fun deleteProductList(productListId: String)
+
     suspend fun createNewProduct(product: Product)
     suspend fun changeProduct(product: Product, newProduct: Product)
     suspend fun toggleFavorite(product: Product)
     suspend fun toggleBuy(product: Product)
     suspend fun toggleDishFavorite(dish: Dish)
     suspend fun getAllProducts(): List<Product>
-    fun getAllProductsList(): Flow<List<ProductList>>
     suspend fun deleteProduct(product: Product)
     fun getProductsInList(listId: String): Flow<List<Product>>
     suspend fun getBuyProductsList(): List<Product>

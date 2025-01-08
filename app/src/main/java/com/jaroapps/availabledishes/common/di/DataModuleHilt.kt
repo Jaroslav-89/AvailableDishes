@@ -20,5 +20,7 @@ class DataModuleHilt {
     @Provides
     @Singleton
     fun provideDataBase(@ApplicationContext context: Context): AppDataBase =
-        Room.databaseBuilder(context, AppDataBase::class.java, "database.db").build()
+        Room.databaseBuilder(context, AppDataBase::class.java, "database.db")
+            .fallbackToDestructiveMigration()
+            .build()
 }

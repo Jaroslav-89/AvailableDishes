@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentProductsBinding
@@ -13,7 +14,7 @@ class ProductsFragment : Fragment() {
 
     private lateinit var binding: FragmentProductsBinding
     private lateinit var tabMediator: TabLayoutMediator
-
+    private val args: ProductsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,7 +27,7 @@ class ProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPagerProducts.adapter = ProductsViewPagerAdapter(this)
+        binding.viewPagerProducts.adapter = ProductsViewPagerAdapter(this, args.productListId)
         tabMediator = TabLayoutMediator(
             binding.tabLayoutProducts,
             binding.viewPagerProducts

@@ -19,7 +19,7 @@ import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BuyProductsFragment : Fragment() {
+class BuyProductsFragment(private val productListId: String) : Fragment() {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
@@ -108,6 +108,6 @@ class BuyProductsFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = BuyProductsFragment()
+        fun newInstance(productListId: String) = BuyProductsFragment(productListId)
     }
 }

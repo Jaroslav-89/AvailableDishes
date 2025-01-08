@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/productsFragment">
+    app:startDestination="@id/allProductListsFragment">
 
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.ProductsFragment"
         android:label="fragment_products"
-        tools:layout="@layout/fragment_products" >
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_editCreateProductListFragment"
+            app:destination="@id/editCreateProductListFragment" />
         <action
             android:id="@+id/action_productsFragment_to_addProductsFragment"
             app:destination="@id/addProductsFragment" />
         <action
             android:id="@+id/action_productsFragment_to_detailProduct"
             app:destination="@id/detailProduct" />
-        <action
-            android:id="@+id/action_productsFragment_to_createProduct"
-            app:destination="@id/createProduct" />
-        <action
-            android:id="@+id/action_productsFragment_to_editCreateProductListFragment"
-            app:destination="@id/editCreateProductListFragment" />
+        <argument
+            android:name="productListId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/dishesFragment"
         android:name="com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.DishesFragment"
         android:label="fragment_dishes"
-        tools:layout="@layout/fragment_dishes" >
+        tools:layout="@layout/fragment_dishes">
         <action
             android:id="@+id/action_dishesFragment_to_detailDishFragment"
             app:destination="@id/detailDishFragment" />
@@ -36,10 +36,10 @@
             app:destination="@id/editeCreateDishFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myProductsFragment"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.MyProductsFragment"
+        android:id="@+id/ProductListDetailFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.ProductListDetailFragment"
         android:label="fragment_my_products"
-        tools:layout="@layout/fragment_my_products" />
+        tools:layout="@layout/fragment_product_list_detail"/>
     <fragment
         android:id="@+id/buyProductsFragment"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.BuyProductsFragment"
@@ -49,7 +49,7 @@
         android:id="@+id/addProductsFragment"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragment"
         android:label="fragment_add_products"
-        tools:layout="@layout/fragment_add_products" >
+        tools:layout="@layout/fragment_add_products">
         <action
             android:id="@+id/action_addProductsFragment_to_detailProduct"
             app:destination="@id/detailProduct" />
@@ -61,7 +61,7 @@
         android:id="@+id/detailProduct"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment"
         android:label="fragment_detail_product"
-        tools:layout="@layout/fragment_detail_product" >
+        tools:layout="@layout/fragment_detail_product">
         <action
             android:id="@+id/action_detailProduct_to_createProduct"
             app:destination="@id/createProduct" />
@@ -71,17 +71,23 @@
         <action
             android:id="@+id/action_detailProduct_to_detailDishFragment"
             app:destination="@id/detailDishFragment" />
+        <argument
+            android:name="productId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/createProduct"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment"
         android:label="fragment_create_products"
-        tools:layout="@layout/fragment_edit_create_products" >
+        tools:layout="@layout/fragment_edit_create_products">
         <action
             android:id="@+id/action_createProduct_to_detailProduct"
+            app:destination="@id/detailProduct"
             app:popUpTo="@id/detailProduct"
-            app:popUpToInclusive="true"
-            app:destination="@id/detailProduct" />
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="productId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/allDishes"
@@ -97,7 +103,7 @@
         android:id="@+id/detailDishFragment"
         android:name="com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment"
         android:label="fragment_detail_dish"
-        tools:layout="@layout/fragment_detail_dish" >
+        tools:layout="@layout/fragment_detail_dish">
         <action
             android:id="@+id/action_detailDishFragment_to_detailProduct"
             app:destination="@id/detailProduct" />
@@ -112,18 +118,18 @@
         android:id="@+id/editeCreateDishFragment"
         android:name="com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.fragment.EditeCreateDishFragment"
         android:label="fragment_edit_create_dish"
-        tools:layout="@layout/fragment_edit_create_dish" >
+        tools:layout="@layout/fragment_edit_create_dish">
         <action
             android:id="@+id/action_editeCreateDishFragment_to_detailDishFragment"
+            app:destination="@id/detailDishFragment"
             app:popUpTo="@id/detailDishFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/detailDishFragment" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/myRefrigeratorsFragment"
         android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.fragment.MyRefrigeratorsFragment"
         android:label="fragment_my_refrigerators"
-        tools:layout="@layout/fragment_my_refrigerators" >
+        tools:layout="@layout/fragment_my_refrigerators">
         <action
             android:id="@+id/action_myRefrigeratorsFragment_to_refrigeratorDetailFragment"
             app:destination="@id/refrigeratorDetailFragment" />
@@ -132,16 +138,19 @@
             app:destination="@id/editCreateRefrigeratorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/allProductsListFragment"
-        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.all_products_list.fragment.AllProductsListFragment"
+        android:id="@+id/allProductListsFragment"
+        android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.all_product_lists.fragment.AllProductListsFragment"
         android:label="fragment_all_products_list"
-        tools:layout="@layout/fragment_all_products_list" >
+        tools:layout="@layout/fragment_all_product_lists" >
         <action
-            android:id="@+id/action_allProductsListFragment_to_editCreateProductListFragment"
+            android:id="@+id/action_allProductListsFragment_to_editCreateProductListFragment"
             app:destination="@id/editCreateProductListFragment" />
         <action
-            android:id="@+id/action_allProductsListFragment_to_productsFragment"
+            android:id="@+id/action_allProductListsFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <action
+            android:id="@+id/action_allProductListsFragment_to_addProductsFragment"
+            app:destination="@id/addProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/assistantFragment"
@@ -152,10 +161,13 @@
         android:id="@+id/editCreateProductListFragment"
         android:name="com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product_list.fragment.EditCreateProductListFragment"
         android:label="fragment_edit_create_product_list"
-        tools:layout="@layout/fragment_edit_create_product_list" >
+        tools:layout="@layout/fragment_edit_create_product_list">
         <action
             android:id="@+id/action_editCreateProductListFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <argument
+            android:name="productListId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -176,7 +188,7 @@
         android:id="@+id/editCreateRefrigeratorFragment"
         android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.edit_create_refrigerator.fragment.EditCreateRefrigeratorFragment"
         android:label="fragment_edit_create_refrigerator"
-        tools:layout="@layout/fragment_edit_create_refrigerator" >
+        tools:layout="@layout/fragment_edit_create_refrigerator">
         <action
             android:id="@+id/action_editCreateRefrigeratorFragment_to_refrigeratorDetailFragment"
             app:destination="@id/refrigeratorDetailFragment" />
@@ -188,7 +200,7 @@
         android:id="@+id/refrigeratorDetailFragment"
         android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.refrigerator_detail.fragment.RefrigeratorDetailFragment"
         android:label="fragment_refrigerator_detail"
-        tools:layout="@layout/fragment_refrigerator_detail" >
+        tools:layout="@layout/fragment_refrigerator_detail">
         <action
             android:id="@+id/action_refrigeratorDetailFragment_to_noteDetailFragment"
             app:destination="@id/noteDetailFragment" />
@@ -203,7 +215,7 @@
         android:id="@+id/editCreateNoteFragment"
         android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.edit_create_note.fragment.EditCreateNoteFragment"
         android:label="fragment_edit_create_note"
-        tools:layout="@layout/fragment_edit_create_note" >
+        tools:layout="@layout/fragment_edit_create_note">
         <action
             android:id="@+id/action_editCreateNoteFragment_to_noteDetailFragment"
             app:destination="@id/noteDetailFragment" />
@@ -212,7 +224,7 @@
         android:id="@+id/noteDetailFragment"
         android:name="com.jaroapps.availabledishes.notes_bottom_nav.ui.note_detail.fragment.NoteDetailFragment"
         android:label="fragment_note_detail"
-        tools:layout="@layout/fragment_note_detail" >
+        tools:layout="@layout/fragment_note_detail">
         <action
             android:id="@+id/action_noteDetailFragment_to_editCreateNoteFragment"
             app:destination="@id/editCreateNoteFragment" />
