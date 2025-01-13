@@ -11,9 +11,8 @@ object ProductDbConvertor {
             imgUrl = product.imgUrl,
             tag = product.tag.joinToString(","),
             description = product.description,
-            inFavorite = product.inFavorite,
-            needToBuy = product.needToBuy,
-            dishes = product.dishes.joinToString(",")
+            productLists = product.productLists.joinToString(","),
+            dishes = product.dishes.joinToString(","),
         )
     }
 
@@ -24,9 +23,8 @@ object ProductDbConvertor {
             imgUrl = product.imgUrl,
             tag = mapStringToList(product.tag),
             description = product.description,
-            inFavorite = product.inFavorite,
-            needToBuy = product.needToBuy,
-            dishes = mapStringToList(product.dishes)
+            productLists = mapStringToList(product.productLists),
+            dishes = mapStringToList(product.dishes),
         )
     }
 

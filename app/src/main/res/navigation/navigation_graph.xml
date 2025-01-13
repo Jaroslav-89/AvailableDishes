@@ -78,7 +78,10 @@
             android:id="@+id/action_detailProduct_to_detailDishFragment"
             app:destination="@id/detailDishFragment" />
         <argument
-            android:name="productId"
+            android:name="productName"
+            app:argType="string" />
+        <argument
+            android:name="productListId"
             app:argType="string" />
     </fragment>
     <fragment
@@ -92,7 +95,10 @@
             app:popUpTo="@id/detailProduct"
             app:popUpToInclusive="true" />
         <argument
-            android:name="productId"
+            android:name="productName"
+            app:argType="string" />
+        <argument
+            android:name="productListId"
             app:argType="string" />
     </fragment>
     <fragment

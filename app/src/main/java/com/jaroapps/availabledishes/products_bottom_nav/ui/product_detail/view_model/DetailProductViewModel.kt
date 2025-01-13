@@ -64,14 +64,21 @@ class DetailProductViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavorite() {
+    fun toggleAddProductToList(productName: String, productListId: String) {
         viewModelScope.launch {
-            thisProduct?.let { product ->
-                productsInteractor.toggleFavorite(product)
-                renderState(productsInteractor.getProductByName(product.name))
-            }
+            productsInteractor.toggleAddProductToList(productName, productListId)
+            renderState(productsInteractor.getProductByName(productName))
         }
     }
+
+//    fun toggleFavorite() {
+//        viewModelScope.launch {
+//            thisProduct?.let { product ->
+//                productsInteractor.toggleFavorite(product)
+//                renderState(productsInteractor.getProductByName(product.name))
+//            }
+//        }
+//    }
 
     fun toggleNeedToBuy() {
         viewModelScope.launch {

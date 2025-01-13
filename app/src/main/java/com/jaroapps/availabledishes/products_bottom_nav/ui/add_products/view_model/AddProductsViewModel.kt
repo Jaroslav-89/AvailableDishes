@@ -25,15 +25,21 @@ class AddProductsViewModel @Inject constructor(
         }
     }
 
-    fun toggleFavorite(product: Product) {
+    fun toggleAddProductToList(productName: String, productListId: String) {
         viewModelScope.launch {
-            productsInteractor.toggleFavorite(product)
-            renderState(productsInteractor.getAllProducts())
+            productsInteractor.toggleAddProductToList(productName, productListId)
         }
     }
 
+//    fun toggleFavorite(product: Product) {
+//        viewModelScope.launch {
+//            productsInteractor.toggleFavorite(product)
+//            renderState(productsInteractor.getAllProducts())
+//        }
+//    }
+
     private fun renderState(productsList: List<Product>) {
-        _state.postValue(productsList.sortedBy { it.name.lowercase() }
-            .sortedByDescending { it.inFavorite })
+        _state.postValue(productsList.sortedBy { it.name.lowercase() })
+            //.sortedByDescending { it.inFavorite })
     }
 }

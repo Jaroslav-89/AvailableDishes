@@ -38,18 +38,18 @@ class DishesRepositoryImpl(
 
     override suspend fun toggleFavoriteProduct(product: Product) {
         val productFromDb = dataBase.productDao().getProductByName(product.name)
-        val productAfterChange = if (productFromDb.inFavorite) {
-            productFromDb.copy(inFavorite = false, needToBuy = false)
-        } else {
-            productFromDb.copy(inFavorite = true)
-        }
-        dataBase.productDao().upsertProduct(productAfterChange)
+//        val productAfterChange = if (productFromDb.inFavorite) {
+//            productFromDb.copy(inFavorite = false, needToBuy = false)
+//        } else {
+//            productFromDb.copy(inFavorite = true)
+//        }
+    //    dataBase.productDao().upsertProduct(productAfterChange)
     }
 
     override suspend fun toggleBuyProduct(product: Product) {
-        val productFromDb = dataBase.productDao().getProductByName(product.name)
-        val productAfterChange = productFromDb.copy(needToBuy = product.needToBuy)
-        dataBase.productDao().upsertProduct(productAfterChange)
+//        val productFromDb = dataBase.productDao().getProductByName(product.name)
+//        val productAfterChange = productFromDb.copy(needToBuy = product.needToBuy)
+//        dataBase.productDao().upsertProduct(productAfterChange)
     }
 
     override suspend fun deleteDish(dish: Dish) {
@@ -89,13 +89,13 @@ class DishesRepositoryImpl(
         val myProductsStrList = mutableListOf<String>()
         var availableDishes = emptyList<Dish>()
 
-        dataBase.productDao().getMyProducts().collect() {
-            val myProducts = ProductDbConvertor.mapList(it)
-            myProducts.forEach { product -> myProductsStrList.add(product.name) }
-            availableDishes = allDishes.filter { dish ->
-                myProductsStrList.containsAll(dish.ingredients)
-            }
-        }
+//        dataBase.productDao().getMyProducts().collect() {
+//            val myProducts = ProductDbConvertor.mapList(it)
+//            myProducts.forEach { product -> myProductsStrList.add(product.name) }
+//            availableDishes = allDishes.filter { dish ->
+//                myProductsStrList.containsAll(dish.ingredients)
+//            }
+       // }
         return availableDishes
     }
 

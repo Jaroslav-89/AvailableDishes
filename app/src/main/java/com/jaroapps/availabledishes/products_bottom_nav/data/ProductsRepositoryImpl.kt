@@ -17,7 +17,100 @@ import kotlinx.coroutines.flow.map
 class ProductsRepositoryImpl(
     private val dataBase: AppDataBase,
 ) : ProductsRepository {
+    //Products
+    override suspend fun createNewProduct(product: Product) {
+        dataBase.productDao().upsertProduct(ProductDbConvertor.map(product))
+    }
 
+    override suspend fun changeProduct(product: Product, newProduct: Product) {
+        if (product.name != newProduct.name) {
+            dataBase.productDao()
+                .changeProductWithName(product.name, ProductDbConvertor.map(newProduct))
+        } else {
+            dataBase.productDao().upsertProduct(ProductDbConvertor.map(newProduct))
+        }
+    }
+
+    override suspend fun getAllProducts(): List<Product> {
+        return ProductDbConvertor.mapList(dataBase.productDao().getAllProducts())
+    }
+
+    override suspend fun toggleAddProductToList(productName: String, productListId: String) {
+        val productList =
+            ProductListDbConvertor.map(dataBase.productListDao().getProductListById(productListId))
+
+        if (productList.productsInThisList.contains(productName)) {
+            val updateProductsInThisList = productList.productsInThisList.toMutableList()
+            updateProductsInThisList.remove(productName)
+            val updateProductList = productList.copy(
+                productsInThisList = updateProductsInThisList,
+                numberOfProducts = updateProductsInThisList.size
+            )
+            dataBase.productListDao()
+                .upsertProductList(ProductListDbConvertor.map(updateProductList))
+        } else {
+            val updateProductsInThisList = productList.productsInThisList.toMutableList()
+            updateProductsInThisList.add(productName)
+            val updateProductList = productList.copy(
+                productsInThisList = updateProductsInThisList,
+                numberOfProducts = updateProductsInThisList.size
+            )
+            dataBase.productListDao()
+                .upsertProductList(ProductListDbConvertor.map(updateProductList))
+        }
+
+        val product = ProductDbConvertor.map(dataBase.productDao().getProductByName(productName))
+        if (product.productLists.contains(productListId)) {
+            val productLists = product.productLists.toMutableList()
+            productLists.remove(productListId)
+            dataBase.productDao()
+                .upsertProduct(ProductDbConvertor.map(product.copy(productLists = productLists)))
+        } else {
+            val productLists = product.productLists.toMutableList()
+            productLists.add(productListId)
+            dataBase.productDao()
+                .upsertProduct(ProductDbConvertor.map(product.copy(productLists = productLists)))
+        }
+    }
+
+    override suspend fun deleteProduct(product: Product) {
+        dataBase.productDao().deleteProduct(product.name)
+    }
+
+    override suspend fun getProductByName(productName: String): Product {
+        return ProductDbConvertor.map(dataBase.productDao().getProductByName(productName))
+    }
+
+
+    override suspend fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {
+        val productList = dataBase.productDao().getAllProducts()
+        val filteredProductList = productList.filter { it ->
+            newNameForCheck.lowercase().trim() == it.name.lowercase().trim()
+        }
+        return filteredProductList.isEmpty()
+    }
+
+    override suspend fun getAllDishesWithThisProduct(product: Product): List<Dish> {
+        val dishesList = DishDbConvertor.mapList(dataBase.dishDao().getAllDish())
+        val filteredDishesList = dishesList.filter { dish ->
+            dish.ingredients.contains(product.name)
+        }
+        return filteredDishesList
+    }
+
+    override fun getAllProductTags(): Flow<List<Tag>> {
+        return dataBase.tagDao().getAllProductTag().map(TagDbConvertor::mapList)
+    }
+
+    override fun getProductTagList(tags: List<String>): Flow<List<Tag>> = flow {
+        val tagList = mutableListOf<Tag>()
+        tags.forEach { tagStr ->
+            tagList.add(TagDbConvertor.map(dataBase.tagDao().getProductTagByName(tagStr)))
+        }
+        emit(tagList)
+    }
+
+    //ProductLists
     override fun getAllProductLists(): Flow<List<ProductList>> {
         return dataBase.productListDao().getAllProductLists().map(ProductListDbConvertor::mapList)
     }
@@ -36,39 +129,22 @@ class ProductsRepositoryImpl(
         dataBase.productListDao().deleteProductList(productListId)
     }
 
-    override suspend fun createNewProduct(product: Product) {
-        dataBase.productDao().upsertProduct(ProductDbConvertor.map(product))
-    }
-
-    override suspend fun changeProduct(product: Product, newProduct: Product) {
-        if (product.name != newProduct.name) {
-            dataBase.productDao()
-                .changeProductWithName(product.name, ProductDbConvertor.map(newProduct))
-        } else {
-            dataBase.productDao().upsertProduct(ProductDbConvertor.map(newProduct))
+    override suspend fun getProductsInList(listId: String): List<Product> {
+        val productList =
+            ProductListDbConvertor.map(dataBase.productListDao().getProductListById(listId))
+        val productsInThisList = mutableListOf<Product>()
+        for (productStr in productList.productsInThisList) {
+            val product = ProductDbConvertor.map(dataBase.productDao().getProductByName(productStr))
+            productsInThisList.add(product)
         }
+        return productsInThisList
     }
 
-    override suspend fun toggleFavorite(product: Product) {
-        val productFromDb = dataBase.productDao().getProductByName(product.name)
-        val productAfterChange = if (productFromDb.inFavorite) {
-            productFromDb.copy(inFavorite = false, needToBuy = false)
-        } else {
-            productFromDb.copy(inFavorite = true)
-        }
-        dataBase.productDao().upsertProduct(productAfterChange)
+    override suspend fun getBuyProductsList(): List<Product> {
+        return ProductDbConvertor.mapList(dataBase.productDao().getAllProducts())
     }
 
-    override suspend fun toggleBuy(product: Product) {
-        val productFromDb = dataBase.productDao().getProductByName(product.name)
-        val productAfterChange = if (productFromDb.inFavorite) {
-            productFromDb.copy(needToBuy = !productFromDb.needToBuy)
-        } else {
-            productFromDb.copy(inFavorite = true, needToBuy = true)
-        }
-        dataBase.productDao().upsertProduct(productAfterChange)
-    }
-
+    //Dishes
     override suspend fun toggleDishFavorite(dish: Dish) {
         val dishFromDb = dataBase.dishDao().getDishByName(dish.name)
         val dishAfterChange = if (dishFromDb.inFavorite) {
@@ -79,53 +155,25 @@ class ProductsRepositoryImpl(
         dataBase.dishDao().upsertDish(dishAfterChange)
     }
 
-    override suspend fun getAllProducts(): List<Product> {
-        return ProductDbConvertor.mapList(dataBase.productDao().getAllProducts())
+
+    //
+    override suspend fun toggleFavorite(product: Product) {
+//        val productFromDb = dataBase.productDao().getProductByName(product.name)
+//        val productAfterChange = if (productFromDb.inFavorite) {
+//            productFromDb.copy(inFavorite = false, needToBuy = false)
+//        } else {
+//            productFromDb.copy(inFavorite = true)
+//        }
+//        dataBase.productDao().upsertProduct(productAfterChange)
     }
 
-
-
-    override suspend fun deleteProduct(product: Product) {
-        dataBase.productDao().deleteProduct(product.name)
-    }
-
-    override fun getProductsInList(listId: String): Flow<List<Product>> {
-        return dataBase.productDao().getMyProducts().map(ProductDbConvertor::mapList)
-    }
-
-    override suspend fun getBuyProductsList(): List<Product> {
-        return ProductDbConvertor.mapList(dataBase.productDao().getBuyProducts())
-    }
-
-    override suspend fun getProductByName(productName: String): Product {
-        return ProductDbConvertor.map(dataBase.productDao().getProductByName(productName))
-    }
-
-    override fun getProductTagList(tags: List<String>): Flow<List<Tag>> = flow {
-        val tagList = mutableListOf<Tag>()
-        tags.forEach { tagStr ->
-            tagList.add(TagDbConvertor.map(dataBase.tagDao().getProductTagByName(tagStr)))
-        }
-        emit(tagList)
-    }
-
-    override fun getAllProductTags(): Flow<List<Tag>> {
-        return dataBase.tagDao().getAllProductTag().map(TagDbConvertor::mapList)
-    }
-
-    override suspend fun getAllDishesWithThisProduct(product: Product): List<Dish> {
-        val dishesList = DishDbConvertor.mapList(dataBase.dishDao().getAllDish())
-        val filteredDishesList = dishesList.filter { dish ->
-            dish.ingredients.contains(product.name)
-        }
-        return filteredDishesList
-    }
-
-    override suspend fun checkingNameNewProductForMatches(newNameForCheck: String): Boolean {
-        val productList = dataBase.productDao().getAllProducts()
-        val filteredProductList = productList.filter { it ->
-            newNameForCheck.lowercase().trim() == it.name.lowercase().trim()
-        }
-        return filteredProductList.isEmpty()
+    override suspend fun toggleBuy(product: Product) {
+//        val productFromDb = dataBase.productDao().getProductByName(product.name)
+//        val productAfterChange = if (productFromDb.inFavorite) {
+//            productFromDb.copy(needToBuy = !productFromDb.needToBuy)
+//        } else {
+//            productFromDb.copy(inFavorite = true, needToBuy = true)
+//        }
+//        dataBase.productDao().upsertProduct(productAfterChange)
     }
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentMyRefrigeratorsBinding
+import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragmentDirections
 import com.jaroapps.availabledishes.notes_bottom_nav.domain.model.Refrigerator
 import com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.adapter.MyRefrigeratorsAdapter
 import com.jaroapps.availabledishes.notes_bottom_nav.ui.my_refrigerators.view_model.MyRefrigeratorsState
@@ -24,10 +25,7 @@ class MyRefrigeratorsFragment : Fragment(R.layout.fragment_my_refrigerators) {
     private val adapter = MyRefrigeratorsAdapter(
         object : MyRefrigeratorsAdapter.MyRefrigeratorsClickListener {
             override fun onRefrigeratorClick(refrigerator: Refrigerator) {
-                findNavController().navigate(
-                    R.id.action_productsFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(refrigerator.name)
-                )
+
             }
         }
     )

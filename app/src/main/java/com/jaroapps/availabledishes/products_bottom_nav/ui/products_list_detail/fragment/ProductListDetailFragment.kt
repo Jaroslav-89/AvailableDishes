@@ -26,7 +26,7 @@ class ProductListDetailFragment(private val productListId: String) :
         object : MyProductsAdapter.MyProductClickListener {
             override fun onProductClick(product: Product) {
                 val direction =
-                    ProductsFragmentDirections.actionProductsFragmentToDetailProduct(product.name)
+                    ProductsFragmentDirections.actionProductsFragmentToDetailProduct(product.name, productListId)
                 findNavController().navigate(direction)
             }
 
@@ -35,9 +35,9 @@ class ProductListDetailFragment(private val productListId: String) :
             }
 
             override fun onBuyToggleClick(product: Product) {
-                if (!product.needToBuy) {
-                    viewModel.toggleBuy(product)
-                }
+//                if (!product.needToBuy) {
+//                    viewModel.toggleBuy(product)
+//                }
             }
         }
     )

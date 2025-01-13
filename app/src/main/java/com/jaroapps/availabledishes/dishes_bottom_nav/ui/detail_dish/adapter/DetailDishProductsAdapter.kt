@@ -18,8 +18,8 @@ class DetailDishProductsAdapter(private val clickListener: ProductClickListener)
     fun setProductsList(newList: List<Product>) {
         productsList =
             newList.sortedBy { it.name.lowercase() }
-                .sortedByDescending { !it.needToBuy }
-                .sortedByDescending { it.inFavorite }
+//                .sortedByDescending { !it.needToBuy }
+//                .sortedByDescending { it.inFavorite }
         notifyDataSetChanged()
     }
 
@@ -53,15 +53,15 @@ class DetailDishProductViewHolder(
     fun bind(product: Product) {
         with(binding) {
             productName.text = product.name
-            favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
+           // favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
             favorite.setOnClickListener { clickListener.onFavoriteToggleClick(product) }
-            if (product.inFavorite) {
-                needToBuy.visibility = View.VISIBLE
-                needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
-                needToBuy.setOnClickListener { clickListener.onBuyToggleClick(product) }
-            } else {
-                needToBuy.visibility = View.GONE
-            }
+//            if (product.inFavorite) {
+//                needToBuy.visibility = View.VISIBLE
+//                needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
+//                needToBuy.setOnClickListener { clickListener.onBuyToggleClick(product) }
+//            } else {
+//                needToBuy.visibility = View.GONE
+//            }
         }
     }
 

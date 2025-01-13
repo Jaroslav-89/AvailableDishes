@@ -19,10 +19,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -34,7 +34,6 @@ import com.jaroapps.availabledishes.common.ui.adapters.AddTagAdapter
 import com.jaroapps.availabledishes.common.ui.adapters.CreateEditTagAdapter
 import com.jaroapps.availabledishes.databinding.FragmentEditCreateProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.view_model.EditCreateProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -43,10 +42,11 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class  EditCreateProductFragment : Fragment() {
+class EditCreateProductFragment : Fragment() {
 
     private val viewModel: EditCreateProductViewModel by viewModels()
     private lateinit var binding: FragmentEditCreateProductsBinding
+    private val args: EditCreateProductFragmentArgs by navArgs()
     private var imageUri: Uri? = null
     private var productName = ""
 
@@ -108,7 +108,7 @@ class  EditCreateProductFragment : Fragment() {
     }
 
     private fun getProductNameFromArguments() {
-        productName = requireArguments().getString(AVAILABLE_PRODUCT) ?: ""
+        productName = args.productName
     }
 
     private fun initView() {
@@ -139,16 +139,16 @@ class  EditCreateProductFragment : Fragment() {
             nameProductEt.setSelection(nameProductEt.text.length)
             descriptionProductEt.setText(product.description)
             descriptionProductEt.setSelection(descriptionProductEt.text.length)
-            favoriteIc.setImageDrawable(
-                getFavoriteToggleDrawable(
-                    product.inFavorite
-                )
-            )
-            needToBuyIc.setImageDrawable(
-                getNeedToBuyToggleDrawable(
-                    product.needToBuy
-                )
-            )
+//            favoriteIc.setImageDrawable(
+//                getFavoriteToggleDrawable(
+//                    product.inFavorite
+//                )
+//            )
+//            needToBuyIc.setImageDrawable(
+//                getNeedToBuyToggleDrawable(
+//                    product.needToBuy
+//                )
+//            )
         }
     }
 
@@ -404,10 +404,11 @@ class  EditCreateProductFragment : Fragment() {
             when (state) {
                 SAVE -> {
                     viewModel.changeProduct()
-                    findNavController().navigate(
-                        R.id.action_createProduct_to_detailProduct,
-                        DetailProductFragment.createArgs(binding.nameProductEt.text.toString()),
-                    )
+                    val direction =
+                        EditCreateProductFragmentDirections.actionCreateProductToDetailProduct(
+                            binding.nameProductEt.text.toString(), args.productListId
+                        )
+                    findNavController().navigate(direction)
                 }
 
                 BACK -> {
@@ -455,8 +456,5 @@ class  EditCreateProductFragment : Fragment() {
         private const val DELETE_IMG = "delete_img"
         private const val BACK = "back"
         private const val SAVE = "save"
-
-        fun createArgs(productName: String?): Bundle =
-            bundleOf(AVAILABLE_PRODUCT to productName)
     }
 }

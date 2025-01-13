@@ -18,8 +18,10 @@ interface ProductsRepository {
     suspend fun toggleBuy(product: Product)
     suspend fun toggleDishFavorite(dish: Dish)
     suspend fun getAllProducts(): List<Product>
+    suspend fun toggleAddProductToList(productName: String, productListId: String)
+
     suspend fun deleteProduct(product: Product)
-    fun getProductsInList(listId: String): Flow<List<Product>>
+    suspend fun getProductsInList(listId: String): List<Product>
     suspend fun getBuyProductsList(): List<Product>
     suspend fun getProductByName(productName: String): Product
     fun getProductTagList(tags: List<String>): Flow<List<Tag>>

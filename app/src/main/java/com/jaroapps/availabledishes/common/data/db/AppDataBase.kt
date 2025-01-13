@@ -14,7 +14,7 @@ import com.jaroapps.availabledishes.products_bottom_nav.data.entity.ProductEntit
 import com.jaroapps.availabledishes.products_bottom_nav.data.entity.ProductListEntity
 
 @Database(
-    version = 101,
+    version = 105,
     entities = [
         ProductListEntity::class,
         ProductEntity::class,

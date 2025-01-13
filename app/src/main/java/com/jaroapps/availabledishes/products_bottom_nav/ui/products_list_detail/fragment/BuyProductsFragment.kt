@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentBuyProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.adapter.MyProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.view_model.BuyProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,10 +28,9 @@ class BuyProductsFragment(private val productListId: String) : Fragment() {
     private val adapter = MyProductsAdapter(
         object : MyProductsAdapter.MyProductClickListener {
             override fun onProductClick(product: Product) {
-                findNavController().navigate(
-                    R.id.action_productsFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(product.name)
-                )
+                val direction =
+                    ProductsFragmentDirections.actionProductsFragmentToDetailProduct(product.name, productListId)
+                findNavController().navigate(direction)
             }
 
             override fun onFavoriteToggleClick(product: Product) {

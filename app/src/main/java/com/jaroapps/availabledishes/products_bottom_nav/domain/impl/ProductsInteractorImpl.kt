@@ -30,7 +30,11 @@ class ProductsInteractorImpl(private val repository: ProductsRepository) : Produ
         return repository.getAllProducts()
     }
 
-    override fun getProductsInList(listId: String): Flow<List<Product>> {
+    override suspend fun toggleAddProductToList(productName: String, productListId: String) {
+        repository.toggleAddProductToList(productName, productListId)
+    }
+
+    override suspend fun getProductsInList(listId: String): List<Product> {
         return repository.getProductsInList(listId)
     }
 

@@ -55,7 +55,7 @@ class EditCreateProductListViewModel @Inject constructor(
             productListAfterChange?.let {
                 productsInteractor.editCreateProductList(
                     it.copy(
-                        id = System.currentTimeMillis().toString()
+                        id = System.currentTimeMillis().toString() + it.name
                     )
                 )
             }

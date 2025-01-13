@@ -8,10 +8,12 @@ data class ProductListEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val name: String,
-    val imgUrl: String = "",
-    val description: String = "",
-    val numberOfProducts: Int = 0,
-    val numberOfPersons: Int = 1,
+    val imgUrl: String,
+    val description: String,
+    val productsInThisList: String,
+    val numberOfProducts: Int,
+    val needToByuProductsList: String,
+    val numberOfPersons: Int,
     val createData: Long,
     val lastEditDate: Long,
 )

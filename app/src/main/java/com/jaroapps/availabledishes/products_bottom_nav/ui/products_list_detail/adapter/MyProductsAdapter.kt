@@ -55,7 +55,7 @@ class MyProductViewHolder(
     fun bind(product: Product) {
         with(binding) {
             productName.text = product.name
-            needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
+          //  needToBuy.setImageDrawable(getBuyToggleDrawable(product.needToBuy))
             needToBuy.setOnClickListener { clickListener.onBuyToggleClick(product) }
         }
     }

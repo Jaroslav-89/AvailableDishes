@@ -25,6 +25,7 @@ import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.view_model.
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.edit_create_dish.fragment.EditeCreateDishFragment
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.list_dishes.fragment.AllDishesFragment
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
+import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.fragment.AddProductsFragmentDirections
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,10 +53,9 @@ class DetailDishFragment : Fragment() {
         object : DetailDishProductsAdapter.ProductClickListener {
 
             override fun onProductClick(product: Product) {
-                findNavController().navigate(
-                    R.id.action_detailDishFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(product.name)
-                )
+                val direction =
+                    DetailDishFragmentDirections.actionDetailDishFragmentToDetailProduct(product.name, "")
+                findNavController().navigate(direction)
             }
 
             override fun onFavoriteToggleClick(product: Product) {

@@ -2,7 +2,6 @@ package com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.jaroapps.availabledishes.products_bottom_nav.ui.all_product_lists.fragment.AllProductListsFragment
 
 class ProductsViewPagerAdapter(parentFragment: Fragment, private val productListId: String) : FragmentStateAdapter(parentFragment) {
     override fun getItemCount(): Int {

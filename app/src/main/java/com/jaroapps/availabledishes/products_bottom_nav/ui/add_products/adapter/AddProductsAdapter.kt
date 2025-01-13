@@ -53,7 +53,7 @@ class ProductViewHolder(
     fun bind(product: Product) {
         with(binding) {
             productName.text = product.name
-            favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
+          //  favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
             favorite.setOnClickListener { clickListener.onFavoriteToggleClick(product) }
         }
     }

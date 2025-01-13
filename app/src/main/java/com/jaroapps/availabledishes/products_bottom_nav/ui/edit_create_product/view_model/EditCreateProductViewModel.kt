@@ -67,10 +67,10 @@ class EditCreateProductViewModel @Inject constructor(
 
     fun prepareNewProduct() {
         if (productBeforeChange == null) {
-            productBeforeChange = Product("")
+            productBeforeChange = Product()
         }
         if (productAfterChange == null) {
-            productAfterChange = Product("")
+            productAfterChange = Product()
         }
         productAfterChange?.let {
             renderState(it)
@@ -91,7 +91,7 @@ class EditCreateProductViewModel @Inject constructor(
 
     fun createNewProduct() {
         viewModelScope.launch {
-            productAfterChange?.let { productsInteractor.createNewProduct(it.copy(id = System.currentTimeMillis().toString())) }
+            productAfterChange?.let { productsInteractor.createNewProduct(it) }
             productBeforeChange = null
             productAfterChange = null
         }
@@ -143,25 +143,25 @@ class EditCreateProductViewModel @Inject constructor(
     }
 
     fun toggleFavorite() {
-        productAfterChange?.let {
-            productAfterChange = if (it.inFavorite) {
-                it.copy(inFavorite = false, needToBuy = false)
-            } else {
-                it.copy(inFavorite = true)
-            }
-        }
-        productAfterChange?.let { productAfterChange -> renderState(productAfterChange) }
+//        productAfterChange?.let {
+//            productAfterChange = if (it.inFavorite) {
+//                it.copy(inFavorite = false, needToBuy = false)
+//            } else {
+//                it.copy(inFavorite = true)
+//            }
+//        }
+//        productAfterChange?.let { productAfterChange -> renderState(productAfterChange) }
     }
 
     fun toggleNeedToBuy() {
-        productAfterChange?.let {
-            productAfterChange = if (it.needToBuy) {
-                it.copy(needToBuy = false)
-            } else {
-                it.copy(inFavorite = true, needToBuy = true)
-            }
-        }
-        productAfterChange?.let { productAfterChange -> renderState(productAfterChange) }
+//        productAfterChange?.let {
+//            productAfterChange = if (it.needToBuy) {
+//                it.copy(needToBuy = false)
+//            } else {
+//                it.copy(inFavorite = true, needToBuy = true)
+//            }
+//        }
+//        productAfterChange?.let { productAfterChange -> renderState(productAfterChange) }
     }
 
     fun deleteProduct() {

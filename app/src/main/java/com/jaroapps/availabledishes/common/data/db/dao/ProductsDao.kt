@@ -27,12 +27,6 @@ interface ProductsDao {
     @Query("DELETE FROM product_table WHERE name = :name")
     suspend fun deleteProduct(name: String)
 
-    @Query("SELECT * FROM product_table WHERE inFavorite = 1")
-    fun getMyProducts(): Flow<List<ProductEntity>>
-
-    @Query("SELECT * FROM product_table WHERE needToBuy = 1")
-    suspend fun getBuyProducts(): List<ProductEntity>
-
     @Query("SELECT * FROM product_table WHERE name LIKE :query LIMIT 1")
     suspend fun getQueryProducts(query: String): List<ProductEntity>
 }

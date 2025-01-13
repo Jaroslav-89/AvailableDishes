@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,11 +21,9 @@ import com.jaroapps.availabledishes.databinding.FragmentDetailProductBinding
 import com.jaroapps.availabledishes.dishes_bottom_nav.domain.model.Dish
 import com.jaroapps.availabledishes.dishes_bottom_nav.ui.detail_dish.fragment.DetailDishFragment
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
-import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.AvailableDishesAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.adapter.DetailProductTagAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.view_model.DetailProductViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.ui.products_list_detail.fragment.ProductsFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,17 +33,12 @@ class DetailProductFragment : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
     private var availableDishesVisible = false
     private var productName = ""
-    private val args: ProductsFragmentArgs by navArgs()
+    private val args: DetailProductFragmentArgs by navArgs()
 
     private val tagAdapter = DetailProductTagAdapter(
         object : DetailProductTagAdapter.DetailProductTagListener {
             override fun onTagClick(tag: Tag) {
-                val direction =
-                    DetailProductFragmentDirections.actionDetailProductToAddProductsFragment(
-                        args.productListId,
-                        ""
-                    )
-                findNavController().navigate(direction)
+
             }
         }
     )
@@ -86,7 +78,7 @@ class DetailProductFragment : Fragment() {
     }
 
     private fun getProductNameFromArguments() {
-        productName = requireArguments().getString(ARGS_PRODUCT) ?: ""
+        productName = args.productName
     }
 
     private fun getProductByName() {
@@ -105,7 +97,8 @@ class DetailProductFragment : Fragment() {
             }
 
             favorite.setOnClickListener {
-                viewModel.toggleFavorite()
+                viewModel.toggleAddProductToList(args.productName,args.productListId)
+               // viewModel.toggleFavorite()
             }
 
             needToBuy.setOnClickListener {
@@ -113,10 +106,9 @@ class DetailProductFragment : Fragment() {
             }
 
             editProduct.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_detailProduct_to_createProduct,
-                    EditCreateProductFragment.createArgs(productName)
-                )
+                val direction =
+                    DetailProductFragmentDirections.actionDetailProductToCreateProduct(productName, args.productListId)
+                findNavController().navigate(direction)
             }
 
             availableDishesBtn.setOnClickListener {
@@ -158,8 +150,8 @@ class DetailProductFragment : Fragment() {
         with(binding) {
             setPlaceHolderDrawable(product.imgUrl.toUri())
             headingProduct.text = product.name
-            favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
-            needToBuy.setImageDrawable(getNeedToBueToggleDrawable(product.needToBuy))
+//            favorite.setImageDrawable(getFavoriteToggleDrawable(product.inFavorite))
+//            needToBuy.setImageDrawable(getNeedToBueToggleDrawable(product.needToBuy))
             descriptionProduct.text = product.description
         }
     }
@@ -203,12 +195,5 @@ class DetailProductFragment : Fragment() {
                 ),
             )
             .into(binding.placeHolderProduct)
-    }
-
-    companion object {
-        private const val ARGS_PRODUCT = "product"
-
-        fun createArgs(productName: String): Bundle =
-            bundleOf(ARGS_PRODUCT to productName)
     }
 }

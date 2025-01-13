@@ -10,13 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.jaroapps.availabledishes.R
 import com.jaroapps.availabledishes.databinding.FragmentAddProductsBinding
 import com.jaroapps.availabledishes.products_bottom_nav.domain.model.Product
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.adapter.ProductsAdapter
 import com.jaroapps.availabledishes.products_bottom_nav.ui.add_products.view_model.AddProductsViewModel
-import com.jaroapps.availabledishes.products_bottom_nav.ui.edit_create_product.fragment.EditCreateProductFragment
-import com.jaroapps.availabledishes.products_bottom_nav.ui.product_detail.fragment.DetailProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -30,14 +27,14 @@ class AddProductsFragment : Fragment() {
     private val adapter = ProductsAdapter(
         object : ProductsAdapter.ProductClickListener {
             override fun onProductClick(product: Product) {
-                findNavController().navigate(
-                    R.id.action_addProductsFragment_to_detailProduct,
-                    DetailProductFragment.createArgs(product.name)
-                )
+                val direction =
+                    AddProductsFragmentDirections.actionAddProductsFragmentToDetailProduct(product.name, args.productListId)
+                findNavController().navigate(direction)
             }
 
             override fun onFavoriteToggleClick(product: Product) {
-                viewModel.toggleFavorite(product)
+                viewModel.toggleAddProductToList(product.name, args.productListId)
+               // viewModel.toggleFavorite(product)
             }
         }
     )
@@ -65,10 +62,9 @@ class AddProductsFragment : Fragment() {
         }
 
         binding.createProducts.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_addProductsFragment_to_createProduct,
-                EditCreateProductFragment.createArgs(null)
-            )
+            val direction =
+                AddProductsFragmentDirections.actionAddProductsFragmentToCreateProduct("", args.productListId)
+            findNavController().navigate(direction)
         }
 
         binding.back.setOnClickListener {

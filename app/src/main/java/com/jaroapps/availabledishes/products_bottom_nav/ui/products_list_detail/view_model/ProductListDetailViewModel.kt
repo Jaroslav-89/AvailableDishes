@@ -23,9 +23,8 @@ class ProductListDetailViewModel @Inject constructor(
     fun getProductsInList(listId: String) {
         viewModelScope.launch {
             val productListInfo = productsInteractor.getProductListById(listId)
-            productsInteractor.getProductsInList(listId).collect() {
-                renderState(it, productListInfo)
-            }
+            val productsInThisList = productsInteractor.getProductsInList(listId)
+            renderState(productsInThisList, productListInfo)
         }
     }
 
@@ -44,8 +43,8 @@ class ProductListDetailViewModel @Inject constructor(
     private fun renderState(productsList: List<Product>, productListInfo: ProductList) {
         _state.postValue(
             ProductListDetailState.Content(
-                productsList.sortedBy { it.name.lowercase() }
-                    .sortedBy { it.needToBuy })
+                productsList.sortedBy { it.name.lowercase() })
+                  //  .sortedBy { it.needToBuy })
         )
     }
 }
